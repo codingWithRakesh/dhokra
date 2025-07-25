@@ -1,12 +1,70 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { Clock } from 'lucide-react';
+import { Star, ArrowRight } from 'lucide-react';
 import categories from '../store/store'; // Assuming you have a categories data file
 import dhokraImage1 from '../assets/image/cos1.jpg'; 
 import dhokraImage2 from '../assets/image/cos2.jpg';
 import dhokraImage3 from '../assets/image/cos3.jpg';
+import SideDetails from '../component/SideDetails';
 
 const Home = () => {
+
+   
+  const featuredProducts = [
+    {
+      id: 1,
+      name: 'Dhokra Elephant Statue',
+      price: '₹2,499',
+      image: dhokraImage1,
+      comingSoon: true
+    },
+    {
+      id: 2,
+      name: 'Tribal Dhokra Wall Art',
+      price: '₹1,799',
+      image: dhokraImage2,
+      comingSoon: true
+    },
+    {
+      id: 3,
+      name: 'Premium Dhokra Jewelry Set',
+      price: 'Coming Soon',
+      image: dhokraImage3,
+      comingSoon: true
+    },
+  ];
+
+   const trendingProducts = [
+    {
+      id: 1,
+      name: 'Dhokra Elephant Statue',
+      maxprice: '₹2,499',
+      price: '₹1,899',
+      rating: 4.8,
+      image: dhokraImage1,
+      link: '/product/dhokra-elephant'
+    },
+    {
+      id: 2,
+      name: 'Tribal Wall Hanging',
+      maxprice: '₹1,799',
+      price: '₹1,599',
+      rating: 4.5,
+      image: dhokraImage2,
+      link: '/product/tribal-wall-hanging'
+    },
+    {
+      id: 3,
+      name: 'Dhokra Candle Stand',
+      maxprice: '₹1,299',
+      price: '₹1,799',
+      rating: 4.7,
+      image: dhokraImage3,
+      link: '/product/candle-stand'
+    },
+  ];
 
 
 
@@ -56,7 +114,7 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen max-w-6xl mx-auto flex flex-col">
+    <div className="min-h-screen max-w-7xl mx-auto flex flex-col">
         <main className="flex-grow">
             <section className="relative rounded-lg overflow-hidden shadow-xl">
                 {/* Slider Container */}
@@ -123,7 +181,7 @@ const Home = () => {
             </section>
 
             <section className="py-16 px-4 sm:px-6 lg:py-12 lg:px-0">
-                <div className="max-w-6xl mx-auto">
+                <div className="w-full mx-auto">
                     <div className="flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
                     {/* Text Content - Now on left */}
                     <div className="w-full lg:w-1/2 flex flex-col justify-start order-1 lg:order-1">
@@ -194,7 +252,7 @@ const Home = () => {
                     
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {categories.map((category, index) => (
-                        <div key={index} className="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                        <div key={index} className="relative group overflow-hidden rounded shadow-md hover:shadow-xl transition-all duration-300">
                             {/* Category Image with Gradient Overlay */}
                             <div className="relative h-64 overflow-hidden">
                                 <img
@@ -227,6 +285,127 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="py-8 px-4 sm:px-6 lg:px-0">
+                <div className="w-full mx-auto">
+                    {/* Section Header */}
+                    <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div className="text-center md:text-left mb-6 md:mb-0">
+                        <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
+                        Trending Dhokra Products
+                        </h2>
+                        <p className="text-lg text-emerald-600">
+                        Most loved by our customers this season
+                        </p>
+                    </div>
+                    <Link 
+                        to="/trending" 
+                        className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-800 text-white font-medium px-6 py-3 rounded-lg transition duration-300"
+                    >
+                        View All
+                        <ArrowRight className="w-5 h-5" />
+                    </Link>
+                    </div>
+
+                    {/* Products Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {trendingProducts.map((product) => (
+                        <div key={product.id} className="group relative bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-shadow duration-300">
+                        {/* Product Image */}
+                        <div className="aspect-square overflow-hidden h-64 w-full">
+                            <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                        </div>
+
+                        {/* Product Info */}
+                        <div className="p-5 flex flex-col gap-2 justify-between">
+                            <div className="flex flex-col justify-between items-start mb-2">
+                                <h3 className="text-lg font-semibold text-gray-800">
+                                    {product.name}
+                                </h3>
+                                <div className="flex items-center gap-2">
+                                <span className="text-emerald-600 font-bold" style={{ textDecoration: 'line-through' }}>
+                                    {product.maxprice}
+                                </span>
+                                <span className="text-yellow-500 font-bold">
+                                    {product.price}
+                                </span></div>
+                            </div>
+
+                            <Link
+                            to={product.link}
+                            className="w-full bg-emerald-300 hover:bg-emerald-600 text-emerald-800 hover:text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition duration-300"
+                            >
+                            View Details
+                            </Link>
+                        </div>
+
+                        {/* Popular Badge */}
+                        <div className="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                            Trending
+                        </div>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-8 px-4 sm:px-6 lg:px-0">
+                <SideDetails />
+            </section>
+
+             <section className="py-8 px-4 sm:px-6 lg:px-8">
+                <div className="w-full mx-auto">
+                    <div className="text-center mb-8">
+                    <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-4">
+                        Our Upcoming Collection
+                    </h2>
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Discover authentic Bengal Dokra metal crafts, each piece a unique masterpiece
+                    </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {featuredProducts.map((product) => (
+                        <div key={product.id} className="group relative overflow-hidden rounded shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                            <div className="aspect-square overflow-hidden">
+                                <img
+                                src={product.image}
+                                alt={product.name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                {product.comingSoon && (
+                                <div className="p-0">
+                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                    <span className="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-1">
+                                    <Clock className="w-4 h-4" />
+                                    Coming Soon
+                                    </span>
+                                </div>
+                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                                    <h2 className="text-lg font-semibold text-white">{product.name}</h2>
+                                </div></div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                    </div>
+
+                    <div className="text-center mt-6">
+                    <Link
+                        to="/coming-soon"
+                        className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-900 text-gray-100 font-medium px-6 py-3 rounded-lg transition duration-300"
+                    >
+                        <Clock className="w-5 h-5" />
+                        View Upcoming Collections
+                    </Link>
+                    </div>
+                </div>
+            </section>
+
 
 
 

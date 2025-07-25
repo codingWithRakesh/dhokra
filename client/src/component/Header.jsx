@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className="hidden md:block text-black p-4 shadow-md">
-      <div className="container max-w-6xl mx-auto flex justify-between items-center">
+      <div className="container max-w-7xl mx-auto flex justify-between items-center">
         {/* Left side - Brand Name */}
         <div className="text-2xl font-bold italic text-emerald-700">
             <Link to="/">UnickDhokraWorkshop</Link>
