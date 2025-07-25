@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import categories from '../store/store'; // Assuming you have a categories data file
+import dhokraImage from '../assets/catagoryImage/extra2.jpg'; // Path to your Dhokra artisan image
 
 const Home = () => {
 
@@ -56,7 +58,7 @@ const Home = () => {
         <main className="flex-grow">
             <section className="relative rounded-lg overflow-hidden shadow-xl">
                 {/* Slider Container */}
-                <div className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] min-h-[300px] sm:min-h-[400px] overflow-hidden">
+                <div className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[65vh] min-h-[300px] sm:min-h-[400px] overflow-hidden">
                     {slides.map((slide, index) => (
                     <div
                         key={slide.id}
@@ -117,6 +119,75 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="py-16 px-4 sm:px-6 lg:px-0">
+                <div className="container mx-auto">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                    {/* Left Side - Image */}
+                    <div className="h-auto w-full lg:w-1/2">
+                        <div className="overflow-hidden rounded-lg shadow-xl">
+                        <img
+                            src={dhokraImage}
+                            alt="Dhokra artisan at work"
+                            className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                        </div>
+                    </div>
+
+                    {/* Right Side - Text Content */}
+                    <div className="w-full lg:w-1/2">
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+                        The Ancient Art of Dhokra
+                        </h2>
+                        <div className="space-y-4 text-gray-600">
+                            <p>
+                                Dhokra is a 4000-year-old metal casting technique that originated in the tribal regions of Bengal, Odisha, and Chhattisgarh. This traditional craft uses the lost-wax method to create intricate brass artifacts.
+                            </p>
+                            <p>
+                                Each Dhokra piece is unique, bearing the marks of its handmade origin. The process involves creating a clay core, coating it with wax, and then applying layers of clay to form the mold. When heated, the wax melts away, leaving space for molten metal.
+                            </p>
+                            <p>
+                                Our artisans preserve this ancient tradition while creating contemporary designs that appeal to modern sensibilities. The result is a perfect blend of heritage and functionality.
+                            </p>
+                            </div>
+                            <button className="mt-8 bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-8 rounded-lg transition duration-300">
+                            Learn More About Our Process
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <div className="container mx-auto">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+          Our Categories
+        </h2>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {categories.map((category, index) => (
+            <div key={index} className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+              {/* Category Image */}
+              <img
+                src={category.image}
+                alt={category.name}
+                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              
+              {/* Text Overlay with White Background */}
+              <div className="absolute bottom-0 left-0 right-0 bg-white p-4 transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-300">
+                <h3 className="text-xl font-semibold text-gray-800 text-center">
+                  {category.name}
+                </h3>
+                <button className="mt-2 w-full py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded transition-colors duration-300">
+                  View Collection
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
         </main>
     </div>
   );

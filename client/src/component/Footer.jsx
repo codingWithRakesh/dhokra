@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-amber-900 text-gray-100 py-8 px-4">
-      <div className="container mx-auto">
+    <footer className="bg-emerald-700 text-gray-100 py-8 px-4">
+      <div className="container max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Works Address */}
           <div>

@@ -2,28 +2,28 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="hidden md:block bg-white text-black p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
+    <header className="hidden md:block text-black p-4 shadow-md">
+      <div className="container max-w-6xl mx-auto flex justify-between items-center">
         {/* Left side - Brand Name */}
-        <div className="text-2xl font-bold italic text-amber-700">
+        <div className="text-2xl font-bold italic text-emerald-700">
             <Link to="/">UnickDhokraWorkshop</Link>
         </div>
         
         <div className="flex items-center space-x-6">
         {/* Desktop Navigation (hidden on mobile) */}
         <nav className="hidden md:flex items-center space-x-8 font-semibold italic">
-          <Link to="/" className="hover:text-amber-800 transition duration-300">
+          <Link to="/" className="hover:text-emerald-800 transition duration-300">
             Home
           </Link>
-          <Link to="#" className="hover:text-amber-800 transition duration-300">
+          <Link to="#" className="hover:text-emerald-800 transition duration-300">
             About
           </Link>
-          <Link to="#" className="hover:text-amber-800 transition duration-300">
+          <Link to="#" className="hover:text-emerald-800 transition duration-300">
             Contact
           </Link>
         </nav>
         {/* Right side - Phone Number (visible on all screens) */}
-        <div className="flex items-center bg-amber-700 px-4 py-2.5 rounded text-white hover:bg-amber-800 transition duration-300 cursor-pointer">
+        <div className="flex items-center bg-emerald-700 px-4 py-2.5 rounded text-white hover:bg-emerald-800 transition duration-300 cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-2"
