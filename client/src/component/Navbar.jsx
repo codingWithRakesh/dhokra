@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: "Wall hanging", path: "/wall-hanging" },
     { name: "Table Top", path: "/table-top" },
     { name: "Home Decore", path: "/home-decore" },
-    { name: "Candle Stand", path: "/candle-stand" },
+    { name: "Candle Stand", path: "/candle-stands" },
   ];
 
   const toggleMenu = () => {
@@ -45,7 +45,7 @@ const Navbar = () => {
 
         <div className="p-0">
             {/* Mobile Navbar */}
-            <div className="lg:hidden flex justify-between items-center py-4 px-4 bg-amber-800 w-full">
+            <div className="lg:hidden flex justify-between items-center py-4 px-4 bg-emerald-800 w-full">
                 <Link to="/">
                     <div className="text-xl font-bold italic text-white">
                         <span className="text-amber-200">Unick Dhokra</span>{" "}
@@ -97,7 +97,7 @@ const Navbar = () => {
             
             {/* Mobile Menu */}
             {isMenuOpen && (
-            <div className="lg:hidden h-screen bg-amber-800 p-4">
+            <div className="lg:hidden h-screen bg-emerald-800 p-4">
                 <ul className="flex flex-col space-y-2">
                 {navItems.map((item) => (
                     <li key={item.path}>
@@ -105,8 +105,8 @@ const Navbar = () => {
                         href={item.path}
                         className={`block py-2 px-4 ${
                         location.pathname === item.path
-                            ? "bg-amber-700 text-amber-100 font-medium rounded"
-                            : "hover:bg-amber-700 hover:text-amber-100 rounded transition duration-300"
+                            ? "bg-emerald-700 text-amber-100 font-medium rounded"
+                            : "hover:bg-emerald-700 hover:text-amber-100 rounded transition duration-300"
                         }`}
                     >
                         {item.name}

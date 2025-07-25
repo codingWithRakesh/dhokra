@@ -8,28 +8,34 @@ import img6 from "../assets/catagoryImage/6.jpg";
 
 const categories = [
   {
-    name: "Home Decor",
+    name: "GI Bengal Dokra",
     image: img1,
+    link: "/gi-bengal-dokra",
   },
   {
-    name: "Jewelry",
+    name: "Pating Finish",
     image: img2,
+    link: "/pating-finish-on-dokra",
   },
   {
-    name: "Statues",
+    name: "Wall hanging",
     image: img3,
+    link: "/wall-hanging",
   },
   {
-    name: "Kitchen Items",
+    name: "Table Top",
     image: img4,
+    link: "/table-top",
   },
   {
-    name: "Gift Items",
+    name: "Home Decore",
     image: img5,
+    link: "/home-decore",
   },
   {
-    name: "Wall Hangings",
+    name: "Candle Stand",
     image: img6,
+    link: "/candle-stands",
   },
 ];
 

@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import categories from '../store/store'; // Assuming you have a categories data file
-import dhokraImage from '../assets/catagoryImage/extra2.jpg'; // Path to your Dhokra artisan image
+import dhokraImage1 from '../assets/image/cos1.jpg'; 
+import dhokraImage2 from '../assets/image/cos2.jpg';
+import dhokraImage3 from '../assets/image/cos3.jpg';
 
 const Home = () => {
 
@@ -120,74 +122,118 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-16 px-4 sm:px-6 lg:px-0">
-                <div className="container mx-auto">
-                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-                    {/* Left Side - Image */}
-                    <div className="h-auto w-full lg:w-1/2">
-                        <div className="overflow-hidden rounded-lg shadow-xl">
-                        <img
-                            src={dhokraImage}
-                            alt="Dhokra artisan at work"
-                            className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
-                        />
+            <section className="py-16 px-4 sm:px-6 lg:py-12 lg:px-0">
+                <div className="max-w-6xl mx-auto">
+                    <div className="flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
+                    {/* Text Content - Now on left */}
+                    <div className="w-full lg:w-1/2 flex flex-col justify-start order-1 lg:order-1">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-800 mb-6 leading-tight">
+                            Dhokra – Ancient Metal Craft of India
+                        </h2>
+                        <div className="prose prose-lg text-gray-600 max-w-2xl">
+                        <p className="mb-4">
+                            Dhokra is an ancient metal craft using the lost-wax casting technique, practised by tribal artisans for thousands of years. It creates unique brass items with detailed designs and a rustic look.
+                        </p>
+                        <p className="mb-4">
+                            These handcrafted pieces include figurines, jewellery, and home decor, reflecting India’s rich cultural heritage and traditional craftsmanship.
+                        </p>
+                        </div>
+                        <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                        <button className="bg-emerald-800 hover:bg-emerald-900 text-white font-medium py-3 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg">
+                            Explore Our Collection
+                        </button>
+                        <button className="border border-emerald-800 text-emerald-900 hover:bg-emerald-50 font-medium py-3 px-8 rounded-lg transition duration-300">
+                            Meet Our Artisans
+                        </button>
                         </div>
                     </div>
 
-                    {/* Right Side - Text Content */}
-                    <div className="w-full lg:w-1/2">
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-                        The Ancient Art of Dhokra
-                        </h2>
-                        <div className="space-y-4 text-gray-600">
-                            <p>
-                                Dhokra is a 4000-year-old metal casting technique that originated in the tribal regions of Bengal, Odisha, and Chhattisgarh. This traditional craft uses the lost-wax method to create intricate brass artifacts.
-                            </p>
-                            <p>
-                                Each Dhokra piece is unique, bearing the marks of its handmade origin. The process involves creating a clay core, coating it with wax, and then applying layers of clay to form the mold. When heated, the wax melts away, leaving space for molten metal.
-                            </p>
-                            <p>
-                                Our artisans preserve this ancient tradition while creating contemporary designs that appeal to modern sensibilities. The result is a perfect blend of heritage and functionality.
-                            </p>
+                    {/* Image Grid - Now on right */}
+                    <div className="w-full lg:w-1/2 order-2 lg:order-2">
+                        <div className="grid grid-rows-2 gap-4 h-full min-h-[400px] lg:min-h-[500px]">
+                        {/* Top row - two square images */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                            <img
+                                src={dhokraImage3}
+                                alt="Dhokra artisan at work"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            />
                             </div>
-                            <button className="mt-8 bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-8 rounded-lg transition duration-300">
-                            Learn More About Our Process
-                            </button>
+                            <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                            <img
+                                src={dhokraImage2}
+                                alt="Traditional wax mold making"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            />
+                            </div>
                         </div>
+                        
+                        {/* Bottom row - single panoramic image */}
+                        <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                            <img
+                            src={dhokraImage1}
+                            alt="Finished Dhokra products collection"
+                            className="absolute inset-0 w-full h-full object-fit transition-transform duration-500 hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex items-end p-6">
+                            <span className="text-white font-medium text-lg bg-emerald-700 p-2 rounded">Handcrafted in West Bengal</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </section>
 
-            <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-          Our Categories
-        </h2>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {categories.map((category, index) => (
-            <div key={index} className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              {/* Category Image */}
-              <img
-                src={category.image}
-                alt={category.name}
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              
-              {/* Text Overlay with White Background */}
-              <div className="absolute bottom-0 left-0 right-0 bg-white p-4 transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-300">
-                <h3 className="text-xl font-semibold text-gray-800 text-center">
-                  {category.name}
-                </h3>
-                <button className="mt-2 w-full py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded transition-colors duration-300">
-                  View Collection
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+            <section className="py-4 px-4 sm:px-6 lg:px-0">
+                <div className="container mx-auto">
+                    <h2 className="text-4xl font-bold text-left text-emerald-800 mb-8">
+                    Our Categories
+                    </h2>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {categories.map((category, index) => (
+                        <div key={index} className="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                            {/* Category Image with Gradient Overlay */}
+                            <div className="relative h-64 overflow-hidden">
+                                <img
+                                src={category.image}
+                                alt={category.name}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent"></div>
+                            </div>
+                            
+                            {/* Text Overlay */}
+                            <div className="absolute bottom-0 left-0 right-0 px-16 pb-4 pt-8">
+                                <div className="bg-emerald-500/90 backdrop-blur-sm rounded-lg px-2 py-2 transform translate-y-0 group-hover:translate-y-[-8px] transition-all duration-300 shadow-sm">
+                                <h3 className="text-xl font-bold text-white text-center">
+                                    {category.name}
+                                </h3>
+                                </div>
+                            </div>
+
+                            {/* Invisible Link Overlay */}
+                            <Link 
+                                to={category.link} 
+                                className="absolute inset-0 z-10"
+                                aria-label={`View ${category.name} collection`}
+                            >
+                                <span className="sr-only">View {category.name} collection</span>
+                            </Link>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+
+
         </main>
     </div>
   );
