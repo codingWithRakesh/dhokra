@@ -2,12 +2,15 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Clock } from 'lucide-react';
-import { Star, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import categories from '../store/store'; // Assuming you have a categories data file
 import dhokraImage1 from '../assets/image/cos1.jpg'; 
 import dhokraImage2 from '../assets/image/cos2.jpg';
 import dhokraImage3 from '../assets/image/cos3.jpg';
 import SideDetails from '../component/SideDetails';
+import Slide from '../component/Slide';
+import SocialCommunity from '../component/Social';
 
 const Home = () => {
 
@@ -244,47 +247,73 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-4 px-4 sm:px-6 lg:px-0">
-                <div className="container mx-auto">
-                    <h2 className="text-4xl font-bold text-left text-emerald-800 mb-8">
-                    Our Categories
-                    </h2>
-                    
+            <section className="py-12 px-4 sm:px-6 lg:py-6">
+                <div className="max-w-7xl mx-auto">
+                    {/* Section Header */}
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+                    <div>
+                        <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
+                        Explore Our Collections
+                        </h2>
+                        <p className="text-lg text-gray-600 max-w-2xl">
+                        Discover authentic Dhokra craftsmanship across various categories
+                        </p>
+                    </div>
+                    <Link 
+                        to="/categories" 
+                        className="flex items-center gap-1 text-emerald-700 hover:text-emerald-900 font-medium mt-4 md:mt-0"
+                    >
+                        View all categories <ChevronRight className="w-5 h-5" />
+                    </Link>
+                    </div>
+
+                    {/* Categories Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {categories.map((category, index) => (
-                        <div key={index} className="relative group overflow-hidden rounded shadow-md hover:shadow-xl transition-all duration-300">
-                            {/* Category Image with Gradient Overlay */}
-                            <div className="relative h-64 overflow-hidden">
-                                <img
-                                src={category.image}
-                                alt={category.name}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent"></div>
-                            </div>
-                            
-                            {/* Text Overlay */}
-                            <div className="absolute bottom-0 left-0 right-0 px-16 pb-4 pt-8">
-                                <div className="bg-emerald-500/90 backdrop-blur-sm rounded-lg px-2 py-2 transform translate-y-0 group-hover:translate-y-[-8px] transition-all duration-300 shadow-sm">
-                                <h3 className="text-xl font-bold text-white text-center">
-                                    {category.name}
-                                </h3>
-                                </div>
-                            </div>
+                        <div 
+                        key={index} 
+                        className="relative group overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+                        >
+                        {/* Image Container */}
+                        <div className="relative aspect-[4/3] overflow-hidden">
+                            <img
+                            src={category.image}
+                            alt={category.name}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/15 to-transparent" />
+                        </div>
 
-                            {/* Invisible Link Overlay */}
-                            <Link 
-                                to={category.link} 
-                                className="absolute inset-0 z-10"
-                                aria-label={`View ${category.name} collection`}
+                        {/* Category Info */}
+                        <div className="absolute bottom-0 left-0 right-0 p-5">
+                            <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 transform transition-all duration-300 group-hover:bg-white group-hover:shadow-sm">
+                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-center">
+                                <h3 className="text-xl font-bold text-emerald-800">
+                                {category.name}
+                                </h3>
+                            </div>
+                            <Link
+                                to={category.link}
+                                className="mt-0 inline-flex items-center text-md font-medium text-emerald-600 hover:text-emerald-800 transition-colors"
                             >
-                                <span className="sr-only">View {category.name} collection</span>
+                                Shop now <ChevronRight className="w-4 h-4 ml-1" />
                             </Link>
+                            </div></div>
+                        </div>
+
+                        {/* Full Card Link */}
+                        <Link 
+                            to={category.link} 
+                            className="absolute inset-0 z-10"
+                            aria-label={`Explore ${category.name} collection`}
+                        />
                         </div>
                     ))}
                     </div>
                 </div>
-            </section>
+                </section>
 
             <section className="py-8 px-4 sm:px-6 lg:px-0">
                 <div className="w-full mx-auto">
@@ -337,8 +366,8 @@ const Home = () => {
 
                             <Link
                             to={product.link}
-                            className="w-full bg-emerald-300 hover:bg-emerald-600 text-emerald-800 hover:text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition duration-300"
-                            >
+                            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition duration-300"
+                            aria-label={`View details for ${product.name}`}>
                             View Details
                             </Link>
                         </div>
@@ -355,6 +384,10 @@ const Home = () => {
 
             <section className="py-8 px-4 sm:px-6 lg:px-0">
                 <SideDetails />
+            </section>
+
+            <section>
+                <Slide />
             </section>
 
              <section className="py-8 px-4 sm:px-6 lg:px-8">
@@ -406,12 +439,9 @@ const Home = () => {
                 </div>
             </section>
 
-
-
-
-
-
-
+            <section className="p-0">
+                <SocialCommunity />
+            </section>
 
         </main>
     </div>
