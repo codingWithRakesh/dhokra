@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-full flex flex-col">
       <main className="flex-grow flex items-center justify-center py-12 px-4">
         <div className="container mx-auto text-center">
           <div className="max-w-lg mx-auto">
             {/* Error Icon */}
-            <div className="text-amber-500 mb-6">
+            <div className="text-emerald-500 mb-6">
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 className="h-24 w-24 mx-auto" 
@@ -36,13 +36,13 @@ const NotFound = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link 
                 to="/" 
-                className="bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-8 rounded-lg transition duration-300"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-8 rounded-lg transition duration-300"
               >
                 Return Home
               </Link>
               <Link 
                 to="/contact" 
-                className="border border-amber-600 text-amber-600 hover:bg-amber-50 font-medium py-3 px-8 rounded-lg transition duration-300"
+                className="border border-emerald-600 text-emerald-600 hover:bg-emerald-50 font-medium py-3 px-8 rounded-lg transition duration-300"
               >
                 Contact Support
               </Link>
