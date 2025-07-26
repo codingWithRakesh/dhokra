@@ -119,7 +119,7 @@ const Home = () => {
                             These handcrafted pieces include figurines, jewellery, and home decor, reflecting India’s rich cultural heritage and traditional craftsmanship.
                         </p>
                         </div>
-                        <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                        <div className="mt-8 flex text-sm md:text-base flex-row gap-4">
                         <button className="bg-emerald-800 hover:bg-emerald-900 text-white font-medium py-3 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg">
                             Explore Our Collection
                         </button>
@@ -182,11 +182,11 @@ const Home = () => {
                     </div>
 
                     {/* Categories Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {Store.categories.map((category, index) => (
                         <div 
                         key={index} 
-                        className="relative group overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+                        className="relative group overflow-hidden rounded shadow-md hover:shadow-lg transition-all duration-300 "
                         >
                         {/* Image Container */}
                         <div className="relative aspect-[4/3] overflow-hidden">
@@ -200,21 +200,26 @@ const Home = () => {
                         </div>
 
                         {/* Category Info */}
-                        <div className="absolute bottom-0 left-0 right-0 p-5">
+                        <div className="hidden md:block absolute bottom-0 left-0 right-0 p-5">
                             <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 transform transition-all duration-300 group-hover:bg-white group-hover:shadow-sm">
                             <div className="flex justify-between items-center">
                             <div className="flex justify-between items-center">
-                                <h3 className="text-xl font-bold text-emerald-800">
+                                <h3 className="text-sm md:text-base font-bold text-emerald-800">
                                 {category.name}
                                 </h3>
                             </div>
                             <Link
                                 to={category.link}
-                                className="mt-0 inline-flex items-center text-md font-medium text-emerald-600 hover:text-emerald-800 transition-colors"
+                                className="mt-0 inline-flex items-center text-md font-medium text-emerald-600 hover:text-emerald-800 transition-colors text-sm md:text-base"
                             >
                                 Shop now <ChevronRight className="w-4 h-4 ml-1" />
                             </Link>
                             </div></div>
+                        </div>
+                        <div className="md:hidden">
+                            <h3 className="font-bold text-emerald-800 p-2">
+                                {category.name}
+                            </h3>
                         </div>
 
                         {/* Full Card Link */}
@@ -251,11 +256,11 @@ const Home = () => {
                     </div>
 
                     {/* Products Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
                     {trendingProducts.map((product) => (
                         <div key={product.id} className="group relative bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-shadow duration-300">
                         {/* Product Image */}
-                        <div className="aspect-square overflow-hidden h-64 w-full">
+                        <div className="aspect-square overflow-hidden md:h-64 w-full">
                             <img
                             src={product.image}
                             alt={product.name}

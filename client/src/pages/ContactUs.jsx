@@ -23,7 +23,7 @@ const ContactUs = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="space-y-6">
-          <div className="rounded-xl shadow-md p-6 sm:p-8">
+          <div className="border-2 rounded-xl shadow-md p-6 sm:p-8">
             <h2 className="text-2xl font-semibold text-emerald-800 mb-6">Send us a message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -134,7 +134,7 @@ const ContactUs = () => {
 
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="bg-white rounded-xl shadow-md p-6 sm:p-8">
+            <div className="border-2 rounded-xl shadow-md p-6 sm:p-8">
               <h2 className="text-2xl font-semibold text-emerald-800 mb-6">Our Information</h2>
               <div className="space-y-4">
                 <div className="flex items-start">
