@@ -115,36 +115,36 @@ const ProductDetails = () => {
                 Product Specifications
             </h2>
             <div className="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-300">
-                <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
-                <span className="w-32 font-medium text-sm text-indigo-600">
-                    Colour :
-                </span>
-                <span className="text-gray-800 font-medium">Golden</span>
-                </div>
-                <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
-                <span className="w-32 font-medium text-sm text-indigo-600">
-                    Height :
-                </span>
-                <span className="text-gray-800 font-medium">15 inch</span>
-                </div>
-                <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
-                <span className="w-32 font-medium text-sm text-indigo-600">
-                    Material :
-                </span>
-                <span className="text-gray-800 font-medium">Kansa</span>
-                </div>
-                <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
-                <span className="w-32 font-medium text-sm text-indigo-600">
-                    Utility :
-                </span>
-                <span className="text-gray-800 font-medium">Home Decor</span>
-                </div>
-                <div className="flex items-center py-2">
-                <span className="w-32 font-medium text-sm text-indigo-600">
-                    Weight :
-                </span>
-                <span className="text-gray-800 font-medium">259 gm</span>
-                </div>
+              <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
+                  <span className="w-32 font-medium text-md text-indigo-600">
+                      Colour :
+                  </span>
+                  <span className="text-gray-800 font-medium">Golden</span>
+              </div>
+              <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
+                  <span className="w-32 font-medium text-md text-indigo-600">
+                      Size :
+                  </span>
+                  <span className="text-gray-800 font-medium">H-15 * W-8 * L-10 inch</span>
+              </div>
+              <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
+                  <span className="w-32 font-medium text-md text-indigo-600">
+                      Material :
+                  </span>
+                  <span className="text-gray-800 font-medium">Kansa</span>
+              </div>
+              <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
+                  <span className="w-32 font-medium text-md text-indigo-600">
+                      Utility :
+                  </span>
+                  <span className="text-gray-800 font-medium">Home Decor</span>
+              </div>
+              <div className="flex items-center py-2">
+                  <span className="w-32 font-medium text-md text-indigo-600">
+                      Weight :
+                  </span>
+                  <span className="text-gray-800 font-medium">259 gm</span>
+              </div>
             </div>
             </div>
             {/* Product Description */}

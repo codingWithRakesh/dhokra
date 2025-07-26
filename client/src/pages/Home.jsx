@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Store  from '../store/store';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Clock } from 'lucide-react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CheckCircle, ShoppingBag } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
 import { slides } from "../store/store"; // Adjust the path as per your folder structure
 import { trendingProducts } from '../store/store';
@@ -267,25 +267,25 @@ const Home = () => {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />
                         </div>
-
+                        <div className="p-3">
+                            <h3 className="text-lg font-semibold text-gray-800">
+                                {product.name}
+                            </h3>
+                        </div>
                         {/* Product Info */}
-                        <div className="p-5 flex flex-col gap-2 justify-between">
-                            <div className="flex flex-col justify-between items-start mb-2">
-                                <h3 className="text-lg font-semibold text-gray-800">
-                                    {product.name}
-                                </h3>
-                                <div className="flex items-center gap-2">
+                        <div className="p-5 flex flex-col md:flex-row gap-4 justify-between">
+                            <div className="flex items-center gap-2">
                                 <span className="text-emerald-600 font-bold" style={{ textDecoration: 'line-through' }}>
                                     {product.maxprice}
                                 </span>
                                 <span className="text-yellow-500 font-bold">
                                     {product.price}
-                                </span></div>
+                                </span>
                             </div>
-
+                        
                             <Link
                             to={product.link}
-                            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition duration-300"
+                            className="w-full md:w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition duration-300"
                             aria-label={`View details for ${product.name}`}>
                             View Details
                             </Link>
@@ -309,51 +309,65 @@ const Home = () => {
                 <Slide />
             </section>
 
-             <section className="py-8 px-4 sm:px-6 lg:px-8">
-                <div className="w-full mx-auto">
-                    <div className="text-center mb-8">
-                    <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-4">
-                        Our Upcoming Collection
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Discover authentic Bengal Dokra metal crafts, each piece a unique masterpiece
-                    </p>
+            <section className="py-8 px-4 sm:px-6 lg:px-0">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-4">
+                            Our Available Collection
+                        </h2>
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                            Handcrafted Bengal Dokra metal art pieces ready for immediate purchase
+                        </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {featuredProducts.map((product) => (
-                        <div key={product.id} className="group relative overflow-hidden rounded shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-                            <div className="aspect-square overflow-hidden">
-                                <img
-                                src={product.image}
-                                alt={product.name}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                                {product.comingSoon && (
-                                <div className="p-0">
-                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                                    <span className="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-1">
-                                    <Clock className="w-4 h-4" />
-                                    Coming Soon
-                                    </span>
+                        {featuredProducts.map((product) => (
+                            <div key={product.id} className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                                <div className="aspect-square overflow-hidden relative">
+                                    <img
+                                        src={product.image}
+                                        alt={product.name}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                    {/* Stock availability badge */}
+                                    <div className="absolute top-4 right-4">
+                                        <span className="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
+                                            <CheckCircle className="w-4 h-4" />
+                                            In Stock
+                                        </span>
+                                    </div>
                                 </div>
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                                    <h2 className="text-lg font-semibold text-white">{product.name}</h2>
-                                </div></div>
-                                )}
+                                
+                                <div className="p-6">
+                                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{product.name}</h3>
+                                    <div className="flex justify-between items-center mt-4">
+                                        <div className="flex items-center gap-2 text-lg">
+                                            <span className="text-emerald-600 font-bold" style={{ textDecoration: 'line-through' }}>
+                                                {product.maxprice}
+                                            </span>
+                                            <span className="text-yellow-500 font-bold">
+                                                {product.price}
+                                            </span>
+                                        </div>
+                                        <Link to={`/product/${product.category}/${product.id}`}>
+                                            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-md text-md font-medium transition-colors duration-300">
+                                                view details
+                                            </button>
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                     </div>
 
-                    <div className="text-center mt-6">
-                    <Link
-                        to="/coming-soon"
-                        className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-900 text-gray-100 font-medium px-6 py-3 rounded-lg transition duration-300"
-                    >
-                        <Clock className="w-5 h-5" />
-                        View Upcoming Collections
-                    </Link>
+                    <div className="text-center mt-10">
+                        <Link
+                            to="/product/shop"
+                            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-md"
+                        >
+                            <ShoppingBag className="w-5 h-5" />
+                            View All Products
+                        </Link>
                     </div>
                 </div>
             </section>
