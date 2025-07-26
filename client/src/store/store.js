@@ -5,6 +5,9 @@ import img3 from "../assets/catagoryImage/3.jpg";
 import img4 from "../assets/catagoryImage/4.jpg";
 import img5 from "../assets/catagoryImage/5.jpg";
 import img6 from "../assets/catagoryImage/6.jpg";
+import dhokraImage1 from '../assets/image/cos1.jpg'; 
+import dhokraImage2 from '../assets/image/cos2.jpg';
+import dhokraImage3 from '../assets/image/cos3.jpg';
 
 const categories = [
   {
@@ -39,4 +42,100 @@ const categories = [
   },
 ];
 
-export default categories;
+
+export const slides = [
+  {
+    id: 1,
+    image: 'https://5.imimg.com/data5/SELLER/Default/2024/9/453492298/VM/OQ/VY/232573763/dokra-dhokra-palki-tribal-art-03.jpg',
+    alt: 'Dokra Artisan Crafting',
+    title: 'Authentic Bengal Dokra Crafts',
+    description: 'Handcrafted using ancient metalworking techniques',
+  },
+  {
+    id: 2,
+    image: 'https://punarnawa.com/cdn/shop/files/punarnawa-soul-of-artistry-dokra-decor-front-facing-dokra-craft-animals-the-pigeon-32440699289657.jpg?v=1705106304',
+    alt: 'Traditional Dokra Products',
+    title: 'Heritage Metal Artistry',
+    description: 'Each piece tells a story of Bengal\'s rich culture',
+  },
+  {
+    id: 3,
+    image: 'https://folkcanvas.com/wp-content/uploads/2024/11/the-art-of-dhokra-handmadeinindia-housenama.jpg',
+    alt: 'Handmade Metal Crafts',
+    title: 'Timeless Dokra Creations',
+    description: 'Preserving centuries-old craftsmanship',
+  },
+];
+
+
+export const featuredProducts = [
+  {
+    id: 1,
+    name: 'Dhokra Elephant Statue',
+    price: '₹2,499',
+    image: dhokraImage1,
+    comingSoon: true
+  },
+  {
+    id: 2,
+    name: 'Tribal Dhokra Wall Art',
+    price: '₹1,799',
+    image: dhokraImage2,
+    comingSoon: true
+  },
+  {
+    id: 3,
+    name: 'Premium Dhokra Jewelry Set',
+    price: 'Coming Soon',
+    image: dhokraImage3,
+    comingSoon: true
+  },
+];
+
+export const trendingProducts = [
+  {
+    id: 1,
+    name: 'Dhokra Elephant Statue',
+    maxprice: '₹2,499',
+    price: '₹1,899',
+    rating: 4.8,
+    image: dhokraImage1,
+    link: '/product/dhokra-elephant'
+  },
+  {
+    id: 2,
+    name: 'Tribal Wall Hanging',
+    maxprice: '₹1,799',
+    price: '₹1,599',
+    rating: 4.5,
+    image: dhokraImage2,
+    link: '/product/tribal-wall-hanging'
+  },
+  {
+    id: 3,
+    name: 'Dhokra Candle Stand',
+    maxprice: '₹1,299',
+    price: '₹1,799',
+    rating: 4.7,
+    image: dhokraImage3,
+    link: '/product/candle-stand'
+  },
+];
+
+
+export const navItems = [
+    { name: "GI Bengal Dokra", path: "/product/gi-bengal-dokra" },
+    { name: "Pating Finish on Dokra", path: "/product/pating-finish-on-dokra" },
+    { name: "Wall hanging", path: "/product/wall-hanging" },
+    { name: "Table Top", path: "/product/table-top" },
+    { name: "Home Decore", path: "/product/home-decore" },
+    { name: "Candle Stand", path: "/product/candle-stands" },
+    { name: "Trending", path: "/product/trending" },
+    { name: "Coming Soon", path: "/product/coming-soon" },
+];
+
+const store = {
+  categories,
+};
+
+export default store;

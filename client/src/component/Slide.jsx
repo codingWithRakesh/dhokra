@@ -1,17 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa'; // Assuming you have react-icons installed
+import { navItems } from '../store/store';
 
 const Slide = () => {
-  const slides = [
-    { text: "Dhokra", link: "/dhokra" },
-    { text: "UnickDhokraWorkshop", link: "/about" },
-    { text: "Trending", link: "/trending" },
-    { text: "GI Bengal Dokra", link: "/gi-bengal-dokra" },
-    { text: "Home Decor", link: "/home-decor" },
-    { text: "Candle Stands", link: "/candle-stands" },
-    { text: "Coming Soon", link: "/coming-soon" },
-  ];
 
   return (
     <div className="bg-emerald-700 text-white py-4 overflow-hidden rounded shadow-lg">
@@ -20,13 +12,13 @@ const Slide = () => {
         <div className="whitespace-nowrap">
           {/* Animated Marquee - Duplicated for seamless looping */}
           <div className="inline-block animate-marquee">
-            {[...slides, ...slides].map((slide, index) => (
-              <span key={`${slide.text}-${index}`} className="inline-flex items-center">
+            {[...navItems, ...navItems].map((navItem, index) => (
+              <span key={`${navItem.name}-${index}`} className="inline-flex items-center">
                 <Link
-                  to={slide.link}
+                  to={navItem.path}
                   className="inline-block px-6 text-lg font-semibold hover:text-amber-300 transition-colors italic"
                 >
-                  {slide.text} 
+                  {navItem.name} 
                 </Link>
                 <FaStar className="inline-block mx-2 text-amber-300" />
               </span>

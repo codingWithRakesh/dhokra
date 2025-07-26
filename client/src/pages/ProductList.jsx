@@ -67,7 +67,7 @@ const ProductList = () => {
                     <FiHeart />
                   </button>
                   <Link 
-                    to={`/product/${product.id}`}
+                    to={`/product/${product.category}/${product.id}`}
                     className="p-2 rounded-full bg-white shadow-md text-gray-700 hover:bg-gray-100 transition-colors duration-200"
                   >
                     <FiEye />
@@ -101,7 +101,7 @@ const ProductList = () => {
                 
                 {/* View Product Button */}
                 <Link
-                  to={`/product/${product.id}`}
+                  to={`/product/${product.category}/${product.id}`}
                   className="mt-4 block w-full text-center bg-emerald-800 hover:bg-emerald-900 text-white py-2 px-4 rounded transition-colors duration-200 font-semibold"
                 >
                   View Product

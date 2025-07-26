@@ -37,7 +37,7 @@ const SideDetails = () => {
   return (
     <div className="p-6 md:p-8 lg:p-0">
       {/* Main Header */}
-      <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center justify-center gap-3 mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-emerald-900">
           Authentic Dhokra Art
         </h1>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { FaHome, FaChevronRight, FaArrowLeft } from "react-icons/fa";
 import { GiMetalBar } from "react-icons/gi";
 import PropTypes from "prop-types";
@@ -81,51 +81,87 @@ CreativeBreadcrumb.propTypes = {
 const CreativeBreadcrumbPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  // Function to generate paths with ID support
+  const getPath = (basePath) => {
+    return id ? `${basePath}/${id}` : basePath;
+  };
 
   const breadcrumbMap = {
     "/product/gi-bengal-dokra": [
-      { label: "GI Bengal Dokra", path: "/product/gi-bengal-dokra" },
+      { label: "GI Bengal Dokra", path: getPath("/product/gi-bengal-dokra") },
+    ],
+    "/product/gi-bengal-dokra/:id": [
+      { label: "GI Bengal Dokra", path: getPath("/product/gi-bengal-dokra") },
     ],
     "/product/pating-finish-on-dokra": [
-      { label: "Pating Finish", path: "/product/pating-finish-on-dokra" },
+      { label: "Pating Finish", path: getPath("/product/pating-finish-on-dokra") },
+    ],
+    "/product/pating-finish-on-dokra/:id": [
+      { label: "Pating Finish", path: getPath("/product/pating-finish-on-dokra") },
     ],
     "/product/wall-hanging": [
-      { label: "Wall Hanging", path: "/product/wall-hanging" },
+      { label: "Wall Hanging", path: getPath("/product/wall-hanging") },
+    ],
+    "/product/wall-hanging/:id": [
+      { label: "Wall Hanging", path: getPath("/product/wall-hanging") },
     ],
     "/product/table-top": [
-      { label: "Table Top", path: "/product/table-top" },
+      { label: "Table Top", path: getPath("/product/table-top") },
+    ],
+    "/product/table-top/:id": [
+      { label: "Table Top", path: getPath("/product/table-top") },
     ],
     "/product/home-decore": [
-      { label: "Home Decor", path: "/product/home-decore" },
+      { label: "Home Decor", path: getPath("/product/home-decore") },
+    ],
+    "/product/home-decore/:id": [
+      { label: "Home Decor", path: getPath("/product/home-decore") },
     ],
     "/product/candle-stands": [
-      { label: "Candle Stands", path: "/product/candle-stands" },
+      { label: "Candle Stands", path: getPath("/product/candle-stands") },
+    ],
+    "/product/candle-stands/:id": [
+      { label: "Candle Stands", path: getPath("/product/candle-stands") },
     ],
     "/product/trending": [
-      { label: "Trending", path: "/product/trending" },
+      { label: "Trending", path: getPath("/product/trending") },
+    ],
+    "/product/trending/:id": [
+      { label: "Trending", path: getPath("/product/trending") },
     ],
     "/product/coming-soon": [
-      { label: "Coming Soon", path: "/product/coming-soon" },
+      { label: "Coming Soon", path: getPath("/product/coming-soon") },
+    ],
+    "/product/coming-soon/:id": [
+      { label: "Coming Soon", path: getPath("/product/coming-soon") },
     ],
   };
 
-  const currentBreadcrumbs = breadcrumbMap[location.pathname] || [];
+  // Find matching path with or without ID
+  const currentPath = Object.keys(breadcrumbMap).find(path => {
+    const pathRegex = new RegExp(`^${path.replace(/:\w+/g, '\\w+')}$`);
+    return pathRegex.test(location.pathname);
+  });
+
+  const currentBreadcrumbs = currentPath ? breadcrumbMap[currentPath] || [] : [];
 
   return (
     <div className="min-h-full bg-gradient-to-r from-emerald-500 to-teal-600 p-3 md:p-4 shadow-lg">
-        <div className="w-full flex-row md:max-w-7xl mx-auto flex sm:flex-row justify-between items-center">
-            <div className="w-auto overflow-hidden">
-                <CreativeBreadcrumb items={currentBreadcrumbs} />
-            </div>
-
-            <button
-                onClick={() => navigate(-1)}
-                className="flex items-center gap-1 md:gap-2 text-xs sm:text-sm text-white font-medium hover:text-yellow-300 transition-colors whitespace-nowrap px-2 py-1 sm:px-4 sm:py-2 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm"
-            >
-                <FaArrowLeft className="text-xs md:text-sm" />
-                <span>Back</span>
-            </button>
+      <div className="w-full md:max-w-7xl mx-auto flex flex-row sm:flex-row justify-between items-center gap-2 sm:gap-0">
+        <div className="w-auto overflow-hidden">
+          <CreativeBreadcrumb items={currentBreadcrumbs} />
         </div>
+
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1 md:gap-2 text-xs sm:text-sm text-white font-medium hover:text-yellow-300 transition-colors whitespace-nowrap px-2 py-1 sm:px-4 sm:py-2 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm"
+        >
+          <FaArrowLeft className="text-xs md:text-sm" />
+          <span>Back</span>
+        </button>
+      </div>
     </div>
   );
 };
