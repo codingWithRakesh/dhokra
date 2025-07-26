@@ -9,6 +9,7 @@ import dhokraImage5 from '../assets/catagoryImage/5.jpg';
 import SideDetails from '../component/SideDetails';
 import ExtraProduct from './ExtraProduct';
 import { products } from '../store/productsList';
+import Whatsapp from '../component/Whatsapp';
 
 const ProductDetails = () => {
   // Sample product images (replace with your actual images)
@@ -107,7 +108,7 @@ const ProductDetails = () => {
           </div>
 
           {/* Availability */}
-          <p className="text-gray-600 mb-6">AVAILABLE ON BACKORDER</p>
+          <Whatsapp />
 
           {/* Product Details */}
           <div className="mt-4">
