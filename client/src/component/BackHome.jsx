@@ -95,11 +95,11 @@ const CreativeBreadcrumbPage = () => {
     "/product/gi-bengal-dokra/:id": [
       { label: "GI Bengal Dokra", path: getPath("/product/gi-bengal-dokra") },
     ],
-    "/product/pating-finish-on-dokra": [
-      { label: "Pating Finish", path: getPath("/product/pating-finish-on-dokra") },
+    "/product/patina-finish-on-dokra": [
+      { label: "Patina Finish", path: getPath("/product/pating-finish-on-dokra") },
     ],
-    "/product/pating-finish-on-dokra/:id": [
-      { label: "Pating Finish", path: getPath("/product/pating-finish-on-dokra") },
+    "/product/patina-finish-on-dokra/:id": [
+      { label: "Patina Finish", path: getPath("/product/pating-finish-on-dokra") },
     ],
     "/product/wall-hanging": [
       { label: "Wall Hanging", path: getPath("/product/wall-hanging") },
@@ -131,11 +131,11 @@ const CreativeBreadcrumbPage = () => {
     "/product/trending/:id": [
       { label: "Trending", path: getPath("/product/trending") },
     ],
-    "/product/coming-soon": [
-      { label: "Coming Soon", path: getPath("/product/coming-soon") },
+    "/product/available-collection": [
+      { label: "Available Collection", path: getPath("/product/available-collection") },
     ],
-    "/product/coming-soon/:id": [
-      { label: "Coming Soon", path: getPath("/product/coming-soon") },
+    "/product/available-collection/:id": [
+      { label: "Available Collection", path: getPath("/product/available-collection") },
     ],
   };
 

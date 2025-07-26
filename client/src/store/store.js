@@ -72,23 +72,23 @@ export const featuredProducts = [
   {
     id: 1,
     name: 'Dhokra Elephant Statue',
-    price: '₹2,499',
+    maxprice: '2,499',
+    price: '2,499',
     image: dhokraImage1,
-    comingSoon: true
   },
   {
     id: 2,
     name: 'Tribal Dhokra Wall Art',
-    price: '₹1,799',
+    maxprice: '2,499',
+    price: '1,799',
     image: dhokraImage2,
-    comingSoon: true
   },
   {
     id: 3,
     name: 'Premium Dhokra Jewelry Set',
-    price: 'Coming Soon',
+    maxprice: '2,499',
+    price: '5208',
     image: dhokraImage3,
-    comingSoon: true
   },
 ];
 
@@ -125,13 +125,13 @@ export const trendingProducts = [
 
 export const navItems = [
     { name: "GI Bengal Dokra", path: "/product/gi-bengal-dokra" },
-    { name: "Pating Finish on Dokra", path: "/product/pating-finish-on-dokra" },
+    { name: "Patina Finish on Dokra", path: "/product/patina-finish-on-dokra" },
     { name: "Wall hanging", path: "/product/wall-hanging" },
     { name: "Table Top", path: "/product/table-top" },
     { name: "Home Decore", path: "/product/home-decore" },
     { name: "Candle Stand", path: "/product/candle-stands" },
     { name: "Trending", path: "/product/trending" },
-    { name: "Coming Soon", path: "/product/coming-soon" },
+    { name: "Available Collection", path: "/product/available-collection" },
 ];
 
 const store = {
