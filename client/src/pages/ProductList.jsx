@@ -29,7 +29,7 @@ const ProductList = () => {
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   return (
-    <div className="min-h-screen py-4 px-4 sm:px-6 lg:px-0">
+    <div className="min-h-screen py-4 px-2 lg:px-0">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -37,7 +37,7 @@ const ProductList = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {currentProducts.map((product) => (
             <div 
               key={product.id} 
