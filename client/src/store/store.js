@@ -10,32 +10,32 @@ const categories = [
   {
     name: "GI Bengal Dokra",
     image: img1,
-    link: "/gi-bengal-dokra",
+    link: "/product/gi-bengal-dokra",
   },
   {
     name: "Pating Finish",
     image: img2,
-    link: "/pating-finish-on-dokra",
+    link: "/product/pating-finish-on-dokra",
   },
   {
     name: "Wall hanging",
     image: img3,
-    link: "/wall-hanging",
+    link: "/product/wall-hanging",
   },
   {
     name: "Table Top",
     image: img4,
-    link: "/table-top",
+    link: "/product/table-top",
   },
   {
-    name: "Home Decore",
+    name: "Home Decor",
     image: img5,
-    link: "/home-decore",
+    link: "/product/home-decor",
   },
   {
     name: "Candle Stand",
     image: img6,
-    link: "/candle-stands",
+    link: "/product/candle-stands",
   },
 ];
 

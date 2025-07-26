@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa'; // Assuming you have react-icons installed
 
 const Slide = () => {
   const slides = [
@@ -20,13 +21,15 @@ const Slide = () => {
           {/* Animated Marquee - Duplicated for seamless looping */}
           <div className="inline-block animate-marquee">
             {[...slides, ...slides].map((slide, index) => (
-              <Link
-                key={`${slide.text}-${index}`}
-                to={slide.link}
-                className="inline-block px-6 text-lg font-semibold hover:text-amber-300 transition-colors italic"
-              >
-                {slide.text}
-              </Link>
+              <span key={`${slide.text}-${index}`} className="inline-flex items-center">
+                <Link
+                  to={slide.link}
+                  className="inline-block px-6 text-lg font-semibold hover:text-amber-300 transition-colors italic"
+                >
+                  {slide.text} 
+                </Link>
+                <FaStar className="inline-block mx-2 text-amber-300" />
+              </span>
             ))}
           </div>
         </div>

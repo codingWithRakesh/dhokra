@@ -204,7 +204,7 @@ const Home = () => {
                             Explore Our Collection
                         </button>
                         <button className="border border-emerald-800 text-emerald-900 hover:bg-emerald-50 font-medium py-3 px-8 rounded-lg transition duration-300">
-                            Meet Our Artisans
+                            Read More
                         </button>
                         </div>
                     </div>
@@ -247,24 +247,18 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-12 px-4 sm:px-6 lg:py-6">
+            <section className="py-12 px-4 sm:px-6 lg:py-2 lg:px-0">
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
-                    <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
-                        Explore Our Collections
-                        </h2>
-                        <p className="text-lg text-gray-600 max-w-2xl">
-                        Discover authentic Dhokra craftsmanship across various categories
-                        </p>
-                    </div>
-                    <Link 
-                        to="/categories" 
-                        className="flex items-center gap-1 text-emerald-700 hover:text-emerald-900 font-medium mt-4 md:mt-0"
-                    >
-                        View all categories <ChevronRight className="w-5 h-5" />
-                    </Link>
+                        <div>
+                            <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
+                            Explore Our Collections
+                            </h2>
+                            <p className="text-lg text-gray-600 max-w-2xl">
+                            Discover authentic Dhokra craftsmanship across various categories
+                            </p>
+                        </div>
                     </div>
 
                     {/* Categories Grid */}

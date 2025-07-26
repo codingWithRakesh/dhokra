@@ -6,14 +6,14 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: "GI Bengal Dokra", path: "/gi-bengal-dokra" },
-    { name: "Pating Finish on Dokra", path: "/pating-finish-on-dokra" },
-    { name: "Wall hanging", path: "/wall-hanging" },
-    { name: "Table Top", path: "/table-top" },
-    { name: "Home Decore", path: "/home-decore" },
-    { name: "Candle Stand", path: "/candle-stands" },
-    { name: "Trending", path: "/trending" },
-    { name: "Coming Soon", path: "/coming-soon" },
+    { name: "GI Bengal Dokra", path: "/product/gi-bengal-dokra" },
+    { name: "Pating Finish on Dokra", path: "/product/pating-finish-on-dokra" },
+    { name: "Wall hanging", path: "/product/wall-hanging" },
+    { name: "Table Top", path: "/product/table-top" },
+    { name: "Home Decore", path: "/product/home-decore" },
+    { name: "Candle Stand", path: "/product/candle-stands" },
+    { name: "Trending", path: "/product/trending" },
+    { name: "Coming Soon", path: "/product/coming-soon" },
   ];
 
   const toggleMenu = () => {
