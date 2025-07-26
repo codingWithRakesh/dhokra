@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
+import { navItems } from "../store/store";
 
 const Navbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const navItems = [
-    { name: "GI Bengal Dokra", path: "/gi-bengal-dokra" },
-    { name: "Pating Finish on Dokra", path: "/pating-finish-on-dokra" },
-    { name: "Wall hanging", path: "/wall-hanging" },
-    { name: "Table Top", path: "/table-top" },
-    { name: "Home Decore", path: "/home-decore" },
-    { name: "Candle Stand", path: "/candle-stands" },
-    { name: "Trending", path: "/trending" },
-    { name: "Coming Soon", path: "/coming-soon" },
-  ];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

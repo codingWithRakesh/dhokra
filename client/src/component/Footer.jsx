@@ -10,8 +10,10 @@ const Footer = () => {
           <div>
             <h3 className="text-white text-lg font-semibold mb-4">WORKS</h3>
             <address className="not-italic">
-              187, R.B.Chatterjee Road, Lakuadi, Purba<br />
-              Bardhaman-713102,<br />
+              Vill: Dharmadaspur,
+              P.O. : Purandarpur <br />
+              P.S./Dist. : Bankura <br />
+              PIN: 722155 <br />
               West Bengal, India
             </address>
           </div>
@@ -20,9 +22,11 @@ const Footer = () => {
           <div>
             <h3 className="text-white text-lg font-semibold mb-4">SHOW ROOM</h3>
             <address className="not-italic">
-              D02/07, India Expo Mart, New Delhi - Greater<br />
-              Noida Expressway, Knowledge Park II,<br />
-              Greater Noida - 201306, U.P. India
+              Vill: Dharmadaspur,
+              P.O. : Purandarpur <br />
+              P.S./Dist. : Bankura <br />
+              PIN: 722155 <br />
+              West Bengal, India
             </address>
           </div>
 
@@ -31,13 +35,13 @@ const Footer = () => {
             <h3 className="text-white text-lg font-semibold mb-4">CONNECT WITH US</h3>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:glaxyexports.tech@gmail.com" className="hover:text-amber-400 transition">
-                  Email: glaxyexports.tech@gmail.com
+                <a href="mailto:animesh.metalart@gmail.com" className="hover:text-amber-400 transition">
+                  Email: animesh.metalart@gmail.com
                 </a>
               </li>
               <li>
-                <a href="tel:+918967642110" className="hover:text-amber-400 transition">
-                  Call: +91 89676 42110
+                <a href="tel:+918101616016" className="hover:text-amber-400 transition">
+                  Call: +91 81016 16016
                 </a>
               </li>
             </ul>

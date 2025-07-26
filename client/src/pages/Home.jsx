@@ -1,101 +1,21 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import Store  from '../store/store';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Clock } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
-import categories from '../store/store'; // Assuming you have a categories data file
-import dhokraImage1 from '../assets/image/cos1.jpg'; 
-import dhokraImage2 from '../assets/image/cos2.jpg';
-import dhokraImage3 from '../assets/image/cos3.jpg';
+import { slides } from "../store/store"; // Adjust the path as per your folder structure
+import { trendingProducts } from '../store/store';
+import { featuredProducts } from '../store/store';
 import SideDetails from '../component/SideDetails';
 import Slide from '../component/Slide';
 import SocialCommunity from '../component/Social';
+import dhokraImage1 from '../assets/image/cos1.jpg'; 
+import dhokraImage2 from '../assets/image/cos2.jpg';
+import dhokraImage3 from '../assets/image/cos3.jpg';
 
 const Home = () => {
-
-   
-  const featuredProducts = [
-    {
-      id: 1,
-      name: 'Dhokra Elephant Statue',
-      price: '₹2,499',
-      image: dhokraImage1,
-      comingSoon: true
-    },
-    {
-      id: 2,
-      name: 'Tribal Dhokra Wall Art',
-      price: '₹1,799',
-      image: dhokraImage2,
-      comingSoon: true
-    },
-    {
-      id: 3,
-      name: 'Premium Dhokra Jewelry Set',
-      price: 'Coming Soon',
-      image: dhokraImage3,
-      comingSoon: true
-    },
-  ];
-
-   const trendingProducts = [
-    {
-      id: 1,
-      name: 'Dhokra Elephant Statue',
-      maxprice: '₹2,499',
-      price: '₹1,899',
-      rating: 4.8,
-      image: dhokraImage1,
-      link: '/product/dhokra-elephant'
-    },
-    {
-      id: 2,
-      name: 'Tribal Wall Hanging',
-      maxprice: '₹1,799',
-      price: '₹1,599',
-      rating: 4.5,
-      image: dhokraImage2,
-      link: '/product/tribal-wall-hanging'
-    },
-    {
-      id: 3,
-      name: 'Dhokra Candle Stand',
-      maxprice: '₹1,299',
-      price: '₹1,799',
-      rating: 4.7,
-      image: dhokraImage3,
-      link: '/product/candle-stand'
-    },
-  ];
-
-
-
-
-
-   const slides = [
-    {
-      id: 1,
-      image: 'https://5.imimg.com/data5/SELLER/Default/2024/9/453492298/VM/OQ/VY/232573763/dokra-dhokra-palki-tribal-art-03.jpg',
-      alt: 'Dokra Artisan Crafting',
-      title: 'Authentic Bengal Dokra Crafts',
-      description: 'Handcrafted using ancient metalworking techniques',
-    },
-    {
-      id: 2,
-      image: 'https://punarnawa.com/cdn/shop/files/punarnawa-soul-of-artistry-dokra-decor-front-facing-dokra-craft-animals-the-pigeon-32440699289657.jpg?v=1705106304',
-      alt: 'Traditional Dokra Products',
-      title: 'Heritage Metal Artistry',
-      description: 'Each piece tells a story of Bengal\'s rich culture',
-    },
-    {
-      id: 3,
-      image: 'https://folkcanvas.com/wp-content/uploads/2024/11/the-art-of-dhokra-handmadeinindia-housenama.jpg',
-      alt: 'Handmade Metal Crafts',
-      title: 'Timeless Dokra Creations',
-      description: 'Preserving centuries-old craftsmanship',
-    },
-  ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying] = useState(true);
@@ -204,7 +124,7 @@ const Home = () => {
                             Explore Our Collection
                         </button>
                         <button className="border border-emerald-800 text-emerald-900 hover:bg-emerald-50 font-medium py-3 px-8 rounded-lg transition duration-300">
-                            Meet Our Artisans
+                            Read More
                         </button>
                         </div>
                     </div>
@@ -247,29 +167,23 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-12 px-4 sm:px-6 lg:py-6">
+            <section className="py-12 px-4 sm:px-6 lg:py-2 lg:px-0">
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
-                    <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
-                        Explore Our Collections
-                        </h2>
-                        <p className="text-lg text-gray-600 max-w-2xl">
-                        Discover authentic Dhokra craftsmanship across various categories
-                        </p>
-                    </div>
-                    <Link 
-                        to="/categories" 
-                        className="flex items-center gap-1 text-emerald-700 hover:text-emerald-900 font-medium mt-4 md:mt-0"
-                    >
-                        View all categories <ChevronRight className="w-5 h-5" />
-                    </Link>
+                        <div>
+                            <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
+                            Explore Our Collections
+                            </h2>
+                            <p className="text-lg text-gray-600 max-w-2xl">
+                            Discover authentic Dhokra craftsmanship across various categories
+                            </p>
+                        </div>
                     </div>
 
                     {/* Categories Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {categories.map((category, index) => (
+                    {Store.categories.map((category, index) => (
                         <div 
                         key={index} 
                         className="relative group overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
