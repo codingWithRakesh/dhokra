@@ -284,7 +284,7 @@ const Home = () => {
                             </div>
                         
                             <Link
-                            to={product.link}
+                            to={`/product/${product.category}/${product.id}`}
                             className="w-full md:w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition duration-300"
                             aria-label={`View details for ${product.name}`}>
                             View Details
@@ -362,7 +362,7 @@ const Home = () => {
 
                     <div className="text-center mt-10">
                         <Link
-                            to="/product/shop"
+                            to="/product/available-collection"
                             className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-md"
                         >
                             <ShoppingBag className="w-5 h-5" />
