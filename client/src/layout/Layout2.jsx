@@ -5,7 +5,7 @@ import Footer from "../component/Footer";
 import BackHome from "../component/BackHome.jsx";
 
 
-export default function Layout1() {
+export default function Layout2() {
     return (
         <div className="min-h-screen flex flex-col mx-auto">
             <Header />
