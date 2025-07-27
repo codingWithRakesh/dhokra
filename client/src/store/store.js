@@ -140,6 +140,7 @@ export const navItems2 = [
     { name: "All Products", path: "/dashboard/all-products" },
     { name: "Trending", path: "/dashboard/trending" },
     { name: "Stock Products", path: "/dashboard/stock-products" },
+    { name: "Upload Gallery", path: "/dashboard/upload-gallery" },
 ];
 
 const store = {

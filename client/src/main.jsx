@@ -17,6 +17,8 @@ import ShowProduct from './admin/ShowProduct.jsx';
 import StockProductList from './admin/StockProductList.jsx';
 import TrendingList from './admin/TrendingList.jsx';
 import EditProductPage from './admin/EditProductPage.jsx';
+import Gallery from './pages/Gallery.jsx';
+import GalleryUpload from './admin/GalleryUpload.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "contact", element: <ContactUs /> },
+      { path: "gallery", element: <Gallery /> },
       { path: "*", element: <NotFound /> },
     ],
   },
@@ -50,6 +53,7 @@ const router = createBrowserRouter([
       { path: "trending", element: <TrendingList /> },
       { path: "stock-products", element: <StockProductList /> },
       { path: "edit-product/:id", element: <EditProductPage /> },
+      { path: "upload-gallery", element: <GalleryUpload /> },
     ],
   },
 ]);

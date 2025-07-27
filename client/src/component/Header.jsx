@@ -18,6 +18,9 @@ const Header = () => {
           <Link to="#" className="hover:text-emerald-800 transition duration-300">
             About
           </Link>
+          <Link to="/gallery" className="hover:text-emerald-800 transition duration-300">
+            Gallery
+          </Link>
           <Link to="/contact" className="hover:text-emerald-800 transition duration-300">
             Contact
           </Link>
