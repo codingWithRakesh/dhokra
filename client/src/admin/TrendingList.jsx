@@ -59,7 +59,7 @@ const TrendingList = () => {
         >
           <FiArrowLeft className="text-gray-600 text-xl" />
         </button>
-        <h1 className="text-2xl font-bold text-gray-800">Trending Products</h1>
+        <h1 className="text-2xl font-bold text-emerald-800">Trending Products</h1>
       </div>
 
       {trendingProducts.length === 0 ? (

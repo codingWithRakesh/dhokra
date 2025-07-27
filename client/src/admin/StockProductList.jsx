@@ -58,7 +58,7 @@ const StockProductList = () => {
         >
           <FiArrowLeft className="text-gray-600 text-xl" />
         </button>
-        <h1 className="text-2xl font-bold text-gray-800">Stock Products</h1>
+        <h1 className="text-2xl font-bold text-emerald-800">Stock Products</h1>
       </div>
 
       {stockProducts.length === 0 ? (

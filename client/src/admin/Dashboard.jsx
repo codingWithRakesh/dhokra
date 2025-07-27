@@ -56,7 +56,7 @@ const Dashboard = () => {
   const totalStock = stockCategory ? stockCategory.productCount : 0;
 
   return (
-    <div className="min-h-full p-4 md:p-4">
+    <div className="min-h-full p-4 md:p-4 xl:p-0">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-8">

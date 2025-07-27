@@ -108,9 +108,9 @@ const Upload = () => {
   };
 
   return (
-    <div className="min-h-full p-4 md:p-8">
+    <div className="min-h-full p-4 md:p-8 xl:p-0">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl font-bold text-emerald-800 mb-6">Add New Product</h1>
+        <h1 className="text-3xl font-bold text-emerald-800 mb-6">Add New Product</h1>
         
         <form onSubmit={handleSubmit}>
           {/* Category Selection - updated for object structure */}

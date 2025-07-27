@@ -16,6 +16,7 @@ import Dashboard from './admin/Dashboard.jsx';
 import ShowProduct from './admin/ShowProduct.jsx';
 import StockProductList from './admin/StockProductList.jsx';
 import TrendingList from './admin/TrendingList.jsx';
+import EditProductPage from './admin/EditProductPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
       { path: "all-products", element: <ShowProduct /> },
       { path: "trending", element: <TrendingList /> },
       { path: "stock-products", element: <StockProductList /> },
+      { path: "edit-product/:id", element: <EditProductPage /> },
     ],
   },
 ]);
