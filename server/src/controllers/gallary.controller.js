@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
-import { Gallery } from "../models/gallery.model.js";
+import { Gallery } from "../models/gallary.model.js";
 import { uploadOnCloudinary, deleteFromCloudinary, getPublicId } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
 
