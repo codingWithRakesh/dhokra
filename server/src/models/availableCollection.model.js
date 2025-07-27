@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
-const upcomingSchema = new Schema({
+const availableCollectionSchema = new Schema({
     productId: {
         type: Schema.Types.ObjectId,
         ref: "Product",
@@ -9,6 +9,6 @@ const upcomingSchema = new Schema({
     }
 },{ timestamps: true });
 
-upcomingSchema.plugin(mongooseAggregatePaginate);
+availableCollectionSchema.plugin(mongooseAggregatePaginate);
 
-export const Upcoming = model("Upcoming", upcomingSchema);
+export const AvailableCollection = model("AvailableCollection", availableCollectionSchema);

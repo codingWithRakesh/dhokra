@@ -7,6 +7,8 @@ import {
     getProductsByCategory,
     updateProduct,
     toggleProductAvailability,
+    getTotalProductsCount,
+    getProductCountByCategory,
     deleteProduct,
     deleteProductImage
 } from "../controllers/products.controller.js";
@@ -22,6 +24,8 @@ router.route("/getProductByName/:name").get(getProductByName);
 router.route("/getProductsByCategory/:category").get(getProductsByCategory);
 router.route("/update/:id").put(verifyLogin, upload.array("images"), updateProduct);
 router.route("/toggleAvailability/:id").put(verifyLogin, toggleProductAvailability);
+router.route("/getTotalProductsCount").get(getTotalProductsCount);
+router.route("/getProductCountByCategory/:category").get(getProductCountByCategory);
 router.route("/delete/:id").delete(verifyLogin, deleteProduct);
 router.route("/deleteImage/:id").delete(verifyLogin, deleteProductImage);
 

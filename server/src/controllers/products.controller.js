@@ -335,6 +335,44 @@ const toggleProductAvailability = asyncHandler(async (req, res) => {
         ));
 });
 
+const getTotalProductsCount = asyncHandler(async (req, res) => {
+    const totalCount = await Product.countDocuments({});
+    
+    return res
+        .status(200)
+        .json(new ApiResponse(
+            200,
+            { total: totalCount },
+            `Total products: ${totalCount}`
+        ));
+});
+
+// Get Product Count by Category
+const getProductCountByCategory = asyncHandler(async (req, res) => {
+    const { category } = req.params;
+
+    // Validate category against enum values
+    const validCategories = ["gi-bengal-dokra", "pating-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands"];
+    
+    if (!validCategories.includes(category)) {
+        throw new ApiError(400, `Invalid category. Valid categories are: ${validCategories.join(", ")}`);
+    }
+
+    // Count products in the specified category
+    const count = await Product.countDocuments({ category });
+
+    return res
+        .status(200)
+        .json(new ApiResponse(
+            200,
+            { 
+                category,
+                count 
+            },
+            `Found ${count} products in ${category} category`
+        ));
+});
+
 // Delete Product
 const deleteProduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -414,6 +452,8 @@ export {
     getProductsByCategory,
     updateProduct,
     toggleProductAvailability,
+    getTotalProductsCount,
+    getProductCountByCategory,
     deleteProduct,
     deleteProductImage
 };
