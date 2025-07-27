@@ -34,7 +34,7 @@ const productSchema = new Schema({
         required: true,
         enum: ["gi-bengal-dokra", "pating-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands"]
     },
-    isUpcoming: {
+    isAvailable: {
         type: Boolean,
         default: false
     },

@@ -6,7 +6,9 @@ import {
     getProductByName,
     getProductsByCategory,
     updateProduct,
-    deleteProduct
+    toggleProductAvailability,
+    deleteProduct,
+    deleteProductImage
 } from "../controllers/products.controller.js";
 import { verifyLogin } from "../middlewares/user.middleware.js";
 import {upload} from "../middlewares/multer.middleware.js";
@@ -19,6 +21,8 @@ router.route("/getProductById/:id").get(getProductById);
 router.route("/getProductByName/:name").get(getProductByName);
 router.route("/getProductsByCategory/:category").get(getProductsByCategory);
 router.route("/update/:id").put(verifyLogin, upload.array("images"), updateProduct);
+router.route("/toggleAvailability/:id").put(verifyLogin, toggleProductAvailability);
 router.route("/delete/:id").delete(verifyLogin, deleteProduct);
+router.route("/deleteImage/:id").delete(verifyLogin, deleteProductImage);
 
 export default router;

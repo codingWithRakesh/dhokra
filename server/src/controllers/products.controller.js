@@ -60,7 +60,6 @@ const createProduct = asyncHandler(async (req, res) => {
         material, 
         utility, 
         category, 
-        isUpcoming 
     } = req.body;
 
     // Validation
@@ -90,7 +89,6 @@ const createProduct = asyncHandler(async (req, res) => {
         material,
         utility,
         category,
-        isUpcoming: Boolean(isUpcoming),
         images: imageUrls
     });
 
@@ -201,10 +199,36 @@ const getProductsByCategory = asyncHandler(async (req, res) => {
         sort: { createdAt: -1 }
     };
 
-    const products = await Product.paginate(
-        { category },
+    // Solution 1: Using aggregatePaginate (if you have mongoose-aggregate-paginate-v2)
+    const products = await Product.aggregatePaginate(
+        Product.aggregate([
+            { $match: { category } },
+            { $sort: { createdAt: -1 } }
+        ]),
         options
     );
+
+    // OR Solution 2: Using regular find with pagination
+    // const products = await Product.find({ category })
+    //     .sort({ createdAt: -1 })
+    //     .skip((options.page - 1) * options.limit)
+    //     .limit(options.limit)
+    //     .exec();
+    // 
+    // const count = await Product.countDocuments({ category });
+    // 
+    // const paginatedResponse = {
+    //     docs: products,
+    //     totalDocs: count,
+    //     limit: options.limit,
+    //     page: options.page,
+    //     totalPages: Math.ceil(count / options.limit),
+    //     pagingCounter: (options.page - 1) * options.limit + 1,
+    //     hasPrevPage: options.page > 1,
+    //     hasNextPage: options.page * options.limit < count,
+    //     prevPage: options.page > 1 ? options.page - 1 : null,
+    //     nextPage: options.page * options.limit < count ? options.page + 1 : null
+    // };
 
     return res
         .status(200)
@@ -242,7 +266,6 @@ const updateProduct = asyncHandler(async (req, res) => {
         ...(updateData.material && { material: updateData.material }),
         ...(updateData.utility && { utility: updateData.utility }),
         ...(updateData.category && { category: updateData.category }),
-        ...(updateData.isUpcoming !== undefined && { isUpcoming: Boolean(updateData.isUpcoming) })
     };
 
     // Handle image updates
@@ -277,6 +300,41 @@ const updateProduct = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, updatedProduct, "Product updated successfully"));
 });
 
+// Toggle Product Availability
+const toggleProductAvailability = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    // Validate ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new ApiError(400, "Invalid product ID");
+    }
+
+    // Find and update the product
+    const product = await Product.findByIdAndUpdate(
+        id,
+        [
+            {
+                $set: {
+                    isAvailable: { $not: "$isAvailable" }
+                }
+            }
+        ],
+        { new: true, runValidators: true }
+    );
+
+    if (!product) {
+        throw new ApiError(404, "Product not found");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(
+            200, 
+            product, 
+            `Product availability set to ${product.isAvailable} successfully`
+        ));
+});
+
 // Delete Product
 const deleteProduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -305,6 +363,49 @@ const deleteProduct = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, null, "Product deleted successfully"));
 });
 
+// Delete Image from Product
+const deleteProductImage = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { imageUrl } = req.body;
+
+    // Validate inputs
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new ApiError(400, "Invalid product ID");
+    }
+
+    if (!imageUrl || typeof imageUrl !== 'string') {
+        throw new ApiError(400, "Valid imageUrl is required");
+    }
+
+    // Find the product
+    const product = await Product.findById(id);
+    if (!product) {
+        throw new ApiError(404, "Product not found");
+    }
+
+    // Check if image exists in product's images
+    const imageIndex = product.images.indexOf(imageUrl);
+    if (imageIndex === -1) {
+        throw new ApiError(404, "Image not found in this product");
+    }
+
+    // Delete from Cloudinary
+    const publicId = getPublicId(imageUrl);
+    const cloudinaryResult = await deleteFromCloudinary(publicId);
+    
+    if (!cloudinaryResult || cloudinaryResult.result !== 'ok') {
+        throw new ApiError(500, "Failed to delete image from Cloudinary");
+    }
+
+    // Remove from array and save
+    product.images.splice(imageIndex, 1);
+    await product.save();
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, product, "Image deleted successfully"));
+});
+
 export {
     createProduct,
     getAllProducts,
@@ -312,5 +413,7 @@ export {
     getProductByName,
     getProductsByCategory,
     updateProduct,
-    deleteProduct
+    toggleProductAvailability,
+    deleteProduct,
+    deleteProductImage
 };
