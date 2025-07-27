@@ -156,9 +156,9 @@ const CreativeBreadcrumbPage = () => {
 
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-1 md:gap-2 text-xs sm:text-sm text-white font-medium hover:text-yellow-300 transition-colors whitespace-nowrap px-2 py-1 sm:px-4 sm:py-2 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm"
+          className="flex items-center gap-1 md:gap-2 text-xs sm:text-md text-white font-medium hover:text-yellow-300 transition-colors whitespace-nowrap px-2 py-1 sm:px-4 sm:py-2 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm"
         >
-          <FaArrowLeft className="text-xs md:text-sm" />
+          <FaArrowLeft className="text-md md:text-sm" />
           <span>Back</span>
         </button>
       </div>

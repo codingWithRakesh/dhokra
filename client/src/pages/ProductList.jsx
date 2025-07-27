@@ -37,7 +37,7 @@ const ProductList = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {currentProducts.map((product) => (
             <div 
               key={product.id} 
@@ -48,7 +48,7 @@ const ProductList = () => {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  className="w-full h-full object-contain justify-center transition-transform duration-500 hover:scale-105"
                 />
                 
                 {/* Discount Badge */}

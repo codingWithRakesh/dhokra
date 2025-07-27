@@ -134,6 +134,15 @@ export const navItems = [
     { name: "Available Collection", path: "/product/available-collection" },
 ];
 
+export const navItems2 = [
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Upload", path: "/dashboard/upload" },
+    { name: "All Products", path: "/dashboard/all-products" },
+    { name: "Trending", path: "/dashboard/trending" },
+    { name: "Stock Products", path: "/dashboard/stock-products" },
+    { name: "Upload Gallery", path: "/dashboard/upload-gallery" },
+];
+
 const store = {
   categories,
 };
