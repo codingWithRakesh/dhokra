@@ -43,23 +43,16 @@ const Gallery = () => {
         <p className="text-gray-600 mb-8">A collection of images with random dimensions</p>
 
         {/* Masonry grid */}
-        <div className="columns-1 sm:columns-2 md:columns-3 gap-4">
+        <div className="columns-1 md:columns-2 xl:columns-3 gap-4 space-y-4">
           {images.map((img) => (
-            <div 
-              key={img.id} 
-              className="mb-4 break-inside-avoid cursor-pointer hover:scale-105 transition duration-300"
+            <img
+              key={img.id}
+              src={img.src}
+              alt={img.alt || ""}
+              className="w-full h-auto mb-4 rounded-lg break-inside-avoid cursor-pointer hover:brightness-95 transition-all"
               onClick={() => openLightbox(img)}
-            >
-              <img
-                src={img.src}
-                alt=""
-                className="w-full rounded-lg shadow-md"
-                style={{
-                  height: `${img.height}px`,
-                  objectFit: 'cover'
-                }}
-              />
-            </div>
+              loading="lazy"
+            />
           ))}
         </div>
 

@@ -39,9 +39,9 @@ const Home = () => {
   return (
     <div className="min-h-screen max-w-7xl mx-auto flex flex-col">
         <main className="flex-grow">
-            <section className="relative rounded-lg overflow-hidden shadow-xl">
+            <section className="relative rounded-sm overflow-hidden shadow-xl">
                 {/* Slider Container */}
-                <div className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[65vh] min-h-[300px] sm:min-h-[400px] overflow-hidden">
+                <div className="relative max-w-full h-[50vh] md:h-[70vh] overflow-hidden">
                     {slides.map((slide, index) => (
                     <div
                         key={slide.id}
@@ -53,7 +53,7 @@ const Home = () => {
                         <img
                         src={slide.image}
                         alt={slide.alt}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full "
                         loading="lazy"
                         />
                         
@@ -104,7 +104,7 @@ const Home = () => {
             </section>
 
 
-            <section className="py-12 px-4 sm:px-6 lg:px-0">
+            <section className="py-6 sm:px-6 lg:px-0">
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
@@ -171,7 +171,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-8 px-4 sm:px-6 lg:px-0">
+            <section className="py-4 sm:px-6 lg:px-0">
                 <div className="w-full mx-auto">
                     <div className="flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
                     {/* Text Content - Now on left */}
@@ -202,14 +202,14 @@ const Home = () => {
                         <div className="grid grid-rows-2 gap-4 h-full min-h-[400px] lg:min-h-[500px]">
                         {/* Top row - two square images */}
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                            <div className="relative overflow-hidden rounded shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
                             <img
                                 src={dhokraImage3}
                                 alt="Dhokra artisan at work"
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                             />
                             </div>
-                            <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                            <div className="relative overflow-hidden rounded shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
                             <img
                                 src={dhokraImage2}
                                 alt="Traditional wax mold making"
@@ -219,7 +219,7 @@ const Home = () => {
                         </div>
                         
                         {/* Bottom row - single panoramic image */}
-                        <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                        <div className="relative overflow-hidden rounded shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
                             <img
                             src={dhokraImage1}
                             alt="Finished Dhokra products collection"
@@ -235,7 +235,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-8 px-4 sm:px-6 lg:px-0">
+            <section className="py-4 sm:px-6 lg:px-0">
                 <div className="w-full mx-auto">
                     {/* Section Header */}
                     <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -259,13 +259,13 @@ const Home = () => {
                     {/* Products Grid */}
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
                     {trendingProducts.map((product) => (
-                        <div key={product.id} className="group relative bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-shadow duration-300">
+                        <div key={product.id} className="group relative bg-white rounded shadow-md hover:shadow-xl overflow-hidden transition-shadow duration-300">
                         {/* Product Image */}
-                        <div className="aspect-square overflow-hidden md:h-64 w-full">
+                        <div className="aspect-square overflow-hidden md:h-64 w-full bg-gray-100">
                             <img
                             src={product.image}
                             alt={product.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                             />
                         </div>
                         <div className="p-3">
@@ -302,7 +302,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-8 px-4 sm:px-6 lg:px-0">
+            <section className="py-4 sm:px-6 lg:px-0">
                 <SideDetails />
             </section>
 
@@ -310,7 +310,7 @@ const Home = () => {
                 <Slide />
             </section>
 
-            <section className="py-8 px-4 sm:px-6 lg:px-0">
+            <section className="py-4 sm:px-6 lg:px-0">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-4">
@@ -324,11 +324,11 @@ const Home = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {featuredProducts.map((product) => (
                             <div key={product.id} className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
-                                <div className="aspect-square overflow-hidden relative">
+                                <div className="aspect-square overflow-hidden relative bg-gray-100">
                                     <img
                                         src={product.image}
                                         alt={product.name}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                                     />
                                     {/* Stock availability badge */}
                                     <div className="absolute top-4 right-4">
