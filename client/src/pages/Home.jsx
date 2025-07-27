@@ -103,71 +103,8 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-16 px-4 sm:px-6 lg:py-12 lg:px-0">
-                <div className="w-full mx-auto">
-                    <div className="flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
-                    {/* Text Content - Now on left */}
-                    <div className="w-full lg:w-1/2 flex flex-col justify-start order-1 lg:order-1">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-800 mb-6 leading-tight">
-                            Dhokra – Ancient Metal Craft of India
-                        </h2>
-                        <div className="prose prose-lg text-gray-600 max-w-2xl">
-                        <p className="mb-4">
-                            Dhokra is an ancient metal craft using the lost-wax casting technique, practised by tribal artisans for thousands of years. It creates unique brass items with detailed designs and a rustic look.
-                        </p>
-                        <p className="mb-4">
-                            These handcrafted pieces include figurines, jewellery, and home decor, reflecting India’s rich cultural heritage and traditional craftsmanship.
-                        </p>
-                        </div>
-                        <div className="mt-8 flex text-sm md:text-base flex-row gap-4">
-                        <button className="bg-emerald-800 hover:bg-emerald-900 text-white font-medium py-3 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg">
-                            Explore Our Collection
-                        </button>
-                        <button className="border border-emerald-800 text-emerald-900 hover:bg-emerald-50 font-medium py-3 px-8 rounded-lg transition duration-300">
-                            Read More
-                        </button>
-                        </div>
-                    </div>
 
-                    {/* Image Grid - Now on right */}
-                    <div className="w-full lg:w-1/2 order-2 lg:order-2">
-                        <div className="grid grid-rows-2 gap-4 h-full min-h-[400px] lg:min-h-[500px]">
-                        {/* Top row - two square images */}
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
-                            <img
-                                src={dhokraImage3}
-                                alt="Dhokra artisan at work"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                            />
-                            </div>
-                            <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
-                            <img
-                                src={dhokraImage2}
-                                alt="Traditional wax mold making"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                            />
-                            </div>
-                        </div>
-                        
-                        {/* Bottom row - single panoramic image */}
-                        <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
-                            <img
-                            src={dhokraImage1}
-                            alt="Finished Dhokra products collection"
-                            className="absolute inset-0 w-full h-full object-fit transition-transform duration-500 hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex items-end p-6">
-                            <span className="text-white font-medium text-lg bg-emerald-700 p-2 rounded">Handcrafted in West Bengal</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </section>
-
-            <section className="py-12 px-4 sm:px-6 lg:py-2 lg:px-0">
+            <section className="py-12 px-4 sm:px-6 lg:px-0">
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
@@ -232,7 +169,71 @@ const Home = () => {
                     ))}
                     </div>
                 </div>
-                </section>
+            </section>
+
+            <section className="py-8 px-4 sm:px-6 lg:px-0">
+                <div className="w-full mx-auto">
+                    <div className="flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
+                    {/* Text Content - Now on left */}
+                    <div className="w-full lg:w-1/2 flex flex-col justify-start order-1 lg:order-1">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-800 mb-6 leading-tight">
+                            Dhokra – Ancient Metal Craft of India
+                        </h2>
+                        <div className="prose prose-lg text-gray-600 max-w-2xl">
+                        <p className="mb-4">
+                            Dhokra is an ancient metal craft using the lost-wax casting technique, practised by tribal artisans for thousands of years. It creates unique brass items with detailed designs and a rustic look.
+                        </p>
+                        <p className="mb-4">
+                            These handcrafted pieces include figurines, jewellery, and home decor, reflecting India’s rich cultural heritage and traditional craftsmanship.
+                        </p>
+                        </div>
+                        <div className="mt-8 flex text-sm md:text-base flex-row gap-4">
+                        <button className="bg-emerald-800 hover:bg-emerald-900 text-white font-medium py-3 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg">
+                            Explore Our Collection
+                        </button>
+                        <button className="border border-emerald-800 text-emerald-900 hover:bg-emerald-50 font-medium py-3 px-8 rounded-lg transition duration-300">
+                            Read More
+                        </button>
+                        </div>
+                    </div>
+
+                    {/* Image Grid - Now on right */}
+                    <div className="w-full lg:w-1/2 order-2 lg:order-2">
+                        <div className="grid grid-rows-2 gap-4 h-full min-h-[400px] lg:min-h-[500px]">
+                        {/* Top row - two square images */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                            <img
+                                src={dhokraImage3}
+                                alt="Dhokra artisan at work"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            />
+                            </div>
+                            <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                            <img
+                                src={dhokraImage2}
+                                alt="Traditional wax mold making"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            />
+                            </div>
+                        </div>
+                        
+                        {/* Bottom row - single panoramic image */}
+                        <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border-4 border-emerald-700">
+                            <img
+                            src={dhokraImage1}
+                            alt="Finished Dhokra products collection"
+                            className="absolute inset-0 w-full h-full object-fit transition-transform duration-500 hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex items-end p-6">
+                            <span className="text-white font-medium text-lg bg-emerald-700 p-2 rounded">Handcrafted in West Bengal</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
 
             <section className="py-8 px-4 sm:px-6 lg:px-0">
                 <div className="w-full mx-auto">

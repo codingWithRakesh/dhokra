@@ -71,7 +71,7 @@ const Dashboard = () => {
               <FiBox className="text-indigo-600 text-xl" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Total Categories</p>
+              <p className="text-sm text-gray-800">Total Categories</p>
               <p className="text-2xl font-bold text-gray-800">{categories.length}</p>
             </div>
           </div>
@@ -81,7 +81,7 @@ const Dashboard = () => {
               <FiDatabase className="text-blue-600 text-xl" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Total Products</p>
+              <p className="text-sm text-gray-800">Total Products</p>
               <p className="text-2xl font-bold text-gray-800">{totalProducts}</p>
             </div>
           </div>
@@ -91,7 +91,7 @@ const Dashboard = () => {
               <FiTrendingUp className="text-green-600 text-xl" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Trending Products</p>
+              <p className="text-sm text-gray-800">Trending Products</p>
               <p className="text-2xl font-bold text-gray-800">{totalTrending}</p>
             </div>
           </div>
@@ -101,7 +101,7 @@ const Dashboard = () => {
               <FiPackage className="text-purple-600 text-xl" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Stock Products</p>
+              <p className="text-sm text-gray-800">Stock Products</p>
               <p className="text-2xl font-bold text-gray-800">{totalStock}</p>
             </div>
           </div>
