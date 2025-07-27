@@ -96,8 +96,8 @@ const ShowProduct = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <div className="min-h-full p-4 md:p-8">
+      <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Manage Products</h1>
         
         {/* Category Selection */}

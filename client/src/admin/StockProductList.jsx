@@ -50,7 +50,7 @@ const StockProductList = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-4">
+    <div className="container max-w-7xl mx-auto px-4 py-4">
       <div className="flex items-center mb-6">
         <button 
           onClick={() => navigate(-1)} 
