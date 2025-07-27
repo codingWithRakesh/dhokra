@@ -29,7 +29,7 @@ const ProductList = () => {
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   return (
-    <div className="min-h-screen py-4 px-2 lg:px-0">
+    <div className="min-h-screen py-2 px-2 lg:px-0">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
