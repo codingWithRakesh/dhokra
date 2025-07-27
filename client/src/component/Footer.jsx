@@ -66,7 +66,7 @@ const Footer = () => {
         
         <div className="flex flex-col md:flex-row items-center gap-4 mt-3 md:mt-0">
             <div className="flex gap-4">
-            <Link to="/" 
+            <Link to="/admin" 
                 className="text-amber-400 hover:text-amber-300 transition-colors duration-200"
             >Admin</Link>
             <Link
