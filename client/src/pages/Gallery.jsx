@@ -43,7 +43,7 @@ const Gallery = () => {
         <p className="text-gray-600 mb-8">A collection of images with random dimensions</p>
 
         {/* Masonry grid */}
-        <div className="columns-1 md:columns-2 xl:columns-3 gap-4 space-y-4">
+        <div className="columns-2 md:columns-2 xl:columns-3 gap-4 space-y-4">
           {images.map((img) => (
             <img
               key={img.id}

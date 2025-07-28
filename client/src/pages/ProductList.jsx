@@ -37,7 +37,7 @@ const ProductList = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {currentProducts.map((product) => (
             <div 
               key={product.id} 
@@ -102,7 +102,7 @@ const ProductList = () => {
                 {/* View Product Button */}
                 <Link
                   to={`/product/${product.category}/${product.id}`}
-                  className="mt-4 block w-full text-center bg-emerald-800 hover:bg-emerald-900 text-white py-2 px-4 rounded transition-colors duration-200 font-semibold"
+                  className="mt-4 text-sm md:text-md block w-full text-center bg-emerald-800 hover:bg-emerald-900 text-white py-2 px-4 rounded transition-colors duration-200 font-semibold"
                 >
                   View Product
                 </Link>

@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="bg-emerald-800 sticky top-0 text-white shadow-lg font-sans font-medium z-50">
       <div className="container max-w-7xl mx-auto flex justify-between items-center">
         {/* Desktop Navbar */}
-        <div className="hidden md:px-5 lg:flex justify-between items-center py-4 lg:px-0">
+        <div className="hidden xl:flex justify-between items-center py-4 lg:px-0">
           <ul className="flex space-x-6">
             {navItems.map((item) => (
               <li key={item.path}>
@@ -41,7 +41,7 @@ const Navbar = () => {
 
       <div className="p-0">
         {/* Mobile Navbar Header */}
-        <div className="lg:hidden flex justify-between items-center py-4 px-4 bg-emerald-800 w-full">
+        <div className="xl:hidden flex justify-between items-center py-4 px-4 bg-emerald-800 w-full">
           <Link to="/">
             <div className="text-xl font-bold italic text-white">
               <span className="text-amber-200">Unick Dhokra</span>{" "}
@@ -90,7 +90,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-emerald-800 p-4 animate-fadeIn">
+          <div className="xl:hidden bg-emerald-800 p-4 animate-fadeIn">
             <ul className="flex flex-col space-y-2">
               {navItems.map((item) => (
                 <li key={item.path}>

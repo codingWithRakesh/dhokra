@@ -37,14 +37,14 @@ const SideDetails = () => {
   return (
     <div className="p-6 md:p-8 lg:p-0">
       {/* Main Header */}
-      <div className="flex items-center justify-center gap-3 mb-8">
+      <div className="flex text-center items-center justify-center gap-3 mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-emerald-900">
           Authentic Dhokra Art
         </h1>
       </div>
 
       {/* Features Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 px-4 md:px-6 lg:px-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 px-0">
         {features.map((feature, index) => (
           <div 
             key={index}

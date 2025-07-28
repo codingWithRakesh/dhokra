@@ -274,7 +274,7 @@ const Home = () => {
                             </h3>
                         </div>
                         {/* Product Info */}
-                        <div className="p-5 flex flex-col md:flex-row gap-4 justify-between">
+                        <div className="p-3 flex flex-col md:flex-row gap-4 justify-between">
                             <div className="flex items-center gap-2">
                                 <span className="text-emerald-600 font-bold" style={{ textDecoration: 'line-through' }}>
                                     {product.maxprice}
@@ -286,7 +286,7 @@ const Home = () => {
                         
                             <Link
                             to={`/product/${product.category}/${product.id}`}
-                            className="w-full md:w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition duration-300"
+                            className="w-full md:w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium text-sm md:text-md py-2 px-0 md:px-4 rounded-lg flex items-center justify-center transition duration-300"
                             aria-label={`View details for ${product.name}`}>
                             View Details
                             </Link>

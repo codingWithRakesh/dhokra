@@ -47,7 +47,7 @@ const Header = () => {
       </div>
       </div>
     </header>
-    <div className="lg:hidden container w-full mx-auto h-14 px-4 bg-emerald-700 text-white flex justify-between items-center">
+    <div className="min-w-full lg:hidden container mx-auto h-14 px-4 bg-emerald-700 text-white flex justify-between items-center">
       <div className="flex items-center space-x-6">
         {/* Desktop Navigation (hidden on mobile) */}
         <nav className="flex items-center space-x-8 font-semibold italic">
