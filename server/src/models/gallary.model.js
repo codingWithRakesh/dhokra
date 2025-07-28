@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const gallerySchema = new Schema({
     image: {
@@ -6,5 +7,7 @@ const gallerySchema = new Schema({
         required: true
     }
 }, { timestamps: true });
+
+gallerySchema.plugin(mongooseAggregatePaginate);
 
 export const Gallery = model("Gallery", gallerySchema);
