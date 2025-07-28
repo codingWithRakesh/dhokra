@@ -88,7 +88,7 @@ const GalleryUpload = () => {
                   setImages([]);
                   setPreviewImages([]);
                 }}
-                className="flex items-center px-4 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition-colors"
+                className="flex items-center font-semibold px-4 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition-colors"
               >
                 <FiX className="mr-2" />
                 Clear All

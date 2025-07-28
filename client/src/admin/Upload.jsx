@@ -11,15 +11,15 @@ const Upload = () => {
   const [description, setDescription] = useState('');
   
   // Size specifications
-  const [height, setHeight] = useState('15');
-  const [width, setWidth] = useState('8');
-  const [length, setLength] = useState('10');
+  const [height, setHeight] = useState('');
+  const [width, setWidth] = useState('');
+  const [length, setLength] = useState('');
   
   // Other specifications
   const [color, setColor] = useState('Golden');
   const [material, setMaterial] = useState('Kansa');
   const [utility, setUtility] = useState('Home Decor');
-  const [weight, setWeight] = useState('259 gm');
+  const [weight, setWeight] = useState('');
   
   // Image handling
   const [images, setImages] = useState([]);
@@ -96,13 +96,13 @@ const Upload = () => {
     setPrice('');
     setFixedPrice('');
     setDescription('');
-    setHeight('15');
-    setWidth('8');
-    setLength('10');
+    setHeight('');
+    setWidth('');
+    setLength('');
     setColor('Golden');
     setMaterial('Kansa');
     setUtility('Home Decor');
-    setWeight('259 gm');
+    setWeight('');
     setImages([]);
     setMainImageIndex(0);
   };
@@ -249,33 +249,33 @@ const Upload = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Dimensions (in inches)</label>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1">Height</label>
+                    <label className="block text-xs text-gray-500 mb-1">Height*</label>
                     <input
-                      type="text"
+                      type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                      placeholder="Height"
+                      placeholder="Height" required
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1">Width</label>
+                    <label className="block text-xs text-gray-500 mb-1">Width*</label>
                     <input
-                      type="text"
+                      type="number"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                      placeholder="Width"
+                      placeholder="Width" required
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1">Length</label>
+                    <label className="block text-xs text-gray-500 mb-1">Length*</label>
                     <input
-                      type="text"
+                      type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                      placeholder="Length"
+                      placeholder="Length" required
                     />
                   </div>
                 </div>
@@ -305,12 +305,13 @@ const Upload = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Weight</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Weight*</label>
                 <input
-                  type="text"
+                  type="number"
                   value={weight}
+                  placeholder='Weight in grams'
                   onChange={(e) => setWeight(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required
                 />
               </div>
             </div>
@@ -318,14 +319,13 @@ const Upload = () => {
           
           {/* Product Description */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Product Description*</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Product Description</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={5}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="Enter detailed product description"
-              required
             />
           </div>
           
