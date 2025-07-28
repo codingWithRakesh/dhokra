@@ -286,7 +286,7 @@ const Home = () => {
                         
                             <Link
                             to={`/product/${product.category}/${product.id}`}
-                            className="w-full md:w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium text-sm md:text-lg py-2 px-0 md:px-4 rounded-lg flex items-center justify-center transition duration-300"
+                            className="w-full md:w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium text-sm md:text-md py-2 px-0 md:px-4 rounded-lg flex items-center justify-center transition duration-300"
                             aria-label={`View details for ${product.name}`}>
                             View Details
                             </Link>
