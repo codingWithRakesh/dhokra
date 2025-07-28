@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FiBox, FiTrendingUp, FiPackage, FiDatabase } from 'react-icons/fi';
 import { navItems } from '../store/store';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [categories, setCategories] = useState([]);
@@ -134,12 +135,12 @@ const Dashboard = () => {
                     </div>
                   </div>
                   
-                  <a
-                    href={category.path}
+                  <Link
+                    to={category.path}
                     className="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 transition-colors"
                   >
                     View Products
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
