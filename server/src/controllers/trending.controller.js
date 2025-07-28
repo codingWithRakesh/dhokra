@@ -65,40 +65,37 @@ const removeFromTrending = asyncHandler(async (req, res) => {
 
 // Get All Trending Products (with product details)
 const getAllTrendingProducts = asyncHandler(async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
-
-    const options = {
-        page: parseInt(page),
-        limit: parseInt(limit),
-        sort: { createdAt: -1 },
-        populate: {
-            path: 'productId',
-            select: 'name priceFixed priceDiscount images category isAvailable'
+    // Fetch ALL trending products with product details
+    const trendingProducts = await Trending.aggregate([
+        {
+            $lookup: {
+                from: 'products',          // Join with products collection
+                localField: 'productId',   // Match this field
+                foreignField: '_id',       // With product's _id
+                as: 'product'             // Store as 'product'
+            }
+        },
+        { $unwind: '$product' },           // Convert array to object
+        { $sort: { createdAt: -1 } },      // Newest first
+        {
+            $project: {                    // Only return needed fields
+                'product.name': 1,
+                'product.priceFixed': 1,
+                'product.priceDiscount': 1,
+                'product.images': 1,
+                'product.category': 1,
+                'product.isAvailable': 1,
+                createdAt: 1
+            }
         }
-    };
-
-    const trendingProducts = await Trending.aggregatePaginate(
-        Trending.aggregate([
-            {
-                $lookup: {
-                    from: 'products',
-                    localField: 'productId',
-                    foreignField: '_id',
-                    as: 'product'
-                }
-            },
-            { $unwind: '$product' },
-            { $sort: { createdAt: -1 } }
-        ]),
-        options
-    );
+    ]);
 
     return res
         .status(200)
         .json(new ApiResponse(
             200,
-            trendingProducts,
-            "Trending products retrieved successfully"
+            trendingProducts,  // Array of ALL trending products with details
+            "All trending products retrieved successfully"
         ));
 });
 

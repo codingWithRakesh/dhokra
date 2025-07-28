@@ -65,25 +65,18 @@ const deleteGalleryImage = asyncHandler(async (req, res) => {
 
 // Get All Gallery Images
 const getAllGalleryImages = asyncHandler(async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
-
-    const options = {
-        page: Math.max(1, parseInt(page)),
-        limit: Math.min(50, Math.max(1, parseInt(limit))),
-        sort: { createdAt: -1 }
-    };
-
-    const galleryImages = await Gallery.aggregatePaginate(
-        Gallery.aggregate([{ $sort: { createdAt: -1 } }]),
-        options
-    );
+    // Fetch ALL gallery images sorted by newest first
+    const galleryImages = await Gallery.find()
+        .sort({ createdAt: -1 })  // Newest first
+        .select('image createdAt') // Only return image URL and timestamp
+        .lean();                  // Convert to plain JS object
 
     return res
         .status(200)
         .json(new ApiResponse(
             200,
-            galleryImages,
-            "Gallery images retrieved successfully"
+            galleryImages,  // Array of all images
+            "All gallery images retrieved successfully"
         ));
 });
 

@@ -184,55 +184,80 @@ const getProductByName = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, product, "Product retrieved successfully"));
 });
 
+// Get Available Product by Name
+const getAvailableProductByName = asyncHandler(async (req, res) => {
+    const { name } = req.params;
+
+    if (!name || name.trim() === "") {
+        throw new ApiError(400, "Product name is required");
+    }
+
+    // Case-insensitive exact match and must be available
+    const product = await Product.findOne({ 
+        name: { $regex: new RegExp(`^${name}$`, 'i') },
+        isAvailable: true
+    });
+
+    if (!product) {
+        throw new ApiError(404, "Product not found or not available");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, product, "Available product retrieved successfully"));
+});
+
 // Get Products by Category
 const getProductsByCategory = asyncHandler(async (req, res) => {
     const { category } = req.params;
-    const { page = 1, limit = 10 } = req.query;
 
+    // Validate category
     if (!isValidCategory(category)) {
         throw new ApiError(400, `Invalid category. Valid categories: ${VALID_CATEGORIES.join(", ")}`);
     }
 
-    const options = {
-        page: Math.max(1, parseInt(page)),
-        limit: Math.min(50, Math.max(1, parseInt(limit))),
-        sort: { createdAt: -1 }
-    };
-
-    // Solution 1: Using aggregatePaginate (if you have mongoose-aggregate-paginate-v2)
-    const products = await Product.aggregatePaginate(
-        Product.aggregate([
-            { $match: { category } },
-            { $sort: { createdAt: -1 } }
-        ]),
-        options
-    );
-
-    // OR Solution 2: Using regular find with pagination
-    // const products = await Product.find({ category })
-    //     .sort({ createdAt: -1 })
-    //     .skip((options.page - 1) * options.limit)
-    //     .limit(options.limit)
-    //     .exec();
-    // 
-    // const count = await Product.countDocuments({ category });
-    // 
-    // const paginatedResponse = {
-    //     docs: products,
-    //     totalDocs: count,
-    //     limit: options.limit,
-    //     page: options.page,
-    //     totalPages: Math.ceil(count / options.limit),
-    //     pagingCounter: (options.page - 1) * options.limit + 1,
-    //     hasPrevPage: options.page > 1,
-    //     hasNextPage: options.page * options.limit < count,
-    //     prevPage: options.page > 1 ? options.page - 1 : null,
-    //     nextPage: options.page * options.limit < count ? options.page + 1 : null
-    // };
+    // Fetch ALL products in this category, newest first
+    const products = await Product.find({ category })
+        .sort({ createdAt: -1 })  // Newest first
+        .select('name priceFixed priceDiscount images category isAvailable createdAt') // Only essential fields
+        .lean();                  // Faster JSON conversion
 
     return res
         .status(200)
-        .json(new ApiResponse(200, products, `Products in category ${category} retrieved successfully`));
+        .json(new ApiResponse(
+            200,
+            products,  // Array of ALL products in this category
+            `All products in ${category} category retrieved successfully`
+        ));
+});
+
+// Get Available Products by Category
+const getAvailableProductsByCategory = asyncHandler(async (req, res) => {
+    const { category } = req.params;
+
+    // Validate category
+    const validCategories = ["gi-bengal-dokra", "pating-finish-on-dokra", "wall-hanging", 
+                           "table-top", "home-decore", "candle-stands"];
+    if (!validCategories.includes(category)) {
+        throw new ApiError(400, `Invalid category. Valid categories: ${validCategories.join(", ")}`);
+    }
+
+    // Fetch ALL available products in this category
+    const products = await Product.find({ 
+        category,
+        isAvailable: true 
+    })
+    .sort({ createdAt: -1 })  // Newest first
+    .select('name priceFixed priceDiscount images category createdAt') // Essential fields
+    .lean();                  // Faster JSON conversion
+
+    return res
+        .status(200)
+        .json(new ApiResponse(
+            200,
+            products,  // Array of ALL available products
+            `All available products in ${category} category retrieved successfully`
+        ));
 });
 
 // Update Product
@@ -449,7 +474,9 @@ export {
     getAllProducts,
     getProductById,
     getProductByName,
+    getAvailableProductByName,
     getProductsByCategory,
+    getAvailableProductsByCategory,
     updateProduct,
     toggleProductAvailability,
     getTotalProductsCount,

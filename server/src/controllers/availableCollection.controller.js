@@ -65,41 +65,39 @@ const removeFromAvailableCollection = asyncHandler(async (req, res) => {
 
 // Get All Available Collection Products (with product details)
 const getAllAvailableCollectionProducts = asyncHandler(async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
-
-    const options = {
-        page: parseInt(page),
-        limit: parseInt(limit),
-        sort: { createdAt: -1 },
-        populate: {
-            path: 'productId',
-            select: 'name priceFixed priceDiscount images category isAvailable'
+    // 1. Fetch ALL records and populate product details
+    const collections = await AvailableCollection.aggregate([
+        {
+            $lookup: {
+                from: 'products',           // Join with Products
+                localField: 'productId',    // Match this field...
+                foreignField: '_id',        // ...with Product's _id
+                as: 'product'               // Store joined data here
+            }
+        },
+        { $unwind: '$product' },        // Convert array to object
+        { $sort: { createdAt: -1 } },   // Newest first
+        {
+            $project: {                   // Only return needed fields
+                'product.name': 1,
+                'product.priceFixed': 1,
+                'product.priceDiscount': 1,
+                'product.images': 1,
+                'product.category': 1,
+                'product.isAvailable': 1,
+                createdAt: 1
+            }
         }
-    };
+    ]);
 
-    const collectionProducts = await AvailableCollection.aggregatePaginate(
-        AvailableCollection.aggregate([
-            {
-                $lookup: {
-                    from: 'products',
-                    localField: 'productId',
-                    foreignField: '_id',
-                    as: 'product'
-                }
-            },
-            { $unwind: '$product' },
-            { $sort: { createdAt: -1 } }
-        ]),
-        options
-    );
-
-    return res
-        .status(200)
-        .json(new ApiResponse(
+    // 2. Send complete list
+    return res.status(200).json(
+        new ApiResponse(
             200,
-            collectionProducts,
-            "Available collection products retrieved successfully"
-        ));
+            collections, // ALL records (no pagination)
+            "All available collection products fetched successfully"
+        )
+    );
 });
 
 // Get Available Collection Count

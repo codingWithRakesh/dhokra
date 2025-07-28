@@ -4,7 +4,9 @@ import {
     getAllProducts,
     getProductById,
     getProductByName,
+    getAvailableProductByName,
     getProductsByCategory,
+    getAvailableProductsByCategory,
     updateProduct,
     toggleProductAvailability,
     getTotalProductsCount,
@@ -21,7 +23,9 @@ router.route("/create").post(verifyLogin, upload.array("images"), createProduct)
 router.route("/getAllProducts").get(getAllProducts);
 router.route("/getProductById/:id").get(getProductById);
 router.route("/getProductByName/:name").get(getProductByName);
+router.route("/getAvailableProductByName/:name").get(getAvailableProductByName);
 router.route("/getProductsByCategory/:category").get(getProductsByCategory);
+router.route("/getAvailableProductsByCategory/:category").get(getAvailableProductsByCategory);
 router.route("/update/:id").put(verifyLogin, upload.array("images"), updateProduct);
 router.route("/toggleAvailability/:id").put(verifyLogin, toggleProductAvailability);
 router.route("/getTotalProductsCount").get(getTotalProductsCount);
