@@ -13,13 +13,13 @@ const FeaturedCollectionSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header - More Compact */}
         <div className="text-left mb-6">
-          <span className="inline-block text-emerald-700 text-xs md:text-lg uppercase tracking-widest mb-1 font-mono">
+          <span className="inline-block text-emerald-700 text-md md:text-lg uppercase tracking-widest mb-1 font-mono">
             Our Available
           </span>
-          <h2 className="text-2xl md:text-5xl font-bold text-gray-900 mb-1">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-1">
             <span className="text-emerald-600">Dhokra</span> Collection
           </h2>
-          <p className="text-gray-600 text-sm md:text-lg">
+          <p className="text-gray-600 text-md md:text-lg">
             Handcrafted Bengal Dokra metal art pieces ready for immediate purchase
           </p>
         </div>
@@ -36,7 +36,7 @@ const FeaturedCollectionSection = () => {
                 group-hover:shadow-md group-hover:-translate-y-1`}
               >
                 {/* Product Image */}
-                <div className={`relative overflow-hidden ${index === 0 ? 'h-[70%] md:h-[75%]' : 'h-[65%]'} w-full`}>
+                <div className={`relative bg-blue-100/30 overflow-hidden ${index === 0 ? 'h-[70%] md:h-[75%]' : 'h-[65%]'} w-full`}>
                   <img
                     src={product.image}
                     alt={product.name}
