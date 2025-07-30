@@ -5,6 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { ChevronRight } from 'lucide-react';
 import { slides } from "../store/store";
 import SideDetails from '../components/SideDetails';
+import { motion, AnimatePresence } from 'framer-motion';
 import Slide from '../component/Slide';
 import SocialCommunity from '../components/Social';
 import dhokraImage1 from '../assets/image/cos1.jpg'; 
@@ -33,6 +34,16 @@ const Home = () => {
   }, [currentSlide, isAutoPlaying]);
 
 
+  const [showPopups, setShowPopups] = useState(false);
+
+  useEffect(() => {
+    // Trigger popups after component mounts
+    const timer = setTimeout(() => {
+      setShowPopups(true);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen max-w-7xl mx-auto flex flex-col">
@@ -106,14 +117,14 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
-                        <div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
-                            Explore Our Collections
-                            </h2>
-                            <p className="text-lg text-gray-600 max-w-2xl">
-                            Discover authentic Dhokra craftsmanship across various categories
-                            </p>
-                        </div>
+                    <div>
+                        <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
+                        Explore Our Collections
+                        </h2>
+                        <p className="text-lg text-gray-600 max-w-2xl">
+                        Discover authentic Dhokra craftsmanship across various categories
+                        </p>
+                    </div>
                     </div>
 
                     {/* Categories Grid */}
@@ -121,7 +132,7 @@ const Home = () => {
                     {Store.categories.map((category, index) => (
                         <div 
                         key={index} 
-                        className="relative group overflow-hidden rounded shadow-md hover:shadow-lg transition-all duration-300 "
+                        className="relative group overflow-hidden rounded shadow-md hover:shadow-lg transition-all duration-300"
                         >
                         {/* Image Container */}
                         <div className="relative aspect-[4/3] overflow-hidden">
@@ -134,26 +145,41 @@ const Home = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/15 to-transparent" />
                         </div>
 
-                        {/* Category Info */}
-                        <div className="hidden md:block absolute bottom-0 left-0 right-0 p-5">
-                            <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 transform transition-all duration-300 group-hover:bg-white group-hover:shadow-sm">
-                            <div className="flex justify-between items-center">
-                            <div className="flex justify-between items-center">
-                                <h3 className="text-sm md:text-base font-bold text-emerald-800">
-                                {category.name}
-                                </h3>
-                            </div>
-                            <Link
-                                to={category.link}
-                                className="mt-0 inline-flex items-center text-md font-medium text-emerald-600 hover:text-emerald-800 transition-colors text-sm md:text-base"
+                        {/* Pop-up Effect (Desktop) */}
+                        <AnimatePresence>
+                            {showPopups && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ 
+                                duration: 0.5,
+                                delay: index * 0.15,
+                                type: "spring",
+                                stiffness: 100
+                                }}
+                                className="hidden md:block absolute bottom-0 left-0 right-0 p-5 pointer-events-none"
                             >
-                                Shop now <ChevronRight className="w-4 h-4 ml-1" />
-                            </Link>
-                            </div></div>
-                        </div>
+                                <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 transform transition-all duration-300 group-hover:bg-white group-hover:shadow-sm">
+                                <div className="flex justify-between items-center">
+                                    <h3 className="text-sm md:text-base font-bold text-emerald-800">
+                                    {category.name}
+                                    </h3>
+                                    <Link
+                                    to={category.link}
+                                    className="mt-0 inline-flex items-center text-md font-medium text-emerald-600 hover:text-emerald-800 transition-colors text-sm md:text-base pointer-events-auto"
+                                    >
+                                    Shop now <ChevronRight className="w-4 h-4 ml-1" />
+                                    </Link>
+                                </div>
+                                </div>
+                            </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Mobile Info (always visible) */}
                         <div className="md:hidden">
                             <h3 className="font-bold text-emerald-800 p-2">
-                                {category.name}
+                            {category.name}
                             </h3>
                         </div>
 
@@ -168,6 +194,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
 
             <section className="py-4 sm:px-6 lg:px-0">
                 <div className="w-full mx-auto">
