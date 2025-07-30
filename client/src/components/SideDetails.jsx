@@ -1,13 +1,9 @@
 import React from 'react';
 import { 
   Gem, 
-  ShieldCheck, 
-  Truck, 
-  RefreshCw, 
   Award, 
   Palette, 
   Wallet,
-  Package 
 } from 'lucide-react';
 
 const SideDetails = () => {

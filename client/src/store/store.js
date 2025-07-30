@@ -90,14 +90,28 @@ export const featuredProducts = [
     price: '5208',
     image: dhokraImage3,
   },
+  {
+    id: 4,
+    name: 'Tribal Dhokra Wall Art',
+    maxprice: '2,499',
+    price: '1,799',
+    image: dhokraImage2,
+  },
+  {
+    id: 5,
+    name: 'Premium Dhokra Jewelry Set',
+    maxprice: '2,499',
+    price: '5208',
+    image: dhokraImage3,
+  },
 ];
 
 export const trendingProducts = [
   {
     id: 1,
-    name: 'Dhokra Elephant Statue',
-    maxprice: '₹2,499',
-    price: '₹1,899',
+    name: 'Dhokra Elephant Statue hihluhjoh ulhrjlhkjl hkjlerhkjlgr hlg hl',
+    maxprice: '2,499',
+    price: '1,899',
     rating: 4.8,
     image: dhokraImage1,
     link: '/product/dhokra-elephant'
@@ -105,8 +119,8 @@ export const trendingProducts = [
   {
     id: 2,
     name: 'Tribal Wall Hanging',
-    maxprice: '₹1,799',
-    price: '₹1,599',
+    maxprice: '1,799',
+    price: '1,599',
     rating: 4.5,
     image: dhokraImage2,
     link: '/product/tribal-wall-hanging'
@@ -114,11 +128,20 @@ export const trendingProducts = [
   {
     id: 3,
     name: 'Dhokra Candle Stand',
-    maxprice: '₹1,299',
-    price: '₹1,799',
+    maxprice: '1,299',
+    price: '1,799',
     rating: 4.7,
     image: dhokraImage3,
     link: '/product/candle-stand'
+  },
+  {
+    id: 4,
+    name: 'Dhokra Elephant Statue',
+    maxprice: '2,499',
+    price: '1,899',
+    rating: 4.8,
+    image: dhokraImage1,
+    link: '/product/dhokra-elephant'
   },
 ];
 

@@ -3,7 +3,7 @@ import { Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
 
 const SocialCommunity = () => {
   return (
-    <section className="py-12 px-4 sm:px-6 lg:py-4">
+    <section className="py-6">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-6">
           Join the Unick Dhokra Community

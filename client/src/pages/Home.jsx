@@ -2,18 +2,16 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Store  from '../store/store';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-import { Clock } from 'lucide-react';
-import { ArrowRight, CheckCircle, ShoppingBag } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
-import { slides } from "../store/store"; // Adjust the path as per your folder structure
-import { trendingProducts } from '../store/store';
-import { featuredProducts } from '../store/store';
-import SideDetails from '../component/SideDetails';
+import { slides } from "../store/store";
+import SideDetails from '../components/SideDetails';
 import Slide from '../component/Slide';
-import SocialCommunity from '../component/Social';
+import SocialCommunity from '../components/Social';
 import dhokraImage1 from '../assets/image/cos1.jpg'; 
 import dhokraImage2 from '../assets/image/cos2.jpg';
 import dhokraImage3 from '../assets/image/cos3.jpg';
+import TrendingDhokraSection from '../components/TrendingDhokraSection';
+import FeaturedCollectionSection from "../components/AvailableCollectionPage";
 
 const Home = () => {
 
@@ -235,150 +233,25 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-4 sm:px-6 lg:px-0">
-                <div className="w-full mx-auto">
-                    {/* Section Header */}
-                    <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-                    <div className="text-center md:text-left mb-6 md:mb-0">
-                        <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-2">
-                        Trending Dhokra Products
-                        </h2>
-                        <p className="text-lg text-emerald-600">
-                        Most loved by our customers this season
-                        </p>
-                    </div>
-                    <Link 
-                        to="/trending" 
-                        className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-800 text-white font-medium px-6 py-3 rounded-lg transition duration-300"
-                    >
-                        View All
-                        <ArrowRight className="w-5 h-5" />
-                    </Link>
-                    </div>
-
-                    {/* Products Grid */}
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
-                    {trendingProducts.map((product) => (
-                        <div key={product.id} className="group relative bg-white rounded shadow-md hover:shadow-xl overflow-hidden transition-shadow duration-300">
-                        {/* Product Image */}
-                        <div className="aspect-square overflow-hidden md:h-64 w-full bg-gray-100">
-                            <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                            />
-                        </div>
-                        <div className="md:p-2">
-                        <div className="p-3">
-                            <h3 className="text-lg font-semibold text-gray-800">
-                                {product.name}
-                            </h3>
-                        </div>
-                        {/* Product Info */}
-                        <div className="p-3 flex flex-col md:flex-row gap-4 justify-between">
-                            <div className="flex items-center gap-2">
-                                <span className="text-emerald-600 font-bold" style={{ textDecoration: 'line-through' }}>
-                                    {product.maxprice}
-                                </span>
-                                <span className="text-yellow-500 font-bold">
-                                    {product.price}
-                                </span>
-                            </div>
-                        
-                            <Link
-                            to={`/product/${product.category}/${product.id}`}
-                            className="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white font-medium text-sm md:text-md py-2 px-0 md:px-4 md:py-3 rounded-lg flex items-center justify-center transition duration-300"
-                            aria-label={`View details for ${product.name}`}>
-                            View Details
-                            </Link>
-                        </div>
-                        </div>
-
-                        {/* Popular Badge */}
-                        <div className="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                            Trending
-                        </div>
-                        </div>
-                    ))}
-                    </div>
-                </div>
-            </section>
+           <section className="py-4 sm:px-6 lg:px-0">
+             <TrendingDhokraSection />
+           </section>
 
             <section className="py-4 sm:px-6 lg:px-0">
                 <SideDetails />
             </section>
 
-            <section>
+            <section className="p-0">
                 <Slide />
             </section>
 
-            <section className="py-4 sm:px-6 lg:px-0">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-4">
-                            Our Available Collection
-                        </h2>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            Handcrafted Bengal Dokra metal art pieces ready for immediate purchase
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {featuredProducts.map((product) => (
-                            <div key={product.id} className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
-                                <div className="aspect-square overflow-hidden relative bg-gray-100">
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                                    />
-                                    {/* Stock availability badge */}
-                                    <div className="absolute top-4 right-4">
-                                        <span className="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
-                                            <CheckCircle className="w-4 h-4" />
-                                            In Stock
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                                <div className="p-6">
-                                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{product.name}</h3>
-                                    <div className="flex justify-between items-center mt-4">
-                                        <div className="flex items-center gap-2 text-lg">
-                                            <span className="text-emerald-600 font-bold" style={{ textDecoration: 'line-through' }}>
-                                                {product.maxprice}
-                                            </span>
-                                            <span className="text-yellow-500 font-bold">
-                                                {product.price}
-                                            </span>
-                                        </div>
-                                        <Link to={`/product/${product.category}/${product.id}`}>
-                                            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-md text-md font-medium transition-colors duration-300">
-                                                view details
-                                            </button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="text-center mt-10">
-                        <Link
-                            to="/product/available-collection"
-                            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-md"
-                        >
-                            <ShoppingBag className="w-5 h-5" />
-                            View All Products
-                        </Link>
-                    </div>
-                </div>
+            <section className="p-0">
+                <FeaturedCollectionSection />
             </section>
 
             <section className="p-0">
                 <SocialCommunity />
             </section>
-
         </main>
     </div>
   );
