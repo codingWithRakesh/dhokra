@@ -41,10 +41,10 @@ const ProductList = () => {
 
   useEffect(() => {
     if (activeTab === 'trending') {
-      // Extract products from trending items
+      // For trending items, use the nested product object
       setDisplayedProducts(allTrending.map(item => item.product || item));
     } else if (activeTab === 'available-collection') {
-      // Extract products from collection items
+      // For available collection items, use the nested product object
       setDisplayedProducts(allAvailableCollection.map(item => item.product || item));
     } else if (category) {
       setDisplayedProducts(availableProductByCategory);
@@ -131,7 +131,10 @@ const ProductList = () => {
                     {/* Hover Actions */}
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-300 flex items-center justify-center space-x-4 opacity-0 hover:opacity-100">
                       <button 
-                        onClick={() => toggleFavorite(product._id)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleFavorite(product._id);
+                        }}
                         className={`p-2 rounded-full shadow-md transition-colors duration-200 ${favorites.includes(product._id) ? 'bg-red-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
                       >
                         <FiHeart />

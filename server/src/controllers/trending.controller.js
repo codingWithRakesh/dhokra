@@ -78,7 +78,8 @@ const getAllTrendingProducts = asyncHandler(async (req, res) => {
         { $unwind: '$product' },           // Convert array to object
         { $sort: { createdAt: -1 } },      // Newest first
         {
-            $project: {                    // Only return needed fields
+            $project: {
+                'product._id': 1,
                 'product.name': 1,
                 'product.priceFixed': 1,
                 'product.priceDiscount': 1,
