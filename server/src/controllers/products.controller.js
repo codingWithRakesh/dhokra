@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 const MAX_IMAGES_PER_PRODUCT = 5;
 const VALID_CATEGORIES = [
     "gi-bengal-dokra", 
-    "pating-finish-on-dokra", 
+    "patina-finish-on-dokra", 
     "wall-hanging", 
     "table-top", 
     "home-decore", 
@@ -236,7 +236,7 @@ const getAvailableProductsByCategory = asyncHandler(async (req, res) => {
     const { category } = req.params;
 
     // Validate category
-    const validCategories = ["gi-bengal-dokra", "pating-finish-on-dokra", "wall-hanging", 
+    const validCategories = ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", 
                            "table-top", "home-decore", "candle-stands"];
     if (!validCategories.includes(category)) {
         throw new ApiError(400, `Invalid category. Valid categories: ${validCategories.join(", ")}`);
@@ -377,7 +377,7 @@ const getProductCountByCategory = asyncHandler(async (req, res) => {
     const { category } = req.params;
 
     // Validate category against enum values
-    const validCategories = ["gi-bengal-dokra", "pating-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands"];
+    const validCategories = ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands"];
     
     if (!validCategories.includes(category)) {
         throw new ApiError(400, `Invalid category. Valid categories are: ${validCategories.join(", ")}`);

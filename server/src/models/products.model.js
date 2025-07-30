@@ -29,10 +29,13 @@ const productSchema = new Schema({
     utility : {
         type: String,
     },
+    weight : {
+        type: String,
+    },
     category: {
         type : String,
         required: true,
-        enum: ["gi-bengal-dokra", "pating-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands"]
+        enum: ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands"]
     },
     isAvailable: {
         type: Boolean,

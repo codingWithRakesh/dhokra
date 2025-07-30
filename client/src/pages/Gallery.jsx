@@ -1,30 +1,13 @@
 import { useState, useEffect } from 'react';
-
-const sampleImages = [
-  { id: 1, src: 'https://utkalikaodisha.com/wp-content/uploads/2024/07/11.jpg' },
-  { id: 2, src: 'https://i.pinimg.com/474x/95/cf/d2/95cfd277c9cbd3a21b42be7b70a43960.jpg' },
-  { id: 3, src: 'https://www.shopkhoj.com/wp-content/uploads/2019/01/dokra-t.jpg' },
-  { id: 4, src: 'https://www.sowpeace.in/cdn/shop/files/dhokra-peacock-artisan-brass-tabletop-elegancedhokrasowpeacedok-dpek-br-tt-353618.jpg?v=1741833133' },
-  { id: 5, src: 'https://trovecraftindia.com/cdn/shop/files/Set_of_5_dhokra.jpg?v=1743060398' },
-  { id: 6, src: 'https://m.media-amazon.com/images/I/61jq4Vl12PL.jpg' },
-  { id: 7, src: 'https://www.memeraki.com/cdn/shop/files/Man-with-a-bowl-Dhokra-by-Kunal-Rana-1_800x.png?v=1726052531' },
-  { id: 8, src: 'https://utkalikaodisha.com/wp-content/uploads/2024/07/2.jpg' },
-  { id: 9, src: 'https://okhai.org/cdn/shop/products/BH01T1.jpg?v=1735218847' },
-  { id: 10, src: 'https://shop.gaatha.com/image/catalog/Baldev-(-MPT-)/02_08_2023/Dhokra-Art-%E2%9C%BA-Handmade-Brass-Dhokra-Hiran-Deer-Set-of-Two.jpg' },
-  // Add up to 15 images
-];
+import gallaryStore from "../store/gallaryStore.js";
 
 const Gallery = () => {
-  const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const { allGalleryImages, setAllGalleryImages, isLoading, error, message } = gallaryStore();
 
   useEffect(() => {
-    // Generate random dimensions for first 15 images
-    const imagesWithRandomSizes = sampleImages.slice(0, 15).map(img => ({
-      ...img,
-      height: Math.floor(Math.random() * 300) + 200, // Random height between 200-500px
-    }));
-    setImages(imagesWithRandomSizes);
+    // Fetch all gallery images when component mounts
+    setAllGalleryImages();
   }, []);
 
   const openLightbox = (img) => {
@@ -35,28 +18,43 @@ const Gallery = () => {
     setSelectedImage(null);
   };
 
+  // Fallback to sample images if API data is empty (for development)
+  const displayImages = allGalleryImages.length > 0 
+    ? allGalleryImages 
+    : [
+        { _id: 1, image: 'https://utkalikaodisha.com/wp-content/uploads/2024/07/11.jpg' },
+        // ... other sample images (convert to match your API structure)
+      ];
+
   return (
     <div className="min-h-full p-4 py-4 md:px-8 xl:px-0">
       <div className="max-w-7xl mx-auto">
-
         <h1 className="text-3xl font-bold text-emerald-800 mb-2">Image Gallery</h1>
-        <p className="text-gray-600 mb-8">A collection of images with random dimensions</p>
+        <p className="text-gray-600 mb-8">A collection of images from our gallery</p>
+
+        {isLoading && <p className="text-center py-8">Loading images...</p>}
+        {error && <p className="text-red-500 text-center py-4">{error}</p>}
+        {message && <p className="text-green-500 text-center py-4">{message}</p>}
 
         {/* Masonry grid */}
         <div className="columns-2 md:columns-2 xl:columns-3 gap-4 space-y-4">
-          {images.map((img) => (
+          {displayImages.map((img) => (
             <img
-              key={img.id}
-              src={img.src}
-              alt={img.alt || ""}
+              key={img._id}
+              src={img.image}  // Use img.image instead of img.src
+              alt="Gallery item"
               className="w-full h-auto mb-4 rounded-lg break-inside-avoid cursor-pointer hover:brightness-95 transition-all"
               onClick={() => openLightbox(img)}
               loading="lazy"
+              style={{
+                height: `${Math.floor(Math.random() * 300) + 200}px`,
+                objectFit: 'cover'
+              }}
             />
           ))}
         </div>
 
-        {/* Lightbox - simplified */}
+        {/* Lightbox */}
         {selectedImage && (
           <div 
             className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
@@ -69,7 +67,7 @@ const Gallery = () => {
               &times;
             </button>
             <img
-              src={selectedImage.src}
+              src={selectedImage.image}  // Use selectedImage.image
               alt=""
               className="max-h-[90vh] max-w-[90vw] object-contain"
             />
