@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import userStore from "../store/userStore.js"
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -8,27 +9,31 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetchAuth();
+
+  }, [])
+
+
+  const {fetchAuth, loginUser, logoutUser} = userStore();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    const credentials = { email, password };
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Validate credentials (in a real app, this would be an API call)
-      if (email === 'sujoycode999@gmail.com' && password === 'admin123') {
-        navigate('/dashboard');
-      } else {
-        setError('Invalid email or password');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
+      await loginUser(credentials);
+      navigate('/dashboard');
+    } catch (error) {
+      setError('Invalid email or password');
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-emerald-300 py-12 px-4 sm:px-6 lg:px-8">

@@ -14,7 +14,7 @@ const ProtectRoute = ({children}) => {
 const AuthenticatedUserRoute = ({children}) => {
     const {user,isAuthenticated} = userStore();
     if(user && isAuthenticated){
-        return <Navigate to="/dashboard" replace />;
+        return <Navigate to="/dashboard" replace />
     }
 
     return children

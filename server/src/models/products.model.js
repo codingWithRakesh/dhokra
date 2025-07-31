@@ -39,7 +39,7 @@ const productSchema = new Schema({
     },
     isAvailable: {
         type: Boolean,
-        default: false
+        default: true
     },
     images: [{
         type: String,

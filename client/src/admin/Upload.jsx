@@ -1,8 +1,20 @@
 import { useState, useRef } from 'react';
 import { FiUpload, FiX, FiPlus } from 'react-icons/fi';
-import { navItems } from '../store/store';
+import productStore from "../store/productStore.js";
+
+// Valid categories matching server model
+const VALID_CATEGORIES = [
+  "gi-bengal-dokra", 
+  "patina-finish-on-dokra", 
+  "wall-hanging", 
+  "table-top", 
+  "home-decore", 
+  "candle-stands"
+];
 
 const Upload = () => {
+  const { addProduct } = productStore();
+  
   // Form states
   const [selectedCategory, setSelectedCategory] = useState("");
   const [title, setTitle] = useState('');
@@ -24,6 +36,7 @@ const Upload = () => {
   // Image handling
   const [images, setImages] = useState([]);
   const [mainImageIndex, setMainImageIndex] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleImageUpload = (e) => {
@@ -53,58 +66,77 @@ const Upload = () => {
     setMainImageIndex(index);
   };
 
-  const handleSubmit = (e) => {
+  const formatCategoryName = (category) => {
+    return category.split('-').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
     if (images.length === 0) {
       alert('Please upload at least one image');
+      setIsSubmitting(false);
       return;
     }
     
     if (!selectedCategory) {
       alert('Please select a category');
+      setIsSubmitting(false);
       return;
     }
     
-    // Combine size components
-    const size = `H-${height} * W-${width} * L-${length} inch`;
-    
-    // Prepare data for submission
-    const productData = {
-      category: selectedCategory,
-      title,
-      price,
-      fixedPrice,
-      description,
-      specifications: {
-        color,
-        size,
-        material,
-        utility,
-        weight
-      },
-      images: images.map(img => img.file),
-      mainImageIndex
-    };
-    
-    console.log('Submitting product:', productData);
-    alert('Product submitted successfully!');
-    
-    // Reset form after submission
-    setSelectedCategory('');
-    setTitle('');
-    setPrice('');
-    setFixedPrice('');
-    setDescription('');
-    setHeight('');
-    setWidth('');
-    setLength('');
-    setColor('Golden');
-    setMaterial('Kansa');
-    setUtility('Home Decor');
-    setWeight('');
-    setImages([]);
-    setMainImageIndex(0);
+    try {
+      const formData = new FormData();
+      
+      // Append product data
+      formData.append('name', title);
+      formData.append('priceFixed', fixedPrice || price);
+      formData.append('priceDiscount', price);
+      formData.append('description', description);
+      formData.append('color', color);
+      formData.append('material', material);
+      formData.append('utility', utility);
+      formData.append('category', selectedCategory);
+      formData.append('weight', weight);
+      
+      // Append size
+      const size = `H-${height} * W-${width} * L-${length} inch`;
+      formData.append('size', size);
+      
+      // Append images
+      images.forEach((image) => {
+        formData.append('images', image.file);
+      });
+      
+      // Call the store action
+      await addProduct(formData);
+      
+      // Reset form
+      setSelectedCategory('');
+      setTitle('');
+      setPrice('');
+      setFixedPrice('');
+      setDescription('');
+      setHeight('');
+      setWidth('');
+      setLength('');
+      setColor('Golden');
+      setMaterial('Kansa');
+      setUtility('Home Decor');
+      setWeight('');
+      setImages([]);
+      setMainImageIndex(0);
+      
+      alert('Product added successfully!');
+    } catch (error) {
+      console.error('Error adding product:', error);
+      alert(`Error: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -113,7 +145,7 @@ const Upload = () => {
         <h1 className="text-3xl font-bold text-emerald-800 mb-6">Add New Product</h1>
         
         <form onSubmit={handleSubmit}>
-          {/* Category Selection - updated for object structure */}
+          {/* Category Selection */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">Category*</label>
             <select
@@ -123,9 +155,9 @@ const Upload = () => {
               required
             >
               <option value="">Select a category</option>
-              {navItems.map((item, index) => (
-                <option key={index} value={item.name} className="text-gray-700 border-2 font-semibold">
-                  {item.name}
+              {VALID_CATEGORIES.map((category, index) => (
+                <option key={index} value={category} className="text-gray-700 border-2 font-semibold">
+                  {formatCategoryName(category)}
                 </option>
               ))}
             </select>
@@ -333,10 +365,10 @@ const Upload = () => {
           <div className="flex justify-end">
             <button
               type="submit"
-              disabled={images.length === 0 || !selectedCategory}
-              className={`px-4 py-2 rounded-md text-white ${images.length === 0 || !selectedCategory ? 'bg-gray-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500`}
+              disabled={images.length === 0 || !selectedCategory || isSubmitting}
+              className={`px-4 py-2 rounded-md text-white ${images.length === 0 || !selectedCategory || isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500`}
             >
-              Add Product
+              {isSubmitting ? 'Adding...' : 'Add Product'}
             </button>
           </div>
         </form>

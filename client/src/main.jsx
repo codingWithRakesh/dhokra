@@ -19,6 +19,7 @@ import TrendingList from './admin/TrendingList.jsx';
 import EditProductPage from './admin/EditProductPage.jsx';
 import Gallery from './pages/Gallery.jsx';
 import GalleryUpload from './admin/GalleryUpload.jsx';
+import { ProtectRoute, AuthenticatedUserRoute } from "./utils/userAuthenticated.jsx"
 
 const router = createBrowserRouter([
   {
@@ -41,19 +42,69 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Login />,
+    element: (
+      <AuthenticatedUserRoute>
+        <Login />
+      </AuthenticatedUserRoute>
+    ),
   },
   {
     path: "/dashboard",
-    element: <Layout3 />,
+    element: (
+      <ProtectRoute>
+        <Layout3 />
+      </ProtectRoute>
+    ),
     children: [
-      { index: true, element: <Dashboard /> },
-      { path: "upload", element: <Upload /> },
-      { path: "all-products", element: <ShowProduct /> },
-      { path: "trending", element: <TrendingList /> },
-      { path: "stock-products", element: <StockProductList /> },
-      { path: "edit-product/:id", element: <EditProductPage /> },
-      { path: "upload-gallery", element: <GalleryUpload /> },
+      {
+        index: true, element: (
+          <ProtectRoute>
+            <Dashboard />
+          </ProtectRoute>
+        )
+      },
+      {
+        path: "upload", element: (
+          <ProtectRoute>
+            <Upload />
+          </ProtectRoute>
+        )
+      },
+      {
+        path: "all-products", element: (
+          <ProtectRoute>
+            <ShowProduct />
+          </ProtectRoute>
+        )
+      },
+      {
+        path: "trending", element: (
+          <ProtectRoute>
+            <TrendingList />
+          </ProtectRoute>
+        )
+      },
+      {
+        path: "stock-products", element: (
+          <ProtectRoute>
+            <StockProductList />
+          </ProtectRoute>
+        )
+      },
+      {
+        path: "edit-product/:id", element: (
+          <ProtectRoute>
+            <EditProductPage />
+          </ProtectRoute>
+        )
+      },
+      {
+        path: "upload-gallery", element: (
+          <ProtectRoute>
+            <GalleryUpload />
+          </ProtectRoute>
+        )
+      },
     ],
   },
 ]);

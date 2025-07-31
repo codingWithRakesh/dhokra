@@ -29,29 +29,6 @@ const userStore = create((set) => ({
             throw error;
         }
     },
-    registerUser : async () => {
-        set({ isLoading: true, error: null });
-        try {
-            const response = await axios.get(
-                `${import.meta.env.VITE_BACKEND_URL}/user/register`,
-                {
-                    withCredentials: true,
-                }
-            );
-
-            if (response.status === 200) {
-                // set({ isLoading: false, user: data.data.user, isAuthenticated: true });
-                // console.log("from store", response.data.data);
-                // handleSuccess(response.data.message);
-            } else {
-                set({ user: null, isAuthenticated: false });
-            }
-        } catch (error) {
-            set({ user: null, isAuthenticated: false });
-            // handleError(error.response?.data?.message || error.message);
-            throw error;
-        }
-    },
     loginUser: async (credentials) => {
         set({ isLoading: true, error: null });
         try {
