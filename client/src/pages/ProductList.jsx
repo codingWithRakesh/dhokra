@@ -67,6 +67,10 @@ const ProductList = () => {
     }
   };
 
+  const toTitleCase = (str) =>
+    str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase());
+
+
   // Pagination logic
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -92,15 +96,17 @@ const ProductList = () => {
   }
 
   return (
-    <div className="min-h-screen py-2 px-2 lg:px-0">
+    <div className="min-h-full py-2 px-2 lg:px-0">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-emerald-800">
-            {activeTab === 'trending' ? 'Trending Products' : 
-             activeTab === 'available-collection' ? 'Available Collection' : 
-             category ? `${category.replace(/-/g, ' ')} Products` : 'Our Products'}
+            {activeTab === 'trending' ? 'Trending Products' 
+              : activeTab === 'available-collection' ? 'Available Collection' 
+              : category ? toTitleCase(category.replace(/-/g, ' ') + ' Products') 
+              : 'Our Products'}
           </h1>
+
           {message && <p className="text-green-500 mt-2">{message}</p>}
         </div>
 
@@ -219,7 +225,7 @@ const ProductList = () => {
           </>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500">No products available in this category</p>
+            <p className="text-gray-500 font-semibold italic">No products available in this category</p>
           </div>
         )}
       </div>
