@@ -1,8 +1,26 @@
 import { ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { trendingProducts } from "../store/store";
+import { useEffect } from 'react';
+import trendingStore from "../store/trendingStore.js"
 
 const TrendingDhokraSection = () => {
+  const { allTrending, setAllTrending } = trendingStore();
+
+  // Fetch trending products when component mounts
+  useEffect(() => {
+    setAllTrending();
+  }, [setAllTrending]);
+
+  // Get last 5 trending products and transform the data
+  const lastFiveTrending = allTrending.slice(0, 4).map(item => ({
+    id: item.product._id,
+    name: item.product.name,
+    price: item.product.priceDiscount,
+    maxprice: item.product.priceFixed !== item.product.priceDiscount ? item.product.priceFixed : null,
+    category: item.product.category,
+    image: item.product.images[0] // Use the first image
+  }));
+
   return (
     <section className="py-4">
       <div className="max-w-7xl mx-auto">
@@ -23,9 +41,9 @@ const TrendingDhokraSection = () => {
           </Link>
         </div>
 
-        {/* Products Grid */}
+        {/* Products Grid - Now showing only last 5 */}
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4">
-          {trendingProducts.map((product) => (
+          {lastFiveTrending.map((product) => (
             <div key={product.id} className="group relative rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-emerald-100 cursor-pointer">
               {/* Product Image */}
               <div className="relative aspect-square overflow-hidden bg-emerald-50/30 p-4 md:p-6">
