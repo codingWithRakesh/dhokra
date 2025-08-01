@@ -48,9 +48,9 @@ const GalleryUpload = () => {
     if (files.length === 0) return;
     
     const newImages = files.map(file => ({
-      id: Date.now() + Math.random().toString(36).substr(2, 9),
+      id: `upload-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       file,
-      name: file.name.replace(/ChatGPT Image|\.\.\./g, '').trim(), // Remove unwanted text from filename
+      name: file.name.replace(/ChatGPT Image|\.\.\./g, '').trim(),
       size: file.size,
       isUploading: true
     }));
@@ -66,42 +66,41 @@ const GalleryUpload = () => {
       try {
         await addImageToGallery(formData);
         setLocalMessage("Image added to gallery successfully");
+        
+        // Remove from preview after successful upload
+        setPreviewImages(prev => prev.filter(item => item.id !== img.id));
+        setUploadedFiles(prev => prev.filter(item => item.id !== img.id));
       } catch (err) {
         setLocalError(err.message);
+        // Mark upload as failed
+        setPreviewImages(prev => prev.map(item => 
+          item.id === img.id ? {...item, isUploading: false, uploadError: true} : item
+        ));
       } finally {
         setUploadingIds(prev => prev.filter(id => id !== img.id));
-        setPreviewImages(prev => prev.map(item => 
-          item.id === img.id ? {...item, isUploading: false} : item
-        ));
       }
     });
 
     await Promise.all(uploadPromises);
-    
-    // Refresh gallery images after upload
     await setAllGalleryImages();
-    
-    // Reset file input
     e.target.value = '';
   };
 
   const handleDeleteImage = async (id) => {
-    // Find the image in the preview images
-    const imageToDelete = previewImages.find(img => img.id === id);
-    
-    if (imageToDelete) {
-      // If it's a newly uploaded image (not yet saved to server)
-      setUploadedFiles(prev => prev.filter(img => img.id !== id));
+    // Check if it's an upload in progress
+    if (id.startsWith('upload-')) {
       setPreviewImages(prev => prev.filter(img => img.id !== id));
-    } else {
-      // If it's an existing image from the server
-      try {
-        await deleteImageFromGallery(id);
-        setLocalMessage("Image deleted from gallery successfully");
-        await setAllGalleryImages();
-      } catch (err) {
-        setLocalError(err.message);
-      }
+      setUploadedFiles(prev => prev.filter(img => img.id !== id));
+      return;
+    }
+    
+    // It's an existing gallery image
+    try {
+      await deleteImageFromGallery(id);
+      setLocalMessage("Image deleted from gallery successfully");
+      await setAllGalleryImages();
+    } catch (err) {
+      setLocalError(err.message);
     }
   };
 
@@ -109,10 +108,10 @@ const GalleryUpload = () => {
     fileInputRef.current.click();
   };
 
-  // Combine newly uploaded images with existing gallery images for display
-  const displayImages = [
+  // Combine images for display
+  const allImages = [
     ...previewImages,
-    ...allGalleryImages.filter(galleryImg => 
+    ...(allGalleryImages || []).filter(galleryImg => 
       !previewImages.some(img => img.id === galleryImg._id))
   ];
 
@@ -147,52 +146,78 @@ const GalleryUpload = () => {
         </div>
 
         {/* Gallery Preview */}
-        {displayImages.length > 0 ? (
+        {allImages.length > 0 ? (
           <div className="p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Gallery Images ({displayImages.length})</h2>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              Gallery Images ({allGalleryImages?.length || 0})
+              {previewImages.length > 0 && ` (${previewImages.length} uploading)`}
+            </h2>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {displayImages.map((img) => (
-                <div key={img.id || img._id} className="relative group">
-                  {img.isUploading ? (
-                    <div className="w-full h-40 flex flex-col items-center justify-center bg-gray-100 rounded-lg shadow-sm">
-                      <FiLoader className="animate-spin text-2xl text-gray-400 mb-2" />
-                      <p className="text-xs text-gray-500 text-center px-2 truncate w-full">
-                        {img.name}
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        {(img.size / 1024).toFixed(1)} KB
-                      </p>
-                    </div>
-                  ) : (
-                    <>
-                      {img.image || img.url ? (
-                        <img
-                          src={img.image || img.url}
-                          alt="Gallery"
-                          className="w-full h-40 object-cover rounded-lg shadow-sm"
-                          onError={(e) => {
-                            e.target.src = 'https://via.placeholder.com/150?text=Image+Not+Found';
-                          }}
-                        />
-                      ) : (
-                        <div className="w-full h-40 flex flex-col items-center justify-center bg-gray-100 rounded-lg shadow-sm">
-                          <FiImage className="text-2xl text-gray-400 mb-2" />
-                          <p className="text-xs text-gray-500 text-center px-2 truncate w-full">
-                            {img.name}
-                          </p>
+              {allImages.map((img) => {
+                const isUploading = img.isUploading || uploadingIds.includes(img.id);
+                const uploadFailed = img.uploadError;
+                
+                return (
+                  <div key={img.id || img._id} className="relative group">
+                    {isUploading ? (
+                      <div className="w-full h-40 flex flex-col items-center justify-center bg-gray-100 rounded-lg shadow-sm relative overflow-hidden">
+                        {/* Loading bar */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200">
+                          <div className="h-full bg-blue-500 animate-pulse" style={{ width: '70%' }}></div>
                         </div>
-                      )}
-                      <button
-                        onClick={() => handleDeleteImage(img.id || img._id)}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition-colors"
-                      >
-                        <FiTrash2 className="text-sm" />
-                      </button>
-                    </>
-                  )}
-                </div>
-              ))}
+                        
+                        <FiLoader className="animate-spin text-2xl text-blue-500 mb-2" />
+                        <p className="text-xs font-medium text-gray-700 text-center px-2 truncate w-full">
+                          Uploading {img.name}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {(img.size / 1024).toFixed(1)} KB • In progress...
+                        </p>
+                      </div>
+                    ) : uploadFailed ? (
+                      <div className="w-full h-40 flex flex-col items-center justify-center bg-red-50 rounded-lg shadow-sm">
+                        <FiImage className="text-2xl text-red-400 mb-2" />
+                        <p className="text-xs text-red-500 text-center px-2 truncate w-full">
+                          Upload failed - {img.name}
+                        </p>
+                        <button
+                          onClick={() => handleDeleteImage(img.id)}
+                          className="mt-2 text-xs text-red-500 hover:text-red-700"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        {img.image || img.url ? (
+                          <img
+                            src={img.image || img.url}
+                            alt="Gallery"
+                            className="w-full h-40 object-cover rounded-lg shadow-sm"
+                            onError={(e) => {
+                              e.target.src = 'https://via.placeholder.com/150?text=Image+Not+Found';
+                            }}
+                          />
+                        ) : (
+                          <div className="w-full h-40 flex flex-col items-center justify-center bg-gray-100 rounded-lg shadow-sm">
+                            <FiImage className="text-2xl text-gray-400 mb-2" />
+                            <p className="text-xs text-gray-500 text-center px-2 truncate w-full">
+                              {img.name}
+                            </p>
+                          </div>
+                        )}
+                        <button
+                          onClick={() => handleDeleteImage(img.id || img._id)}
+                          className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition-colors"
+                        >
+                          <FiTrash2 className="text-sm" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             {/* Clear All Button */}
@@ -206,7 +231,7 @@ const GalleryUpload = () => {
                   className="flex items-center font-semibold px-4 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition-colors"
                 >
                   <FiX className="mr-2" />
-                  Clear New Uploads
+                  Clear Uploads
                 </button>
               </div>
             )}
