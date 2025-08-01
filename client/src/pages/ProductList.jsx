@@ -24,6 +24,12 @@ const ProductList = () => {
     isLoading
   } = productStore();
 
+  const truncateTitle = (title, maxLength = 50) => {
+    return title.length > maxLength 
+      ? `${title.substring(0, maxLength)}...` 
+      : title;
+  };
+
   useEffect(() => {
     if (category === 'trending') {
       setAllTrending();
@@ -157,7 +163,7 @@ const ProductList = () => {
                   {/* Product Info */}
                   <div className="p-4 flex flex-col flex-grow">
                     <h3 className="text-lg font-semibold text-emerald-900 mb-2">
-                      {product.name}
+                       {truncateTitle(product.name)}
                     </h3>
                     
                     {/* Price */}
