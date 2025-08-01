@@ -1,8 +1,26 @@
 import { ArrowRight, ShoppingBag, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { featuredProducts } from "../store/store";
+import { useEffect } from 'react';
+import availableCollectionStore from "../store/availableCollectionStore.js"
 
 const FeaturedCollectionSection = () => {
+  const { allAvailableCollection, setAllAvailableCollection } = availableCollectionStore();
+
+  // Fetch available collections when component mounts
+  useEffect(() => {
+    setAllAvailableCollection();
+  }, [setAllAvailableCollection]);
+
+  // Get last 5 products from the collection
+  const lastFiveProducts = allAvailableCollection.slice(0, 5).map(item => ({
+    id: item.product._id,
+    name: item.product.name,
+    price: `₹${item.product.priceDiscount}`,
+    maxprice: item.product.priceFixed !== item.product.priceDiscount ? `₹${item.product.priceFixed}` : null,
+    category: item.product.category,
+    image: item.product.images[0] // Use the first image
+  }));
+
   // Function to limit title length
   const limitTitle = (title, maxLength = 20) => {
     return title.length > maxLength ? `${title.substring(0, maxLength)}...` : title;
@@ -26,9 +44,9 @@ const FeaturedCollectionSection = () => {
 
         {/* 2-Column Grid for Mobile */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
-          {featuredProducts.map((product, index) => (
-            <div 
-              key={product.id} 
+          {lastFiveProducts.map((product, index) => (
+            <div
+              key={product.id}
               className={`relative h-[220px] sm:h-[260px] ${index === 0 ? 'md:col-span-2 md:row-span-2 md:h-[400px]' : ''} group`}
             >
               {/* Compact Product Card */}
@@ -61,7 +79,7 @@ const FeaturedCollectionSection = () => {
                         {product.price}
                       </span>
                     </div>
-                    <Link 
+                    <Link
                       to={`/product/${product.category}/${product.id}`}
                       className="w-6 h-6 md:w-12 md:h-8 flex items-center justify-center rounded-full bg-emerald-600/10 hover:bg-emerald-600/20"
                       aria-label={`View ${product.name}`}
