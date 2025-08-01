@@ -29,9 +29,6 @@ const CategoriesDashboard = ({ name }) => {
     return productCountCategory[name] || 0; // Get count from the productCounts object
   };
 
-  console.log("productCountCategory", productCountCategory);
-  console.log("getCCount", getCount());
-
   // Get the path based on the category name
   const getPath = () => {
     if (name === "Trending") return "/product/trending";
