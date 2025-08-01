@@ -50,7 +50,7 @@ const uploadImagesFromMemory = async (files, existingCount = 0) => {
 
 // Create Product
 const createProduct = asyncHandler(async (req, res) => {
-    const { 
+     const { 
         name, 
         priceFixed, 
         priceDiscount, 
@@ -59,6 +59,7 @@ const createProduct = asyncHandler(async (req, res) => {
         size, 
         material, 
         utility, 
+        weight,  // Add weight here
         category, 
     } = req.body;
 
@@ -88,6 +89,7 @@ const createProduct = asyncHandler(async (req, res) => {
         size,
         material,
         utility,
+        weight,  // Add weight here
         category,
         images: imageUrls
     });
@@ -290,6 +292,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         ...(updateData.size && { size: updateData.size }),
         ...(updateData.material && { material: updateData.material }),
         ...(updateData.utility && { utility: updateData.utility }),
+        ...(updateData.weight && { weight: updateData.weight }), 
         ...(updateData.category && { category: updateData.category }),
     };
 
