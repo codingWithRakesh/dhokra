@@ -87,11 +87,8 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-full p-8 flex justify-center items-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading categories...</p>
-        </div>
+      <div className="inline-flex min-h-full mx-auto py-12 w-full justify-center items-center gap-2">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-blue-500" />
       </div>
     );
   }
