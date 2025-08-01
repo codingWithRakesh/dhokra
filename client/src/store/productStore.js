@@ -50,7 +50,7 @@ const productStore = create((set) => ({
             throw error;
         }
     },
-    productById : null,
+    productById: null,
     setProductById: async (productId) => {
         set({ isLoading: true, error: null });
         try {
@@ -71,7 +71,7 @@ const productStore = create((set) => ({
             throw error;
         }
     },
-    productByName : null,
+    productByName: null,
     setProductByName: async (productName) => {
         set({ isLoading: true, error: null });
         try {
@@ -92,7 +92,7 @@ const productStore = create((set) => ({
             throw error;
         }
     },
-    availableProductByName : null,
+    availableProductByName: null,
     setAvailableProductByName: async (productName) => {
         set({ isLoading: true, error: null });
         try {
@@ -113,7 +113,7 @@ const productStore = create((set) => ({
             throw error;
         }
     },
-    productByCategory : [],
+    productByCategory: [],
     setProductByCategory: async (category) => {
         set({ isLoading: true, error: null });
         try {
@@ -134,7 +134,7 @@ const productStore = create((set) => ({
             throw error;
         }
     },
-    availableProductByCategory : [],
+    availableProductByCategory: [],
     setAvailableProductByCategory: async (category) => {
         set({ isLoading: true, error: null });
         try {
@@ -197,7 +197,7 @@ const productStore = create((set) => ({
             throw error;
         }
     },
-    totalProductCount : 0,
+    totalProductCount: 0,
     setTotalProductCount: async () => {
         set({ isLoading: true, error: null });
         try {
@@ -221,8 +221,8 @@ const productStore = create((set) => ({
             throw error;
         }
     },
-    productCountCategory : 0,
-    setProductCountCategory : async (category) => {
+    productCountCategory: {},
+    setProductCountCategory: async (category) => {
         set({ isLoading: true, error: null });
         try {
             const response = await axios.get(
@@ -236,21 +236,27 @@ const productStore = create((set) => ({
             );
 
             if (response.status === 200) {
-                set({ isLoading: false, totalProductCount: response.data.data });
+                set((state) => ({
+                    isLoading: false,
+                    productCountCategory: {
+                        ...state.productCountCategory,
+                        [category]: response.data.data.count
+                    }
+                }));
             } else {
-                set({ error: "Failed to fetch total product count" });
+                set({ error: "Failed to fetch product count by category" });
             }
         } catch (error) {
             set({ isLoading: false, error: error.response?.data?.message || error.message });
             throw error;
         }
     },
-    deleteProductImage : async (productId,imageUrl) => {
+    deleteProductImage: async (productId, imageUrl) => {
         set({ isLoading: true, error: null });
         try {
             const response = await axios.delete(
                 `${import.meta.env.VITE_BACKEND_URL}/products/deleteImage/${productId}`,
-                {data: {imageUrl}},
+                { data: { imageUrl } },
                 {
                     withCredentials: true,
                     headers: {
@@ -269,7 +275,7 @@ const productStore = create((set) => ({
             throw error;
         }
     },
-    deleteProduct : async (productId) => {
+    deleteProduct: async (productId) => {
         set({ isLoading: true, error: null });
         try {
             const response = await axios.delete(
