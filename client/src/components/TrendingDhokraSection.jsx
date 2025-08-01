@@ -9,6 +9,7 @@ const TrendingDhokraSection = () => {
   // Fetch trending products when component mounts
   useEffect(() => {
     setAllTrending();
+    
   }, [setAllTrending]);
 
   // Get last 5 trending products and transform the data
