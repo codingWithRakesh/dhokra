@@ -22,7 +22,7 @@ const Gallery = () => {
   const displayImages = allGalleryImages.length > 0 
     ? allGalleryImages 
     : [
-        { _id: 1, image: 'https://utkalikaodisha.com/wp-content/uploads/2024/07/11.jpg' },
+        // { _id: 1, image: 'https://utkalikaodisha.com/wp-content/uploads/2024/07/11.jpg' },
         // ... other sample images (convert to match your API structure)
       ];
 
@@ -32,9 +32,10 @@ const Gallery = () => {
         <h1 className="text-3xl font-bold text-emerald-800 mb-2">Image Gallery</h1>
         <p className="text-gray-600 mb-8">A collection of images from our gallery</p>
 
-        {isLoading && <p className="text-center py-8">Loading images...</p>}
+        <div className="text-xl flex justify-center text-center font-semibold">
+        {isLoading && <p className="text-center py-8 font-semibold italic">Loading images...</p>}
         {error && <p className="text-red-500 text-center py-4">{error}</p>}
-        {message && <p className="text-green-500 text-center py-4">{message}</p>}
+        </div>
 
         {/* Masonry grid */}
         <div className="columns-2 md:columns-2 xl:columns-3 gap-4 space-y-4">
