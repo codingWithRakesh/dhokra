@@ -1,4 +1,4 @@
-import { ArrowRight, ShoppingBag, CheckCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import availableCollectionStore from "../store/availableCollectionStore.js"
@@ -6,22 +6,19 @@ import availableCollectionStore from "../store/availableCollectionStore.js"
 const FeaturedCollectionSection = () => {
   const { allAvailableCollection, setAllAvailableCollection } = availableCollectionStore();
 
-  // Fetch available collections when component mounts
   useEffect(() => {
     setAllAvailableCollection();
   }, [setAllAvailableCollection]);
 
-  // Get last 5 products from the collection
   const lastFiveProducts = allAvailableCollection.slice(0, 5).map(item => ({
     id: item.product._id,
     name: item.product.name,
     price: `₹${item.product.priceDiscount}`,
     maxprice: item.product.priceFixed !== item.product.priceDiscount ? `₹${item.product.priceFixed}` : null,
     category: item.product.category,
-    image: item.product.images[0] // Use the first image
+    image: item.product.images[0]
   }));
   
-  // Function to limit title length
   const limitTitle = (title, maxLength = 20) => {
     return title.length > maxLength ? `${title.substring(0, maxLength)}...` : title;
   };
@@ -29,7 +26,7 @@ const FeaturedCollectionSection = () => {
   return (
     <section className="py-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header - More Compact */}
+        {/* Header */}
         <div className="text-left mb-6">
           <span className="inline-block text-emerald-700 text-md md:text-lg uppercase tracking-widest mb-1 font-mono">
             Our Available
@@ -42,23 +39,22 @@ const FeaturedCollectionSection = () => {
           </p>
         </div>
 
-        {/* 2-Column Grid for Mobile */}
+        {/* Product Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
           {lastFiveProducts.map((product, index) => (
             <div
               key={product.id}
-              className={`relative h-[220px] sm:h-[260px] ${index === 0 ? 'md:col-span-2 md:row-span-2 md:h-[400px]' : ''} group`}
+              className={`relative ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''} group`}
             >
-              {/* Compact Product Card */}
-              <div className={`absolute inset-0 bg-white rounded-lg shadow-sm transition-all duration-300 ease-out p-2 
+              <div className={`h-full bg-white rounded-lg shadow-sm transition-all duration-300 ease-out p-2 
                 group-hover:shadow-md group-hover:-translate-y-1`}
               >
-                {/* Product Image */}
-                <div className={`relative bg-blue-100/30 overflow-hidden ${index === 0 ? 'h-[70%] md:h-[75%]' : 'h-[65%]'} w-full`}>
+                {/* 1:1 Aspect Ratio Image Container */}
+                <div className={`relative pb-[100%] bg-blue-100/30 overflow-hidden rounded`}>
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 rounded"
+                    className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
                 </div>
@@ -93,7 +89,7 @@ const FeaturedCollectionSection = () => {
           ))}
         </div>
 
-        {/* Simplified CTA */}
+        {/* CTA */}
         <div className="text-center">
           <Link
             to="/product/available-collection"

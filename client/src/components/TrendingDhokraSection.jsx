@@ -43,7 +43,7 @@ const TrendingDhokraSection = () => {
         </div>
 
         {/* Products Grid - Now showing only last 5 */}
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4">
           {lastFiveTrending.map((product) => (
             <div key={product.id} className="group relative rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-emerald-100 cursor-pointer">
               {/* Product Image */}

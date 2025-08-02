@@ -53,13 +53,13 @@ const Home = () => {
   return (
     <div className="min-h-screen max-w-7xl mx-auto flex flex-col">
         <main className="flex-grow">
-            <section className="py-0 sm:px-4 lg:px-0">
+            <section className="py-0">
                 <div className="p-0">
                     <FixImg selectedImage={selectedImage} />
                 </div>
             </section>
 
-            <section className="py-6 sm:px-6 lg:px-0">
+            <section className="py-6 lg:px-0">
                 <div className="max-w-7xl mx-auto">
                     {/* Section Header */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
@@ -141,62 +141,79 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-4 sm:px-6 lg:px-0">
-                <div className="w-full mx-auto">
-                    <div className="flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
-                    {/* Text Content - Now on left */}
-                    <div className="w-full lg:w-1/2 flex flex-col justify-start order-1 lg:order-1">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-800 mb-6 leading-tight">
-                            Dhokra – Ancient Metal Craft of India
+            <section className="py-4 sm:py-8 lg:py-4">
+                <div className="max-w-7xl mx-auto px-0">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 xl:gap-16">
+                    {/* Text Content - Left Side */}
+                    <div className="w-full lg:w-1/2 space-y-6">
+                        <div className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium mb-4">
+                        Traditional Craftsmanship
+                        </div>
+                        
+                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                        The Timeless Art of <span className="text-emerald-600">Dhokra</span> Metal Casting
                         </h2>
-                        <div className="prose prose-lg text-gray-600 max-w-2xl">
-                        <p className="mb-4">
-                            Dhokra is an ancient metal craft using the lost-wax casting technique, practised by tribal artisans for thousands of years. It creates unique brass items with detailed designs and a rustic look.
+                        
+                        <div className="prose prose-emerald text-gray-600 max-w-none">
+                        <p className="text-lg">
+                            Dhokra is an ancient form of metal casting using the lost-wax technique, preserved by tribal artisans for over 4,000 years. Each piece carries the legacy of India's rich cultural heritage.
                         </p>
-                        <p className="mb-4">
-                            These handcrafted pieces include figurines, jewellery, and home decor, reflecting India’s rich cultural heritage and traditional craftsmanship.
+                        <p className="text-lg">
+                            Our collection features unique brass artifacts with intricate designs and a distinctive rustic charm, from decorative figurines to functional homeware.
                         </p>
                         </div>
-                        <div className="mt-8 flex text-sm md:text-base flex-row gap-4">
-                        <button className="bg-emerald-800 hover:bg-emerald-900 text-white font-medium py-3 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg">
-                            Explore Our Collection
-                        </button>
-                        <button className="border border-emerald-800 text-emerald-900 hover:bg-emerald-50 font-medium py-3 px-8 rounded-lg transition duration-300">
-                            Read More
+                        
+                        <div className="flex flex-wrap gap-4 pt-4">
+                        <Link 
+                            to="/product/available-collection"
+                            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-gradient-to-r from-emerald-600 to-emerald-800 hover:bg-emerald-700 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                        >
+                            Explore Collection
+                        </Link>
+                        <button className="inline-flex items-center justify-center px-8 py-3 border border-emerald-600 text-base font-medium rounded-lg text-emerald-700 bg-white hover:bg-emerald-50 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
+                            Our Artisans' Story
                         </button>
                         </div>
                     </div>
 
-                    {/* Image Grid - Now on right */}
-                    <div className="w-full lg:w-1/2 order-2 lg:order-2">
+                    {/* Image Grid - Right Side */}
+                    <div className="w-full lg:w-1/2">
                         <div className="grid grid-rows-2 gap-4 h-full min-h-[400px] lg:min-h-[500px]">
                         {/* Top row - two square images */}
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="relative overflow-hidden rounded bg-blue-100/50 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                            <div className="relative aspect-square overflow-hidden rounded shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer">
                             <img
                                 src={newimg1}
                                 alt="Dhokra artisan at work"
-                                className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 hover:scale-110"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <span className="text-white font-medium">Artisan at Work</span>
                             </div>
-                            <div className="relative overflow-hidden rounded bg-blue-100/50 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                            </div>
+                            <div className="relative aspect-square overflow-hidden rounded shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer">
                             <img
                                 src={newimg2}
                                 alt="Traditional wax mold making"
-                                className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 hover:scale-110"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <span className="text-white font-medium">Wax Mold Process</span>
+                            </div>
                             </div>
                         </div>
                         
                         {/* Bottom row - single panoramic image */}
-                        <div className="relative overflow-hidden rounded shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                        <div className="relative overflow-hidden rounded shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer">
                             <img
                             src={dhokraImage1}
                             alt="Finished Dhokra products collection"
-                            className="absolute inset-0 w-full h-full object-fit transition-transform duration-500 hover:scale-110"
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex items-end p-6">
-                            <span className="text-white font-medium text-lg bg-emerald-700 p-2 rounded">Handcrafted in West Bengal</span>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end p-6">
+                            <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
+                                <span className="text-emerald-700 font-medium">Handcrafted in West Bengal</span>
+                            </div>
                             </div>
                         </div>
                         </div>
@@ -205,9 +222,9 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative rounded-sm overflow-hidden shadow-xl">
+            <section className="relative rounded-sm overflow-hidden">
                 {/* Slider Container */}
-                <div className="relative max-w-full h-[50vh] md:h-[70vh] overflow-hidden">
+                <div className="relative max-w-full h-[35vh] md:h-[45vh] lg:h-[60vh] xl:h-[66vh] w-full overflow-hidden">
                     {slides.map((slide, index) => (
                     <div
                         key={slide.id}

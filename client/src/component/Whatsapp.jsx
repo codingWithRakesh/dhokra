@@ -6,7 +6,7 @@ function whatsapp() {
   const [whatsappLink, setWhatsappLink] = useState("#");
 
   useEffect(() => {
-    const phoneNumber = "916294178990"; // ✅ Replace with your WhatsApp number
+    const phoneNumber = "918101161016"; // ✅ Replace with your WhatsApp number
     const message = "Hi! I want to buy this. Here is the page I was on: \n";
     const pageUrl = window.location.href;
 
