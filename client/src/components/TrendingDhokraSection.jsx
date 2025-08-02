@@ -54,10 +54,10 @@ const TrendingDhokraSection = () => {
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Price Badge */}
-                <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-white/90 backdrop-blur-sm text-emerald-800 font-bold px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm shadow-md border border-emerald-100">
+                <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-white/90 backdrop-blur-sm text-yellow-500 font-bold px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm shadow-md border border-emerald-100">
                   ₹{product.price}
                   {product.maxprice && (
-                    <span className="ml-1 text-[10px] md:text-xs line-through opacity-70">₹{product.maxprice}</span>
+                    <span className="ml-1 text-[10px] md:text-xs line-through opacity-70 text-emerald-800">₹{product.maxprice}</span>
                   )}
                 </div>
               </div>

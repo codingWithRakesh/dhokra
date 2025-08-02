@@ -164,10 +164,10 @@ const ProductDetails = () => {
             {productById?.priceFixed && productById.priceDiscount && productById.priceFixed > productById.priceDiscount ? (
               <>
                 <span className="text-gray-500 line-through text-lg">
-                  ¥{productById.priceFixed.toFixed(2)}
+                  ₹{productById.priceFixed.toFixed(2)}
                 </span>
                 <span className="text-2xl font-bold text-yellow-500 ml-2">
-                  ¥{productById.priceDiscount.toFixed(2)}
+                  ₹{productById.priceDiscount.toFixed(2)}
                 </span>
               </>
             ) : (
