@@ -14,6 +14,9 @@ import dhokraImage3 from '../assets/image/cos3.jpg';
 import TrendingDhokraSection from '../components/TrendingDhokraSection';
 import FeaturedCollectionSection from "../components/AvailableCollectionPage";
 import FixImg from '../components/FixImg';
+import newimg1 from "../assets/image/Home-Decor1-1.webp";
+import newimg2 from "../assets/image/Small-Banners-2.webp";
+import newimg3 from "../assets/image/Small-Banners-3.webp";
 
 const Home = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -169,18 +172,18 @@ const Home = () => {
                         <div className="grid grid-rows-2 gap-4 h-full min-h-[400px] lg:min-h-[500px]">
                         {/* Top row - two square images */}
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="relative overflow-hidden rounded shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                            <div className="relative overflow-hidden rounded bg-blue-100/50 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
                             <img
-                                src={dhokraImage3}
+                                src={newimg1}
                                 alt="Dhokra artisan at work"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 hover:scale-110"
                             />
                             </div>
-                            <div className="relative overflow-hidden rounded shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                            <div className="relative overflow-hidden rounded bg-blue-100/50 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
                             <img
-                                src={dhokraImage2}
+                                src={newimg2}
                                 alt="Traditional wax mold making"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 hover:scale-110"
                             />
                             </div>
                         </div>

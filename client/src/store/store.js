@@ -8,36 +8,42 @@ import img6 from "../assets/catagoryImage/6.jpg";
 import dhokraImage1 from '../assets/image/cos1.jpg'; 
 import dhokraImage2 from '../assets/image/cos2.jpg';
 import dhokraImage3 from '../assets/image/cos3.jpg';
+import cat1 from "../assets/catagoryImage/Table-Top.webp";
+import cat2 from "../assets/catagoryImage/Bar-Accessories.webp";
+import cat3 from "../assets/catagoryImage/Corporate-Gifts.webp";
+import cat4 from "../assets/catagoryImage/Cutlery-Crockery.webp";
+import cat5 from "../assets/catagoryImage/Antiquity-1.webp";
+import cat6 from "../assets/catagoryImage/Home-Decor.webp";
 
 const categories = [
   {
     name: "GI Bengal Dokra",
-    image: img1,
+    image: cat4,
     link: "/product/gi-bengal-dokra",
   },
   {
     name: "Pating Finish",
-    image: img2,
+    image: cat3,
     link: "/product/pating-finish-on-dokra",
   },
   {
     name: "Wall hanging",
-    image: img3,
+    image: cat5,
     link: "/product/wall-hanging",
   },
   {
     name: "Table Top",
-    image: img4,
+    image: cat1,
     link: "/product/table-top",
   },
   {
     name: "Home Decor",
-    image: img5,
+    image: cat6,
     link: "/product/home-decor",
   },
   {
     name: "Candle Stand",
-    image: img6,
+    image: cat2,
     link: "/product/candle-stands",
   },
 ];
