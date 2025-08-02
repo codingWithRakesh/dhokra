@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { FaChevronRight, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaChevronRight, FaArrowLeft, FaArrowRight, FaSearchPlus, FaSearchMinus } from 'react-icons/fa';
 import dhokraImage from '../assets/catagoryImage/1.jpg';
 import SideDetails from '../components/SideDetails';
 import ExtraProduct from './ExtraProduct';
@@ -15,13 +15,16 @@ const ProductDetails = () => {
   const { productById, setProductById, availableProductByCategory, setAvailableProductByCategory, isLoading, error, message } = productStore();
   const { allTrending, setAllTrending, isLoading: isTrendingLoading } = trendingStore();
   const { allAvailableCollection, setAllAvailableCollection, isLoading: isCollectionLoading } = availableCollectionStore();
-  console.log(category)
+  
   const [mainImage, setMainImage] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [discountPercentage, setDiscountPercentage] = useState(0);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [isZoomActive, setIsZoomActive] = useState(false);
+  const imageContainerRef = useRef(null);
+  const imageRef = useRef(null);
 
   useEffect(() => {
-    // Fetch product details by ID
     const fetchProductDetails = async () => {
       try {
         await setProductById(id);
@@ -41,13 +44,11 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (productById) {
-      // Calculate discount percentage
       if (productById.priceFixed && productById.priceDiscount) {
         const discount = ((productById.priceFixed - productById.priceDiscount) / productById.priceFixed) * 100;
         setDiscountPercentage(Math.round(discount));
       }
 
-      // Set main image to first image if available
       if (productById.images && productById.images.length > 0) {
         setMainImage(productById.images[0]);
       }
@@ -57,6 +58,7 @@ const ProductDetails = () => {
   const handleThumbnailClick = (img, index) => {
     setMainImage(img);
     setCurrentImageIndex(index);
+    resetZoom();
   };
 
   const navigateImages = (direction) => {
@@ -70,22 +72,64 @@ const ProductDetails = () => {
     }
     setMainImage(productById.images[newIndex]);
     setCurrentImageIndex(newIndex);
+    resetZoom();
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isZoomActive || !imageContainerRef.current || !imageRef.current) return;
+
+    const container = imageContainerRef.current;
+    const img = imageRef.current;
+    const containerRect = container.getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect();
+
+    const x = (e.clientX - containerRect.left) / containerRect.width;
+    const y = (e.clientY - containerRect.top) / containerRect.height;
+
+    const moveX = imgRect.width / 2 - x * imgRect.width;
+    const moveY = imgRect.height / 2 - y * imgRect.height;
+
+    img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+    img.style.transform = `scale(${zoomLevel})`;
+  };
+
+  const toggleZoom = () => {
+    setIsZoomActive(!isZoomActive);
+    if (!isZoomActive) {
+      setZoomLevel(2);
+    } else {
+      resetZoom();
+    }
+  };
+
+  const adjustZoom = (direction) => {
+    setZoomLevel(prev => {
+      const newLevel = direction === 'in' ? prev + 0.5 : prev - 0.5;
+      return Math.max(1, Math.min(newLevel, 3));
+    });
+  };
+
+  const resetZoom = () => {
+    setIsZoomActive(false);
+    setZoomLevel(1);
+    if (imageRef.current) {
+      imageRef.current.style.transform = 'scale(1)';
+      imageRef.current.style.transformOrigin = 'center';
+    }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-2">
-      {/* Discount Badge - Only show if there's a discount */}
       {discountPercentage > 0 && (
         <div className="bg-red-600 text-white text-sm font-bold px-4 py-2 rounded inline-block mb-8">
           {discountPercentage}% OFF
         </div>
       )}
 
-      {/* Product Content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 border-b-2 border-gray-200 pb-8 mb-8">
         {/* Image Gallery */}
         <div className="flex flex-col md:flex-row gap-4">
-          {/* Thumbnails (vertical on desktop) */}
+          {/* Thumbnails */}
           {productById?.images && productById.images.length > 1 && (
             <div className="flex md:flex-col gap-2 order-2 md:order-1">
               {productById.images.slice(0, 5).map((img, index) => (
@@ -99,7 +143,7 @@ const ProductDetails = () => {
                     alt={`Thumbnail ${index + 1}`}
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.target.src = dhokraImage; // Fallback image if the URL is broken
+                      e.target.src = dhokraImage;
                     }}
                   />
                 </button>
@@ -107,16 +151,27 @@ const ProductDetails = () => {
             </div>
           )}
 
-          {/* Main Image */}
+          {/* Main Image with Zoom */}
           <div className="relative flex-1 order-1 md:order-2">
-            <div className="bg-gray-100 rounded-lg aspect-square overflow-hidden relative">
+            <div 
+              ref={imageContainerRef}
+              className="bg-gray-100 rounded-lg aspect-square overflow-hidden relative cursor-move"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={resetZoom}
+              onClick={toggleZoom}
+            >
               {mainImage ? (
                 <img
+                  ref={imageRef}
                   src={mainImage}
                   alt="Main product view"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain transition-transform duration-300 ease-out"
+                  style={{
+                    transform: `scale(${zoomLevel})`,
+                    transformOrigin: 'center'
+                  }}
                   onError={(e) => {
-                    e.target.src = dhokraImage; // Fallback image if the URL is broken
+                    e.target.src = dhokraImage;
                   }}
                 />
               ) : (
@@ -127,18 +182,48 @@ const ProductDetails = () => {
                 />
               )}
 
-              {/* Navigation Arrows - Only show if there are multiple images */}
+              {/* Zoom Controls */}
+              <div className="absolute bottom-4 right-4 flex gap-2 bg-white/80 p-1 rounded-full shadow-md">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    adjustZoom('in');
+                  }}
+                  className="p-1 text-gray-700 hover:text-indigo-600"
+                  disabled={zoomLevel >= 3}
+                >
+                  <FaSearchPlus />
+                </button>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    adjustZoom('out');
+                  }}
+                  className="p-1 text-gray-700 hover:text-indigo-600"
+                  disabled={zoomLevel <= 1}
+                >
+                  <FaSearchMinus />
+                </button>
+              </div>
+
+              {/* Navigation Arrows */}
               {productById?.images && productById.images.length > 1 && (
                 <>
                   <button
-                    onClick={() => navigateImages('prev')}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateImages('prev');
+                    }}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white z-10"
                   >
                     <FaArrowLeft className="text-gray-700" />
                   </button>
                   <button
-                    onClick={() => navigateImages('next')}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateImages('next');
+                    }}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white z-10"
                   >
                     <FaArrowRight className="text-gray-700" />
                   </button>
@@ -148,14 +233,12 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Product Info */}
+        {/* Product Info - Remaining exactly the same */}
         <div>
-          {/* Product Title */}
           <h1 className="text-2xl font-bold text-emerald-950 mb-2">
             {productById?.name || "Product Name Here"}
           </h1>
 
-          {/* Price */}
           <div className="my-4">
             {productById?.priceFixed && productById.priceDiscount && productById.priceFixed > productById.priceDiscount ? (
               <>
@@ -173,10 +256,8 @@ const ProductDetails = () => {
             )}
           </div>
 
-          {/* Availability */}
           <Whatsapp />
 
-          {/* Product Details */}
           <div className="mt-4">
             <h2 className="text-lg font-semibold mb-4 text-emerald-700 border-b-2 border-indigo-100 pb-2">
               Product Specifications
@@ -214,7 +295,6 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
-          {/* Product Description */}
           <div className="mt-6">
             <h2 className="text-lg font-semibold mb-4 text-emerald-700 border-b-2 border-indigo-100 pb-2">
               Product Description
