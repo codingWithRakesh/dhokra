@@ -1,45 +1,50 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import fixImageStore from "../store/fiximageStore.js";
 
-const ImageUploader = ({ onImageSelect, initialSelectedImage }) => {
-  const [images, setImages] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(initialSelectedImage || null);
-  const [isDragging, setIsDragging] = useState(false);
+const ImageUploader = ({ onImageSelect }) => {
   const fileInputRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  
+  // Get all state and actions from the store
+  const {
+    addInFixImage,
+    deleteFixImage,
+    allFixImages,
+    setAllFixImages,
+    setDisplayImage,
+    currentImage,
+    setCurrentImage,
+    isLoading,
+    error,
+    message
+  } = fixImageStore();
+
+  // Load images on component mount
+  useEffect(() => {
+    setAllFixImages();
+    setCurrentImage();
+  }, []);
 
   // Handle image upload
-  const handleImageUpload = useCallback((files) => {
+  const handleImageUpload = useCallback(async (files) => {
     const validFiles = Array.from(files).filter(file => file.type.match('image.*'));
-    
     if (validFiles.length === 0) return;
-    
-    const uploadedImages = [];
-    
-    validFiles.forEach((file, index) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const newImage = {
-          id: Date.now() + index,
-          url: e.target.result,
-          file,
-          name: file.name,
-          size: (file.size / (1024 * 1024)).toFixed(2) + 'MB'
-        };
-        uploadedImages.push(newImage);
-        
-        // When all images are processed
-        if (uploadedImages.length === validFiles.length) {
-          setImages(prev => [...prev, ...uploadedImages]);
-          
-          // Auto-select first image if nothing selected
-          if (!selectedImage) {
-            setSelectedImage(uploadedImages[0]);
-            onImageSelect(uploadedImages[0]);
-          }
-        }
-      };
-      reader.readAsDataURL(file);
-    });
-  }, [onImageSelect, selectedImage]);
+
+    try {
+      // For each file, upload to the server
+      for (const file of validFiles) {
+        const formData = new FormData();
+        formData.append('image', file);
+        await addInFixImage(formData);
+      }
+      
+      // Refresh the images list after upload
+      await setAllFixImages();
+      await setCurrentImage();
+    } catch (err) {
+      console.error("Error uploading images:", err);
+    }
+  }, [addInFixImage, setAllFixImages, setCurrentImage]);
 
   // File input change handler
   const handleFileInputChange = (e) => {
@@ -48,22 +53,28 @@ const ImageUploader = ({ onImageSelect, initialSelectedImage }) => {
   };
 
   // Delete image
-  const handleDeleteImage = (id, e) => {
+  const handleDeleteImage = async (id, e) => {
     e.stopPropagation();
-    const newImages = images.filter(img => img.id !== id);
-    setImages(newImages);
-    
-    if (selectedImage?.id === id) {
-      const newSelected = newImages.length > 0 ? newImages[0] : null;
-      setSelectedImage(newSelected);
-      onImageSelect(newSelected);
+    try {
+      await deleteFixImage(id);
+      await setAllFixImages();
+      await setCurrentImage();
+    } catch (err) {
+      console.error("Error deleting image:", err);
     }
   };
 
   // Select an image to display
-  const handleSelectImage = (image) => {
-    setSelectedImage(image);
-    onImageSelect(image); // Immediately update the home page image
+  const handleSelectImage = async (image) => {
+    try {
+      await setDisplayImage(image._id);
+      await setCurrentImage();
+      if (onImageSelect) {
+        onImageSelect(image);
+      }
+    } catch (err) {
+      console.error("Error setting display image:", err);
+    }
   };
 
   // Drag and drop handlers
@@ -94,6 +105,25 @@ const ImageUploader = ({ onImageSelect, initialSelectedImage }) => {
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
+      {/* Loading and Error States */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-4 rounded-lg">Uploading images...</div>
+        </div>
+      )}
+      
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {error}
+        </div>
+      )}
+
+      {message && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+          {message}
+        </div>
+      )}
+
       {/* Upload Zone */}
       <div 
         className={`border-2 border-dashed rounded-lg p-8 text-center mb-6 transition-colors ${
@@ -125,20 +155,19 @@ const ImageUploader = ({ onImageSelect, initialSelectedImage }) => {
       </div>
 
       {/* Current Home Page Image */}
-      {selectedImage && (
+      {currentImage && (
         <div className="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
           <h3 className="text-lg font-semibold mb-3 text-gray-800">Currently Displayed on Home Page</h3>
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="w-full md:w-1/3 aspect-video bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
               <img 
-                src={selectedImage.url} 
+                src={currentImage.image} 
                 alt="Currently displayed" 
                 className="w-full h-full object-contain"
               />
             </div>
             <div className="flex-1">
-              <h4 className="text-lg font-medium text-gray-900">{selectedImage.name}</h4>
-              <p className="text-sm text-gray-600 mb-2">Size: {selectedImage.size}</p>
+              <h4 className="text-lg font-medium text-gray-900">Display Image</h4>
               <p className="text-sm text-gray-500">
                 This image is currently visible on your home page. Click any image below to change it.
               </p>
@@ -151,11 +180,11 @@ const ImageUploader = ({ onImageSelect, initialSelectedImage }) => {
       <div className="mb-6">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold text-gray-800">
-            Your Uploaded Images ({images.length})
+            Your Uploaded Images ({allFixImages.length})
           </h3>
-          {images.length > 0 && (
+          {allFixImages.length > 0 && (
             <button
-              onClick={() => fileInputRef.current.click()}
+              onClick={triggerFileInput}
               className="text-sm text-blue-600 hover:text-blue-800"
             >
               + Add More Images
@@ -163,21 +192,21 @@ const ImageUploader = ({ onImageSelect, initialSelectedImage }) => {
           )}
         </div>
 
-        {images.length > 0 ? (
+        {allFixImages.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {images.map(image => (
+            {allFixImages.map(image => (
               <div 
-                key={image.id}
+                key={image._id}
                 className={`relative group rounded-lg overflow-hidden border-2 transition-all ${
-                  selectedImage?.id === image.id 
+                  currentImage?._id === image._id 
                     ? 'border-blue-500 shadow-lg' 
                     : 'border-gray-200 hover:border-blue-300'
                 }`}
               >
                 <div className="aspect-square bg-gray-100">
                   <img
-                    src={image.url}
-                    alt={image.name}
+                    src={image.image}
+                    alt="Gallery item"
                     className="w-full h-full object-cover cursor-pointer"
                     onClick={() => handleSelectImage(image)}
                   />
@@ -185,7 +214,7 @@ const ImageUploader = ({ onImageSelect, initialSelectedImage }) => {
                 
                 {/* Delete button */}
                 <button
-                  onClick={(e) => handleDeleteImage(image.id, e)}
+                  onClick={(e) => handleDeleteImage(image._id, e)}
                   className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,7 +223,7 @@ const ImageUploader = ({ onImageSelect, initialSelectedImage }) => {
                 </button>
                 
                 {/* Selected indicator */}
-                {selectedImage?.id === image.id && (
+                {currentImage?._id === image._id && (
                   <div className="absolute bottom-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
                     Selected
                   </div>
