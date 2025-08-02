@@ -1,82 +1,117 @@
 import { useState, useEffect } from 'react';
 import { FiEdit, FiTrash2, FiTrendingUp, FiPackage, FiSearch } from 'react-icons/fi';
-import { navItems } from '../store/store';
-import img1 from '../assets/catagoryImage/1.jpg';
-import img2 from '../assets/catagoryImage/2.jpg';
-import img3 from '../assets/catagoryImage/3.jpg';
-import img4 from '../assets/catagoryImage/4.jpg';
 import EditProductModal from './EditProductPage';
+import productStore from "../store/productStore.js";
+import availableCollectionStore from "../store/availableCollectionStore.js";
+import trendingStore from "../store/trendingStore.js";
 
 const ShowProduct = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [showEditModal, setShowEditModal] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const [editMode, setEditMode] = useState('quick'); // 'quick' or 'full'
+  const [editMode, setEditMode] = useState('quick');
+  
+  // Store hooks
+  const { 
+    productByCategory, 
+    setProductByCategory,
+    deleteProduct: deleteProductAPI,
+    updateProduct: updateProductAPI,
+    deleteProductImage
+  } = productStore();
+  
+  const {
+    addToAvailableCollection,
+    removeFromAvailableCollection,
+    allAvailableCollection,
+    setAllAvailableCollection
+  } = availableCollectionStore();
+  
+  const {
+    addINTrending,
+    removeTrending,
+    allTrending,
+    setAllTrending
+  } = trendingStore();
 
-  // Mock data remains the same
-  const mockProducts = {
-    "GI Bengal Dokra": [
-      { 
-        id: 1, 
-        title: "Dokra Elephant Statue", 
-        price: 2499, 
-        fixedPrice: 2999, 
-        description: "Handcrafted Dokra elephant figurine made using traditional metal casting technique", 
-        image: img1,
-        color: "Golden",
-        size: "H-15 * W-8 * L-10 inch",
-        material: "Kansa",
-        utility: "Home Decor",
-        weight: "259 gm"
-      },
-      // ... other products
-    ],
-    // ... other categories
-  };
+  const categories = [
+    "gi-bengal-dokra", 
+    "patina-finish-on-dokra", 
+    "wall-hanging", 
+    "table-top", 
+    "home-decore", 
+    "candle-stands"
+  ];
 
+  // Fetch products when category changes
   useEffect(() => {
     if (selectedCategory) {
       setLoading(true);
-      setTimeout(() => {
-        const categoryProducts = mockProducts[selectedCategory] || [];
-        setProducts(categoryProducts.map(p => ({ 
-          ...p, 
-          isTrending: false, 
-          isStock: true 
-        })));
-        setLoading(false);
-      }, 500);
+      setProductByCategory(selectedCategory)
+        .finally(() => setLoading(false));
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, setProductByCategory]);
+
+  // Fetch trending and available collections on mount
+  useEffect(() => {
+    setAllTrending();
+    setAllAvailableCollection();
+  }, [setAllTrending, setAllAvailableCollection]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredProducts = products.filter(product =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredProducts = productByCategory.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.description?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const deleteProduct = (productId) => {
+  const deleteProduct = async (productId) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-      setProducts(products.filter(product => product.id !== productId));
+      try {
+        await deleteProductAPI(productId);
+        setProductByCategory(selectedCategory);
+      } catch (error) {
+        console.error('Failed to delete product:', error);
+      }
     }
   };
 
-  const toggleTrending = (productId) => {
-    setProducts(products.map(product => 
-      product.id === productId ? { ...product, isTrending: !product.isTrending } : product
-    ));
+  const toggleTrending = async (productId) => {
+    try {
+      const isTrending = allTrending.some(item => item.product._id === productId);
+      
+      if (isTrending) {
+        const trendingItem = allTrending.find(item => item.product._id === productId);
+        await removeTrending(trendingItem._id);
+      } else {
+        await addINTrending(productId);
+      }
+      
+      await setAllTrending();
+    } catch (error) {
+      console.error('Failed to update trending status:', error);
+    }
   };
 
-  const toggleStock = (productId) => {
-    setProducts(products.map(product => 
-      product.id === productId ? { ...product, isStock: !product.isStock } : product
-    ));
+  const toggleAvailableCollection = async (productId) => {
+    try {
+      const isInCollection = allAvailableCollection.some(item => item.product._id === productId);
+      
+      if (isInCollection) {
+        const collectionItem = allAvailableCollection.find(item => item.product._id === productId);
+        await removeFromAvailableCollection(collectionItem._id);
+      } else {
+        await addToAvailableCollection(productId);
+      }
+      
+      await setAllAvailableCollection();
+    } catch (error) {
+      console.error('Failed to update available collection status:', error);
+    }
   };
 
   const openEditModal = (product, mode) => {
@@ -85,11 +120,23 @@ const ShowProduct = () => {
     setShowEditModal(true);
   };
 
-  const handleSaveProduct = (updatedProduct) => {
-    setProducts(products.map(product => 
-      product.id === updatedProduct.id ? updatedProduct : product
-    ));
-    setShowEditModal(false);
+  const handleSaveProduct = async (updatedProduct) => {
+    try {
+      const { _id, ...updateData } = updatedProduct;
+      await updateProductAPI(_id, updateData);
+      setShowEditModal(false);
+      setProductByCategory(selectedCategory);
+    } catch (error) {
+      console.error('Failed to update product:', error);
+    }
+  };
+
+  const isTrending = (productId) => {
+    return allTrending.some(item => item.product._id === productId);
+  };
+
+  const isInAvailableCollection = (productId) => {
+    return allAvailableCollection.some(item => item.product._id === productId);
   };
 
   return (
@@ -107,9 +154,9 @@ const ShowProduct = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             >
               <option value="">Select a category</option>
-              {navItems.map((item) => (
-                <option key={item.path} value={item.name}>
-                  {item.name}
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
                 </option>
               ))}
             </select>
@@ -141,27 +188,27 @@ const ShowProduct = () => {
             ) : filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProducts.map((product) => (
-                  <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
                     <div className="h-48 overflow-hidden">
                       <img 
-                        src={product.image} 
-                        alt={product.title} 
+                        src={product.images[0]} 
+                        alt={product.name} 
                         className="w-full h-full object-cover"
                       />
                     </div>
                     
                     <div className="p-4">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-2">{product.title}</h3>
+                      <h3 className="text-lg font-semibold text-gray-800 mb-2">{product.name}</h3>
                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
                       
                       <div className="flex justify-between items-center mb-4">
                         <div>
                           <span className="text-gray-500 text-sm">Price: </span>
-                          <span className="text-emerald-600 font-medium">₹{product.price.toLocaleString()}</span>
+                          <span className="text-emerald-600 font-medium">₹{product.priceDiscount?.toLocaleString()}</span>
                         </div>
                         <div>
                           <span className="text-gray-500 text-sm">Fixed: </span>
-                          <span className="text-red-600 font-medium">₹{product.fixedPrice.toLocaleString()}</span>
+                          <span className="text-red-600 font-medium">₹{product.priceFixed?.toLocaleString()}</span>
                         </div>
                       </div>
                       
@@ -181,25 +228,33 @@ const ShowProduct = () => {
                           Full Edit
                         </button>
                         <button
-                          onClick={() => deleteProduct(product.id)}
+                          onClick={() => deleteProduct(product._id)}
                           className="flex items-center justify-center px-3 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition-colors"
                         >
                           <FiTrash2 className="mr-2" />
                           Delete
                         </button>
                         <button
-                          onClick={() => toggleTrending(product.id)}
-                          className={`flex items-center justify-center px-3 py-2 rounded-md transition-colors ${product.isTrending ? 'bg-green-100 text-green-600 hover:bg-green-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                          onClick={() => toggleTrending(product._id)}
+                          className={`flex items-center justify-center px-3 py-2 rounded-md transition-colors ${
+                            isTrending(product._id) 
+                              ? 'bg-green-100 text-green-600 hover:bg-green-200' 
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          }`}
                         >
                           <FiTrendingUp className="mr-2" />
-                          {product.isTrending ? 'Trending' : 'Make Trend'}
+                          {isTrending(product._id) ? 'Trending' : 'Make Trend'}
                         </button>
                         <button
-                          onClick={() => toggleStock(product.id)}
-                          className={`flex items-center justify-center px-3 py-2 rounded-md transition-colors ${product.isStock ? 'bg-purple-100 text-purple-600 hover:bg-purple-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                          onClick={() => toggleAvailableCollection(product._id)}
+                          className={`flex items-center justify-center px-3 py-2 rounded-md transition-colors ${
+                            isInAvailableCollection(product._id) 
+                              ? 'bg-purple-100 text-purple-600 hover:bg-purple-200' 
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          }`}
                         >
                           <FiPackage className="mr-2" />
-                          {product.isStock ? 'Available' : 'Out of Stock'}
+                          {isInAvailableCollection(product._id) ? 'In Collection' : 'Add to Collection'}
                         </button>
                       </div>
                     </div>
