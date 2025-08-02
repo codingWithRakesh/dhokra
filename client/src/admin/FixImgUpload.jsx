@@ -4,7 +4,7 @@ import fixImageStore from "../store/fiximageStore.js";
 const ImageUploader = ({ onImageSelect }) => {
   const fileInputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
-  
+
   // Get all state and actions from the store
   const {
     addInFixImage,
@@ -37,7 +37,7 @@ const ImageUploader = ({ onImageSelect }) => {
         formData.append('image', file);
         await addInFixImage(formData);
       }
-      
+
       // Refresh the images list after upload
       await setAllFixImages();
       await setCurrentImage();
@@ -103,6 +103,15 @@ const ImageUploader = ({ onImageSelect }) => {
     fileInputRef.current.click();
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, []);
+
   return (
     <div className="p-4 max-w-6xl mx-auto">
       {/* Loading and Error States */}
@@ -111,7 +120,7 @@ const ImageUploader = ({ onImageSelect }) => {
           <div className="bg-white p-4 rounded-lg">Uploading images...</div>
         </div>
       )}
-      
+
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {error}
@@ -125,10 +134,9 @@ const ImageUploader = ({ onImageSelect }) => {
       )}
 
       {/* Upload Zone */}
-      <div 
-        className={`border-2 border-dashed rounded-lg p-8 text-center mb-6 transition-colors ${
-          isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
-        }`}
+      <div
+        className={`border-2 border-dashed rounded-lg p-8 text-center mb-6 transition-colors ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+          }`}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
@@ -160,9 +168,9 @@ const ImageUploader = ({ onImageSelect }) => {
           <h3 className="text-lg font-semibold mb-3 text-gray-800">Currently Displayed on Home Page</h3>
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="w-full md:w-1/3 aspect-video bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
-              <img 
-                src={currentImage.image} 
-                alt="Currently displayed" 
+              <img
+                src={currentImage.image}
+                alt="Currently displayed"
                 className="w-full h-full object-contain"
               />
             </div>
@@ -195,13 +203,12 @@ const ImageUploader = ({ onImageSelect }) => {
         {allFixImages.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {allFixImages.map(image => (
-              <div 
+              <div
                 key={image._id}
-                className={`relative group rounded-lg overflow-hidden border-2 transition-all ${
-                  currentImage?._id === image._id 
-                    ? 'border-blue-500 shadow-lg' 
+                className={`relative group rounded-lg overflow-hidden border-2 transition-all ${currentImage?._id === image._id
+                    ? 'border-blue-500 shadow-lg'
                     : 'border-gray-200 hover:border-blue-300'
-                }`}
+                  }`}
               >
                 <div className="aspect-square bg-gray-100">
                   <img
@@ -211,7 +218,7 @@ const ImageUploader = ({ onImageSelect }) => {
                     onClick={() => handleSelectImage(image)}
                   />
                 </div>
-                
+
                 {/* Delete button */}
                 <button
                   onClick={(e) => handleDeleteImage(image._id, e)}
@@ -221,7 +228,7 @@ const ImageUploader = ({ onImageSelect }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-                
+
                 {/* Selected indicator */}
                 {currentImage?._id === image._id && (
                   <div className="absolute bottom-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">

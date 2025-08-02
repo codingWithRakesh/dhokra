@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import { Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
+import { useEffect } from 'react';
 
 const ContactUs = () => {
   const handleSubmit = (e) => {
@@ -8,6 +9,15 @@ const ContactUs = () => {
     // Handle form submission logic here
     alert('Thank you for your message! We will get back to you soon.');
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, []);
 
   return (
     <div className="min-h-full py-4 lg:px-0">
@@ -23,113 +33,113 @@ const ContactUs = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="space-y-6">
-          <div className="border-2 rounded-xl shadow-md p-6 sm:p-8">
-            <h2 className="text-2xl font-semibold text-emerald-800 mb-6">Send us a message</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="border-2 rounded-xl shadow-md p-6 sm:p-8">
+              <h2 className="text-2xl font-semibold text-emerald-800 mb-6">Send us a message</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    />
+                  </div>
+                </div>
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Name
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                    Subject
                   </label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
+                    id="subject"
+                    name="subject"
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                    Message
                   </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  />
+                  ></textarea>
                 </div>
-              </div>
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="5"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                ></textarea>
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300"
+                <div>
+                  <button
+                    type="submit"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300"
+                  >
+                    Send Message
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div className="border-2 rounded-xl shadow-md p-6 sm:p-2 flex flex-col text-center justify-center">
+              <h2 className="text-xl font-semibold text-emerald-800 mb-2">Follow us on Social Media</h2>
+              <div className="flex justify-center gap-6 p-2">
+                <a
+                  href="https://instagram.com/unickdhokra"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-pink-400"
+                  aria-label="Follow us on Instagram"
                 >
-                  Send Message
-                </button>
+                  <Instagram className="w-6 h-6 text-emerald-700" />
+                </a>
+
+                <a
+                  href="https://facebook.com/unickdhokra"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-blue-400"
+                  aria-label="Follow us on Facebook"
+                >
+                  <Facebook className="w-6 h-6 text-emerald-700" />
+                </a>
+
+                <a
+                  href="https://youtube.com/unickdhokra"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-red-400"
+                  aria-label="Follow us on YouTube"
+                >
+                  <Youtube className="w-6 h-6 text-emerald-700" />
+                </a>
+
+                <a
+                  href="https://twitter.com/unickdhokra"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-gray-400"
+                  aria-label="Follow us on Twitter"
+                >
+                  <Twitter className="w-6 h-6 text-emerald-700" />
+                </a>
               </div>
-            </form>
-          </div>
-          <div className="border-2 rounded-xl shadow-md p-6 sm:p-2 flex flex-col text-center justify-center">
-            <h2 className="text-xl font-semibold text-emerald-800 mb-2">Follow us on Social Media</h2>
-            <div className="flex justify-center gap-6 p-2">
-          <a 
-            href="https://instagram.com/unickdhokra" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-pink-400"
-            aria-label="Follow us on Instagram"
-          >
-            <Instagram className="w-6 h-6 text-emerald-700" />
-          </a>
-          
-          <a 
-            href="https://facebook.com/unickdhokra" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-blue-400"
-            aria-label="Follow us on Facebook"
-          >
-            <Facebook className="w-6 h-6 text-emerald-700" />
-          </a>
-          
-          <a 
-            href="https://youtube.com/unickdhokra" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-red-400"
-            aria-label="Follow us on YouTube"
-          >
-            <Youtube className="w-6 h-6 text-emerald-700" />
-          </a>
-          
-          <a 
-            href="https://twitter.com/unickdhokra" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-gray-400"
-            aria-label="Follow us on Twitter"
-          >
-            <Twitter className="w-6 h-6 text-emerald-700" />
-          </a>
-        </div>
-          </div>
+            </div>
           </div>
 
           {/* Contact Information */}
@@ -164,8 +174,8 @@ const ContactUs = () => {
                   <div className="ml-4">
                     <h3 className="text-lg font-medium text-gray-800">Address</h3>
                     <p className="text-gray-600">Vill: Dharmadaspur,
-                        P.O.: Purandarpur,
-                        P.S. : Bankura
+                      P.O.: Purandarpur,
+                      P.S. : Bankura
                     </p>
                     <p className="text-gray-600">Bankura, West Bengal - 722155</p>
                     <p className="text-gray-600">India</p>

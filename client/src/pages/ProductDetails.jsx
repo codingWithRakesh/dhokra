@@ -72,6 +72,15 @@ const ProductDetails = () => {
     setCurrentImageIndex(newIndex);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, [id]);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-2">
       {/* Discount Badge - Only show if there's a discount */}

@@ -20,6 +20,15 @@ const StockProductList = () => {
     setAllAvailableCollection();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, []);
+
   const handleRemoveFromStock = async (productId) => {
     if (window.confirm('Are you sure you want to remove this product from stock?')) {
       try {
@@ -53,8 +62,8 @@ const StockProductList = () => {
   return (
     <div className="container max-w-7xl mx-auto px-4 py-4">
       <div className="flex items-center mb-6">
-        <button 
-          onClick={() => navigate(-1)} 
+        <button
+          onClick={() => navigate(-1)}
           className="mr-4 p-2 rounded-full hover:bg-gray-100"
         >
           <FiArrowLeft className="text-gray-600 text-xl" />
@@ -79,7 +88,7 @@ const StockProductList = () => {
             return (
               <div key={item._id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
                 <div className="h-48 bg-gray-100 overflow-hidden">
-                  <img 
+                  <img
                     src={product.images?.[0] || img1} // Use first image or fallback
                     alt={product.name}
                     className="w-full h-full object-cover"

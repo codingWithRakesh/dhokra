@@ -18,13 +18,22 @@ const Gallery = () => {
     setSelectedImage(null);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, []);
+
   // Fallback to sample images if API data is empty (for development)
-  const displayImages = allGalleryImages.length > 0 
-    ? allGalleryImages 
+  const displayImages = allGalleryImages.length > 0
+    ? allGalleryImages
     : [
-        // { _id: 1, image: 'https://utkalikaodisha.com/wp-content/uploads/2024/07/11.jpg' },
-        // ... other sample images (convert to match your API structure)
-      ];
+      // { _id: 1, image: 'https://utkalikaodisha.com/wp-content/uploads/2024/07/11.jpg' },
+      // ... other sample images (convert to match your API structure)
+    ];
 
   return (
     <div className="min-h-full p-4 py-4 md:px-8 xl:px-0">
@@ -33,8 +42,8 @@ const Gallery = () => {
         <p className="text-gray-600 mb-8">A collection of images from our gallery</p>
 
         <div className="text-xl flex justify-center text-center font-semibold">
-        {isLoading && <p className="text-center py-8 font-semibold italic">Loading images...</p>}
-        {error && <p className="text-red-500 text-center py-4">{error}</p>}
+          {isLoading && <p className="text-center py-8 font-semibold italic">Loading images...</p>}
+          {error && <p className="text-red-500 text-center py-4">{error}</p>}
         </div>
 
         {/* Masonry grid */}
@@ -57,11 +66,11 @@ const Gallery = () => {
 
         {/* Lightbox */}
         {selectedImage && (
-          <div 
+          <div
             className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
             onClick={closeLightbox}
           >
-            <button 
+            <button
               onClick={closeLightbox}
               className="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-50"
             >

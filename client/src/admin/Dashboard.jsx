@@ -10,7 +10,7 @@ const CategoriesDashboard = ({ name }) => {
   const { productCountCategory, setProductCountCategory } = productStore();
   const { countTrending, setCountTrending } = trendingStore();
   const { countAvailableCollection, setCountAvailableCollection } = availableCollectionStore();
-  
+
   useEffect(() => {
     if (!name) return;
     if (name === "Trending") {
@@ -83,6 +83,15 @@ const Dashboard = () => {
     };
 
     fetchProductCounts();
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
   }, []);
 
   if (loading) {

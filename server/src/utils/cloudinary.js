@@ -8,11 +8,11 @@ cloudinary.config({
     secure: true,
 });
 
-const uploadOnCloudinary = async (base64Image) => {
+const uploadOnCloudinary = async (base64Image, type = 'image') => {
     try {
         if(!base64Image) return null
         const result = await cloudinary.uploader.upload(base64Image, {
-            resource_type : 'auto',
+            resource_type : type,
           });      
 
         return result;
@@ -29,10 +29,12 @@ const getPublicId = (url) => {
     return publicId
 }
 
-const deleteFromCloudinary = async (publicId) => {
+const deleteFromCloudinary = async (publicId, type = 'image') => {
     try {
         if(!publicId) return null
-        const result = await cloudinary.uploader.destroy(publicId);
+        const result = await cloudinary.uploader.destroy(publicId, {
+            resource_type: type
+        });
         console.log("successfully upload")
         return result;
     } catch (error) {
