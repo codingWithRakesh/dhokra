@@ -131,6 +131,15 @@ const ShowProduct = () => {
     }
   };
 
+  useEffect(() => {
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }, []);
+
   const isTrending = (productId) => {
     return allTrending.some(item => item.product._id === productId);
   };

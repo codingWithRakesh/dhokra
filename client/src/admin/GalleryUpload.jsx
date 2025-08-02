@@ -9,10 +9,10 @@ const GalleryUpload = () => {
   const [localMessage, setLocalMessage] = useState(null);
   const [localError, setLocalError] = useState(null);
   const fileInputRef = useRef(null);
-  const { 
-    addImageToGallery, 
-    allGalleryImages, 
-    setAllGalleryImages, 
+  const {
+    addImageToGallery,
+    allGalleryImages,
+    setAllGalleryImages,
     deleteImageFromGallery,
     isLoading,
     error: storeError,
@@ -46,19 +46,19 @@ const GalleryUpload = () => {
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
-    
+
     const newImages = files.map(file => ({
       id: `upload-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       file,
-      name: file.name.replace(/ChatGPT Image|\.\.\./g, '').trim(),
+      name: file.name.replace(/Dhokra Image|\.\.\./g, '').trim(),
       size: file.size,
       isUploading: true
     }));
-    
+
     setUploadedFiles(prev => [...prev, ...newImages]);
     setPreviewImages(prev => [...prev, ...newImages]);
     setUploadingIds(prev => [...prev, ...newImages.map(img => img.id)]);
-    
+
     // Upload each image to the server
     const uploadPromises = newImages.map(async (img) => {
       const formData = new FormData();
@@ -66,15 +66,15 @@ const GalleryUpload = () => {
       try {
         await addImageToGallery(formData);
         setLocalMessage("Image added to gallery successfully");
-        
+
         // Remove from preview after successful upload
         setPreviewImages(prev => prev.filter(item => item.id !== img.id));
         setUploadedFiles(prev => prev.filter(item => item.id !== img.id));
       } catch (err) {
         setLocalError(err.message);
         // Mark upload as failed
-        setPreviewImages(prev => prev.map(item => 
-          item.id === img.id ? {...item, isUploading: false, uploadError: true} : item
+        setPreviewImages(prev => prev.map(item =>
+          item.id === img.id ? { ...item, isUploading: false, uploadError: true } : item
         ));
       } finally {
         setUploadingIds(prev => prev.filter(id => id !== img.id));
@@ -93,7 +93,7 @@ const GalleryUpload = () => {
       setUploadedFiles(prev => prev.filter(img => img.id !== id));
       return;
     }
-    
+
     // It's an existing gallery image
     try {
       await deleteImageFromGallery(id);
@@ -104,6 +104,15 @@ const GalleryUpload = () => {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, []);
+
   const triggerFileInput = () => {
     fileInputRef.current.click();
   };
@@ -111,7 +120,7 @@ const GalleryUpload = () => {
   // Combine images for display
   const allImages = [
     ...previewImages,
-    ...(allGalleryImages || []).filter(galleryImg => 
+    ...(allGalleryImages || []).filter(galleryImg =>
       !previewImages.some(img => img.id === galleryImg._id))
   ];
 
@@ -120,14 +129,14 @@ const GalleryUpload = () => {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-emerald-800 mb-6">Image Gallery Upload</h1>
         <div className="text-xl flex justify-center text-center font-semibold">
-        {/* Status messages */}
-        {isLoading && !uploadingIds.length && <p className="text-blue-500 mb-4">Loading...</p>}
-        {localError && <p className="text-red-500 mb-4">{localError}</p>}
-        {localMessage && <p className="text-green-500 mb-4">{localMessage}</p>}
+          {/* Status messages */}
+          {isLoading && !uploadingIds.length && <p className="text-blue-500 mb-4">Loading...</p>}
+          {localError && <p className="text-red-500 mb-4">{localError}</p>}
+          {localMessage && <p className="text-green-500 mb-4">{localMessage}</p>}
         </div>
         {/* Upload Section */}
         <div className="p-6 mb-8">
-          <div 
+          <div
             className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:bg-gray-50 transition-colors"
             onClick={triggerFileInput}
           >
@@ -152,12 +161,12 @@ const GalleryUpload = () => {
               Gallery Images ({allGalleryImages?.length || 0})
               {previewImages.length > 0 && ` (${previewImages.length} uploading)`}
             </h2>
-            
+
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {allImages.map((img) => {
                 const isUploading = img.isUploading || uploadingIds.includes(img.id);
                 const uploadFailed = img.uploadError;
-                
+
                 return (
                   <div key={img.id || img._id} className="relative group">
                     {isUploading ? (
@@ -166,7 +175,7 @@ const GalleryUpload = () => {
                         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200">
                           <div className="h-full bg-blue-500 animate-pulse" style={{ width: '70%' }}></div>
                         </div>
-                        
+
                         <FiLoader className="animate-spin text-2xl text-blue-500 mb-2" />
                         <p className="text-xs font-medium text-gray-700 text-center px-2 truncate w-full">
                           Uploading {img.name}

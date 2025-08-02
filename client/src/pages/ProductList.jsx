@@ -25,8 +25,8 @@ const ProductList = () => {
   } = productStore();
 
   const truncateTitle = (title, maxLength = 50) => {
-    return title.length > maxLength 
-      ? `${title.substring(0, maxLength)}...` 
+    return title.length > maxLength
+      ? `${title.substring(0, maxLength)}...`
       : title;
   };
 
@@ -73,6 +73,15 @@ const ProductList = () => {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, [category]);
+
   const toTitleCase = (str) =>
     str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase());
 
@@ -107,10 +116,10 @@ const ProductList = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-emerald-800">
-            {activeTab === 'trending' ? 'Trending Products' 
-              : activeTab === 'available-collection' ? 'Available Collection' 
-              : category ? toTitleCase(category.replace(/-/g, ' ') + ' Products') 
-              : 'Our Products'}
+            {activeTab === 'trending' ? 'Trending Products'
+              : activeTab === 'available-collection' ? 'Available Collection'
+                : category ? toTitleCase(category.replace(/-/g, ' ') + ' Products')
+                  : 'Our Products'}
           </h1>
 
           {message && <p className="text-green-500 mt-2">{message}</p>}
@@ -121,28 +130,28 @@ const ProductList = () => {
           <>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {currentProducts.map((product) => (
-                <div 
-                  key={product._id} 
+                <div
+                  key={product._id}
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
                 >
                   {/* Product Image Container */}
                   <div className="relative aspect-square overflow-hidden">
                     <img
-                      src={product.images?.[0]} 
+                      src={product.images?.[0]}
                       alt={product.name}
                       className="w-full h-full object-contain justify-center transition-transform duration-500 hover:scale-105"
                     />
-                    
+
                     {/* Discount Badge */}
                     {product.priceDiscount && (
                       <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-2 rounded-md">
                         {calculateDiscount(product.priceFixed, product.priceDiscount)}% OFF
                       </span>
                     )}
-                    
+
                     {/* Hover Actions */}
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-300 flex items-center justify-center space-x-4 opacity-0 hover:opacity-100">
-                      <button 
+                      <button
                         onClick={(e) => {
                           e.preventDefault();
                           toggleFavorite(product._id);
@@ -151,7 +160,7 @@ const ProductList = () => {
                       >
                         <FiHeart />
                       </button>
-                      <Link 
+                      <Link
                         to={`/product/${product.category}/${product._id}`}
                         className="p-2 rounded-full bg-white shadow-md text-gray-700 hover:bg-gray-100 transition-colors duration-200"
                       >
@@ -159,13 +168,13 @@ const ProductList = () => {
                       </Link>
                     </div>
                   </div>
-                  
+
                   {/* Product Info */}
                   <div className="p-4 flex flex-col flex-grow">
                     <h3 className="text-lg font-semibold text-emerald-900 mb-2">
-                       {truncateTitle(product.name)}
+                      {truncateTitle(product.name)}
                     </h3>
-                    
+
                     {/* Price */}
                     <div className="mt-auto">
                       {product.priceDiscount ? (
@@ -183,7 +192,7 @@ const ProductList = () => {
                         </p>
                       )}
                     </div>
-                    
+
                     {/* View Product Button */}
                     <Link
                       to={`/product/${product.category}/${product._id}`}
@@ -200,14 +209,14 @@ const ProductList = () => {
             {totalPages > 1 && (
               <div className="mt-12 flex justify-center">
                 <nav className="flex items-center space-x-2">
-                  <button 
+                  <button
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
                     className="px-4 py-2 border rounded-md hover:bg-gray-100 disabled:opacity-50"
                   >
                     Previous
                   </button>
-                  
+
                   {Array.from({ length: totalPages }, (_, i) => (
                     <button
                       key={i + 1}
@@ -217,8 +226,8 @@ const ProductList = () => {
                       {i + 1}
                     </button>
                   ))}
-                  
-                  <button 
+
+                  <button
                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                     disabled={currentPage === totalPages}
                     className="px-4 py-2 border rounded-md hover:bg-gray-100 disabled:opacity-50"

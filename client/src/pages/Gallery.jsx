@@ -21,34 +21,22 @@ const Gallery = () => {
     setCurrentIndex(-1);
   };
 
-  const navigate = (direction) => {
-    if (direction === 'prev') {
-      setCurrentIndex(prev => (prev <= 0 ? allGalleryImages.length - 1 : prev - 1));
-    } else {
-      setCurrentIndex(prev => (prev >= allGalleryImages.length - 1 ? 0 : prev + 1));
-    }
-  };
-
-  // Handle keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (currentIndex >= 0) {
-        if (e.key === 'Escape') {
-          closeLightbox();
-        } else if (e.key === 'ArrowLeft') {
-          navigate('prev');
-        } else if (e.key === 'ArrowRight') {
-          navigate('next');
-        }
-      }
-    };
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, []);
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex]);
-
-  // Fallback to empty array if no images
-  const displayImages = Array.isArray(allGalleryImages) ? allGalleryImages : [];
+  // Fallback to sample images if API data is empty (for development)
+  const displayImages = allGalleryImages.length > 0 
+    ? allGalleryImages 
+    : [
+        // { _id: 1, image: 'https://utkalikaodisha.com/wp-content/uploads/2024/07/11.jpg' },
+        // ... other sample images (convert to match your API structure)
+      ];
 
   return (
     <div className="min-h-full p-4 py-4 md:px-8 xl:px-0">
@@ -56,8 +44,10 @@ const Gallery = () => {
         <h1 className="text-3xl font-bold text-emerald-800 mb-2">Image Gallery</h1>
         <p className="text-gray-600 mb-8">A collection of images from our gallery</p>
 
+        <div className="text-xl flex justify-center text-center font-semibold">
         {isLoading && <p className="text-center py-8 font-semibold italic">Loading images...</p>}
         {error && <p className="text-red-500 text-center py-4">{error}</p>}
+        </div>
 
         {/* Masonry grid */}
         {displayImages.length > 0 ? (
@@ -81,19 +71,15 @@ const Gallery = () => {
           !isLoading && <p className="text-center py-8">No images found in the gallery.</p>
         )}
 
-        {/* Lightbox - Only render if currentIndex is valid and image exists */}
-        {currentIndex >= 0 && displayImages[currentIndex] && (
+        {/* Lightbox */}
+        {selectedImage && (
           <div 
             className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
             onClick={closeLightbox}
           >
             <button 
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate('prev');
-              }}
-              className="absolute left-4 md:left-8 lg:left-16 text-white p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors z-50"
-              aria-label="Previous image"
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-50"
             >
               <ChevronLeft className="w-8 h-8" />
             </button>
