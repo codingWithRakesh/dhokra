@@ -20,7 +20,7 @@ const FeaturedCollectionSection = () => {
     category: item.product.category,
     image: item.product.images[0] // Use the first image
   }));
-
+  
   // Function to limit title length
   const limitTitle = (title, maxLength = 20) => {
     return title.length > maxLength ? `${title.substring(0, maxLength)}...` : title;

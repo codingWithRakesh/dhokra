@@ -20,6 +20,7 @@ import EditProductPage from './admin/EditProductPage.jsx';
 import Gallery from './pages/Gallery.jsx';
 import GalleryUpload from './admin/GalleryUpload.jsx';
 import { ProtectRoute, AuthenticatedUserRoute } from "./utils/userAuthenticated.jsx"
+import FixImgUpload from './admin/FixImgUpload.jsx';
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,13 @@ const router = createBrowserRouter([
         path: "upload-gallery", element: (
           <ProtectRoute>
             <GalleryUpload />
+          </ProtectRoute>
+        )
+      },
+      {
+        path: "image-upload", element: (
+          <ProtectRoute>
+            <FixImgUpload />
           </ProtectRoute>
         )
       },
