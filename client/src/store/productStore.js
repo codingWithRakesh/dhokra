@@ -256,8 +256,8 @@ const productStore = create((set) => ({
         try {
             const response = await axios.delete(
                 `${import.meta.env.VITE_BACKEND_URL}/products/deleteImage/${productId}`,
-                { data: { imageUrl } },
                 {
+                    data: { imageUrl },
                     withCredentials: true,
                     headers: {
                         "Content-Type": "application/json",
@@ -266,12 +266,16 @@ const productStore = create((set) => ({
             );
 
             if (response.status === 200) {
-                set({ isLoading: false, message: response.data.message });
+                set({ isLoading: false });
+                return response.data; // Return the updated product
             } else {
-                set({ error: "Failed to fetch total product count" });
+                throw new Error("Failed to delete image");
             }
         } catch (error) {
-            set({ isLoading: false, error: error.response?.data?.message || error.message });
+            set({
+                isLoading: false,
+                error: error.response?.data?.message || error.message
+            });
             throw error;
         }
     },

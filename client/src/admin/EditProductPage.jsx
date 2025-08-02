@@ -3,7 +3,7 @@ import { FiSave, FiX, FiUpload, FiTrash2 } from 'react-icons/fi';
 import productStore from "../store/productStore.js";
 
 const EditProductModal = ({ product, mode, onClose, onSave }) => {
-  const {productById, setProductById, updateProduct, deleteProductImage } = productStore();
+  const { productById, setProductById, updateProduct, deleteProductImage } = productStore();
   const [formData, setFormData] = useState({
     name: '',
     priceFixed: '',
@@ -15,33 +15,51 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
     utility: '',
     weight: ''
   });
-  
+
   const [images, setImages] = useState([]);
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [uploadError, setUploadError] = useState('');
+  const [deleteError, setDeleteError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Load product data when component mounts or product changes
   useEffect(() => {
-    if (product) {
-      // Set all form fields regardless of mode
+    const loadProductData = async () => {
+      if (product?._id) {
+        try {
+          setIsLoading(true);
+          await setProductById(product._id);
+        } catch (error) {
+          console.error("Failed to load product:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadProductData();
+  }, [product]);
+
+  // Update form data when productById changes
+  useEffect(() => {
+    if (productById) {
       setFormData({
-        name: product.name || '',
-        priceFixed: product.priceFixed || '',
-        priceDiscount: product.priceDiscount || '',
-        description: product.description || '',
-        color: product.color || '',
-        size: product.size || '',
-        material: product.material || '',
-        utility: product.utility || '',
-        weight: product.weight || ''
+        name: productById.name || '',
+        priceFixed: productById.priceFixed?.toString() || '',
+        priceDiscount: productById.priceDiscount?.toString() || '',
+        description: productById.description || '',
+        color: productById.color || '',
+        size: productById.size || '',
+        material: productById.material || '',
+        utility: productById.utility || '',
+        weight: productById.weight || ''
       });
-      
-      // Always set images if they exist
-      if (product.images && product.images.length) {
-        setImages(product.images.map(url => ({ id: url, url })));
+
+      if (productById.images?.length) {
+        setImages(productById.images.map(url => ({ id: url, url })));
       }
     }
-  }, [product]);
+  }, [productById]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,7 +72,7 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
   const handleImageUpload = (e) => {
     setUploadError('');
     const files = Array.from(e.target.files);
-    
+
     if (images.length + files.length > 5) {
       setUploadError(`You can upload a maximum of 5 images. You currently have ${images.length}.`);
       e.target.value = '';
@@ -73,66 +91,100 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
       url: URL.createObjectURL(file),
       file
     }));
-    
+
     setImages(prev => [...prev, ...newImages]);
     e.target.value = '';
   };
 
   const removeImage = async (index) => {
     const imageToRemove = images[index];
-    
-    // If it's an existing image (not a newly uploaded one)
-    if (imageToRemove.id === imageToRemove.url) {
-      try {
-        setIsLoading(true);
-        await deleteProductImage(product._id, imageToRemove.url);
-      } catch (error) {
-        console.error('Failed to delete image:', error);
-        return;
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    
-    // Remove from local state
-    setImages(prev => prev.filter((_, i) => i !== index));
-    
-    // Adjust main image index if needed
-    if (mainImageIndex === index) {
-      setMainImageIndex(0);
-    } else if (mainImageIndex > index) {
-      setMainImageIndex(prev => prev - 1);
-    }
-  };
+    setDeleteError(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
     try {
       setIsLoading(true);
-      
-      // Prepare updated product data
-      const updatedProduct = {
-        ...formData,
-        priceFixed: parseFloat(formData.priceFixed),
-        priceDiscount: parseFloat(formData.priceDiscount),
-        // Only include images if in full edit mode or if we have new images
-        ...(mode === 'full' || images.some(img => img.id !== img.url) ? { images: images.map(img => img.url) } : {})
-      };
-      
-      await onSave({
-        ...product,
-        ...updatedProduct
-      });
-      
+
+      // If it's an existing image (not a newly uploaded one)
+      if (imageToRemove.id === imageToRemove.url) {
+        await deleteProductImage(product._id, imageToRemove.url);
+        // Refresh product data after deletion
+        const updatedProduct = await setProductById(product._id);
+        if (updatedProduct?.images) {
+          setImages(updatedProduct.images.map(url => ({ id: url, url })));
+        }
+      } else {
+        // For newly uploaded images (not saved to server yet)
+        setImages(prev => prev.filter((_, i) => i !== index));
+      }
+
+      // Adjust main image index if needed
+      if (mainImageIndex === index) {
+        setMainImageIndex(0);
+      } else if (mainImageIndex > index) {
+        setMainImageIndex(prev => prev - 1);
+      }
     } catch (error) {
-      console.error('Failed to update product:', error);
+      setDeleteError('Failed to delete image. Please try again.');
+      console.error('Failed to delete image:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  if (!product) return null;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+      setDeleteError(null);
+
+      const formDataObj = new FormData();
+      formDataObj.append('name', formData.name);
+      formDataObj.append('priceFixed', formData.priceFixed);
+      formDataObj.append('priceDiscount', formData.priceDiscount);
+      formDataObj.append('description', formData.description);
+      formDataObj.append('color', formData.color);
+      formDataObj.append('size', formData.size);
+      formDataObj.append('material', formData.material);
+      formDataObj.append('utility', formData.utility);
+      formDataObj.append('weight', formData.weight);
+
+      if (mode === 'full') {
+        images.forEach((image) => {
+          if (image.file) {
+            formDataObj.append('images', image.file);
+          }
+        });
+
+        if (images.length > 0 && !images.some(img => img.file)) {
+          formDataObj.append('keepExistingImages', 'true');
+        }
+      } else {
+        formDataObj.append('keepExistingImages', 'true');
+      }
+
+      await updateProduct(product._id, formDataObj);
+      await setProductById(product._id);
+
+      if (onSave) {
+        onSave();
+      }
+    } catch (error) {
+      console.error('Failed to update product:', error);
+      setDeleteError('Failed to save changes. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (!product || !productById) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="bg-white rounded-xl p-6">
+          <p>Loading product data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
@@ -142,7 +194,7 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
             <h1 className="text-2xl font-bold text-gray-800">
               {mode === 'quick' ? 'Quick Edit' : 'Edit Product Details'}
             </h1>
-            <button 
+            <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 transition-colors"
               disabled={isLoading}
@@ -153,6 +205,12 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6">
+          {deleteError && (
+            <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg">
+              {deleteError}
+            </div>
+          )}
+
           {mode === 'full' && (
             <div className="mb-8">
               <div className="flex justify-between items-center mb-3">
@@ -161,7 +219,7 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
                   {images.length}/5 images uploaded
                 </span>
               </div>
-              
+
               {uploadError && (
                 <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg">
                   {uploadError}
@@ -171,8 +229,8 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-4">
                 {images.map((image, index) => (
                   <div key={image.id} className="relative group">
-                    <img 
-                      src={image.url} 
+                    <img
+                      src={image.url}
                       alt={`Preview ${index}`}
                       className={`h-32 w-full object-cover rounded-lg border-2 ${mainImageIndex === index ? 'border-emerald-500 ring-2 ring-emerald-200' : 'border-gray-200'} transition-all`}
                       onClick={() => setMainImageIndex(index)}
@@ -185,7 +243,11 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
                       title="Remove image"
                       disabled={isLoading}
                     >
-                      <FiTrash2 size={14} />
+                      {isLoading ? (
+                        <span className="animate-spin block w-4 h-4">↻</span>
+                      ) : (
+                        <FiTrash2 size={14} />
+                      )}
                     </button>
                     {mainImageIndex === index && (
                       <span className="absolute bottom-2 left-2 bg-emerald-500 text-white text-xs px-2 py-1 rounded">
@@ -194,9 +256,9 @@ const EditProductModal = ({ product, mode, onClose, onSave }) => {
                     )}
                   </div>
                 ))}
-                
+
                 {images.length < 5 && (
-                  <label 
+                  <label
                     htmlFor="image-upload"
                     className="flex flex-col items-center justify-center h-32 w-full border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-emerald-400 hover:bg-emerald-50 transition-all"
                   >
