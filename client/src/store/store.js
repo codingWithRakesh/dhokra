@@ -22,7 +22,7 @@ const categories = [
     link: "/product/gi-bengal-dokra",
   },
   {
-    name: "Pating Finish",
+    name: "Patina Finish",
     image: cat3,
     link: "/product/pating-finish-on-dokra",
   },
@@ -171,6 +171,7 @@ export const navItems2 = [
     { name: "Stock Products", path: "/dashboard/stock-products" },
     { name: "Upload Gallery", path: "/dashboard/upload-gallery" },
     { name: "Image Upload", path: "/dashboard/image-upload" },
+    { name: "Video Upload", path: "/dashboard/video-upload" },
 ];
 
 const store = {
