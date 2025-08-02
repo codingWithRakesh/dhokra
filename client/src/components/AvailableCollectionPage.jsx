@@ -19,8 +19,8 @@ const FeaturedCollectionSection = () => {
     maxprice: item.product.priceFixed !== item.product.priceDiscount ? `₹${item.product.priceFixed}` : null,
     category: item.product.category,
     image: item.product.images[0] // Use the first image
-  }));
-
+  })).reverse();
+  
   // Function to limit title length
   const limitTitle = (title, maxLength = 20) => {
     return title.length > maxLength ? `${title.substring(0, maxLength)}...` : title;
