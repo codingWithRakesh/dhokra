@@ -164,6 +164,7 @@ export const navItems2 = [
     { name: "Trending", path: "/dashboard/trending" },
     { name: "Stock Products", path: "/dashboard/stock-products" },
     { name: "Upload Gallery", path: "/dashboard/upload-gallery" },
+    { name: "Image Upload", path: "/dashboard/image-upload" },
 ];
 
 const store = {

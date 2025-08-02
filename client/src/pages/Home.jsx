@@ -13,8 +13,10 @@ import dhokraImage2 from '../assets/image/cos2.jpg';
 import dhokraImage3 from '../assets/image/cos3.jpg';
 import TrendingDhokraSection from '../components/TrendingDhokraSection';
 import FeaturedCollectionSection from "../components/AvailableCollectionPage";
+import FixImg from '../components/FixImg';
 
 const Home = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying] = useState(true);
@@ -48,70 +50,11 @@ const Home = () => {
   return (
     <div className="min-h-screen max-w-7xl mx-auto flex flex-col">
         <main className="flex-grow">
-            <section className="relative rounded-sm overflow-hidden shadow-xl">
-                {/* Slider Container */}
-                <div className="relative max-w-full h-[50vh] md:h-[70vh] overflow-hidden">
-                    {slides.map((slide, index) => (
-                    <div
-                        key={slide.id}
-                        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                        index === currentSlide ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                        }`}
-                    >
-                        {/* Background Image */}
-                        <img
-                        src={slide.image}
-                        alt={slide.alt}
-                        className="w-full h-full "
-                        loading="lazy"
-                        />
-                        
-                        {/* Text Overlay - Bottom Aligned */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end pb-8 sm:pb-12 md:pb-12 lg:pb-12 px-4 sm:px-6 text-center">
-                            <div className="max-w-2xl mx-auto text-white animate-fadeInUp">
-                                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 drop-shadow-lg">
-                                {slide.title}
-                                </h2>
-                                <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 drop-shadow-md text-amber-300">
-                                    {slide.description}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    ))}
-
-                    {/* Navigation Arrows */}
-                    <button
-                    onClick={prevSlide}
-                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-1 sm:p-2 rounded-full transition z-10"
-                    aria-label="Previous slide"
-                    >
-                    <ChevronLeftIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-                    </button>
-                    <button
-                    onClick={nextSlide}
-                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-1 sm:p-2 rounded-full transition z-10"
-                    aria-label="Next slide"
-                    >
-                    <ChevronRightIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-                    </button>
-
-                    {/* Slide Indicators */}
-                    <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
-                    {slides.map((_, index) => (
-                        <button
-                        key={index}
-                        onClick={() => goToSlide(index)}
-                        className={`h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full transition-all ${
-                            index === currentSlide ? 'bg-white w-4 sm:w-6' : 'bg-white/50'
-                        }`}
-                        aria-label={`Go to slide ${index + 1}`}
-                        />
-                    ))}
-                    </div>
+            <section className="py-0 sm:px-4 lg:px-0">
+                <div className="p-0">
+                    <FixImg selectedImage={selectedImage} />
                 </div>
             </section>
-
 
             <section className="py-6 sm:px-6 lg:px-0">
                 <div className="max-w-7xl mx-auto">
@@ -195,7 +138,6 @@ const Home = () => {
                 </div>
             </section>
 
-
             <section className="py-4 sm:px-6 lg:px-0">
                 <div className="w-full mx-auto">
                     <div className="flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
@@ -260,9 +202,73 @@ const Home = () => {
                 </div>
             </section>
 
-           <section className="py-4 sm:px-6 lg:px-0">
-             <TrendingDhokraSection />
-           </section>
+            <section className="relative rounded-sm overflow-hidden shadow-xl">
+                {/* Slider Container */}
+                <div className="relative max-w-full h-[50vh] md:h-[70vh] overflow-hidden">
+                    {slides.map((slide, index) => (
+                    <div
+                        key={slide.id}
+                        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                        index === currentSlide ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                        }`}
+                    >
+                        {/* Background Image */}
+                        <img
+                        src={slide.image}
+                        alt={slide.alt}
+                        className="w-full h-full "
+                        loading="lazy"
+                        />
+                        
+                        {/* Text Overlay - Bottom Aligned */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end pb-8 sm:pb-12 md:pb-12 lg:pb-12 px-4 sm:px-6 text-center">
+                            <div className="max-w-2xl mx-auto text-white animate-fadeInUp">
+                                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 drop-shadow-lg">
+                                {slide.title}
+                                </h2>
+                                <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 drop-shadow-md text-amber-300">
+                                    {slide.description}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    ))}
+
+                    {/* Navigation Arrows */}
+                    <button
+                    onClick={prevSlide}
+                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-1 sm:p-2 rounded-full transition z-10"
+                    aria-label="Previous slide"
+                    >
+                    <ChevronLeftIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+                    </button>
+                    <button
+                    onClick={nextSlide}
+                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-1 sm:p-2 rounded-full transition z-10"
+                    aria-label="Next slide"
+                    >
+                    <ChevronRightIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+                    </button>
+
+                    {/* Slide Indicators */}
+                    <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                    {slides.map((_, index) => (
+                        <button
+                        key={index}
+                        onClick={() => goToSlide(index)}
+                        className={`h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full transition-all ${
+                            index === currentSlide ? 'bg-white w-4 sm:w-6' : 'bg-white/50'
+                        }`}
+                        aria-label={`Go to slide ${index + 1}`}
+                        />
+                    ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-4 sm:px-6 lg:px-0">
+                <TrendingDhokraSection />
+            </section>
 
             <section className="py-4 sm:px-6 lg:px-0">
                 <SideDetails />
