@@ -20,7 +20,7 @@ const TrendingDhokraSection = () => {
     maxprice: item.product.priceFixed !== item.product.priceDiscount ? item.product.priceFixed : null,
     category: item.product.category,
     image: item.product.images[0] // Use the first image
-  })).reverse();
+  }));
 
   return (
     <section className="py-4">
