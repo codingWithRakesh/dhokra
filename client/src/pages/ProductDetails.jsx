@@ -37,10 +37,6 @@ const ProductDetails = () => {
     };
 
     fetchProductDetails();
-
-    return () => {
-      setProductById(null);
-    };
   }, [id]);
 
   useEffect(() => {
