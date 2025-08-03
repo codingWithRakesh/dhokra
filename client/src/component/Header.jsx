@@ -16,11 +16,14 @@ const Header = () => {
           <Link to="/" className="hover:text-emerald-800 transition duration-300">
             Home
           </Link>
-          <Link to="#" className="hover:text-emerald-800 transition duration-300">
+          <Link to="/about" className="hover:text-emerald-800 transition duration-300">
             About
           </Link>
           <Link to="/gallery" className="hover:text-emerald-800 transition duration-300">
             Gallery
+          </Link>
+          <Link to="/about" className="hover:text-emerald-800 transition duration-300">
+            Videos
           </Link>
           <Link to="/contact" className="hover:text-emerald-800 transition duration-300">
             Contact

@@ -22,6 +22,8 @@ import GalleryUpload from './admin/GalleryUpload.jsx';
 import { ProtectRoute, AuthenticatedUserRoute } from "./utils/userAuthenticated.jsx"
 import FixImgUpload from './admin/FixImgUpload.jsx';
 import VideoUpload from './admin/VideoUpload.jsx';
+import AboutMe from './pages/AboutMe.jsx';
+import VideoGallery from './components/Video.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,7 @@ const router = createBrowserRouter([
     element: <Layout1 />,
     children: [
       { index: true, element: <Home /> },
+      { path: "about", element: <AboutMe /> },
       { path: "contact", element: <ContactUs /> },
       { path: "gallery", element: <Gallery /> },
       { path: "*", element: <NotFound /> },

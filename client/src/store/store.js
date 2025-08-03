@@ -27,6 +27,11 @@ const categories = [
     link: "/product/pating-finish-on-dokra",
   },
   {
+    name: "Dokra Jewellery",
+    image: cat3,
+    link: "/product/dokra-jewellery",
+  },
+  {
     name: "Wall hanging",
     image: cat5,
     link: "/product/wall-hanging",
@@ -45,6 +50,11 @@ const categories = [
     name: "Candle Stand",
     image: cat2,
     link: "/product/candle-stands",
+  },
+  {
+    name: "My Creativity",
+    image: cat3,
+    link: "/product/my-creativity",
   },
 ];
 
@@ -155,12 +165,14 @@ export const trendingProducts = [
 export const navItems = [
     { name: "GI Bengal Dokra", path: "/product/gi-bengal-dokra" },
     { name: "Patina Finish on Dokra", path: "/product/patina-finish-on-dokra" },
+    { name: "Dokra Jewellery", path: "/product/dokra-jewellery" },
     { name: "Wall hanging", path: "/product/wall-hanging" },
     { name: "Table Top", path: "/product/table-top" },
     { name: "Home Decore", path: "/product/home-decore" },
     { name: "Candle Stand", path: "/product/candle-stands" },
     { name: "Trending", path: "/product/trending" },
     { name: "Available Collection", path: "/product/available-collection" },
+    { name: "My Creativity", path: "/product/my-creativity" },
 ];
 
 export const navItems2 = [
