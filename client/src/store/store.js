@@ -170,9 +170,9 @@ export const navItems = [
     { name: "Table Top", path: "/product/table-top" },
     { name: "Home Decore", path: "/product/home-decore" },
     { name: "Candle Stand", path: "/product/candle-stands" },
+    { name: "My Creativity", path: "/product/my-creativity" },
     { name: "Trending", path: "/product/trending" },
     { name: "Available Collection", path: "/product/available-collection" },
-    { name: "My Creativity", path: "/product/my-creativity" },
 ];
 
 export const navItems2 = [

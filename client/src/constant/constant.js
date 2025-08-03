@@ -1,1 +1,1 @@
-export const categorys = ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands", "dokra-jewellery", "my-creativity"];
+export const categorys = ["gi-bengal-dokra", "patina-finish-on-dokra", "dokra-jewellery", "wall-hanging", "table-top", "home-decore", "candle-stands", "my-creativity",];
