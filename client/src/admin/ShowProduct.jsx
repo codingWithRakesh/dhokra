@@ -4,6 +4,7 @@ import EditProductModal from './EditProductPage';
 import productStore from "../store/productStore.js";
 import availableCollectionStore from "../store/availableCollectionStore.js";
 import trendingStore from "../store/trendingStore.js";
+import {categorys} from "../constant/constant.js"
 
 const ShowProduct = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -36,14 +37,7 @@ const ShowProduct = () => {
     setAllTrending
   } = trendingStore();
 
-  const categories = [
-    "gi-bengal-dokra", 
-    "patina-finish-on-dokra", 
-    "wall-hanging", 
-    "table-top", 
-    "home-decore", 
-    "candle-stands"
-  ];
+  const categories = categorys;
 
   // Fetch products when category changes
   useEffect(() => {

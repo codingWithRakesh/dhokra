@@ -2,16 +2,11 @@ import { useState, useRef } from 'react';
 import { FiUpload, FiX, FiPlus } from 'react-icons/fi';
 import productStore from "../store/productStore.js";
 import { useEffect } from 'react';
+import {categorys} from "../constant/constant.js"
 
 // Valid categories matching server model
-const VALID_CATEGORIES = [
-  "gi-bengal-dokra",
-  "patina-finish-on-dokra",
-  "wall-hanging",
-  "table-top",
-  "home-decore",
-  "candle-stands"
-];
+const VALID_CATEGORIES = categorys;
+
 
 const Upload = () => {
   const { addProduct } = productStore();
