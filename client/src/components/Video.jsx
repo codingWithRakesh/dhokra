@@ -103,29 +103,17 @@ export default function VideoGallery() {
           </button>
           
           <div className="relative w-full max-w-6xl">
-            {/* Navigation Arrows (only show if multiple videos) */}
-            {allVideos.length > 1 && (
-              <>
-                <button 
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-black/50 hover:bg-amber-600 text-white p-3 rounded-full z-50 transition-all"
-                  onClick={() => navigate('prev')}
-                  aria-label="Previous video"
-                >
-                  <FaChevronLeft className="text-2xl" />
-                </button>
-                
-                <button 
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-black/50 hover:bg-amber-600 text-white p-3 rounded-full z-50 transition-all"
-                  onClick={() => navigate('next')}
-                  aria-label="Next video"
-                >
-                  <FaChevronRight className="text-2xl" />
-                </button>
-              </>
-            )}
-
+            {/* Navigation Arrows */}
+            <button 
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-black/50 hover:bg-amber-600 text-white p-3 rounded-full z-50 transition-all"
+              onClick={() => navigate('prev')}
+              aria-label="Previous video"
+            >
+              <FaChevronLeft className="text-2xl" />
+            </button>
+            
             {/* Video Container */}
-            <div className="h-[80vh] bg-black rounded-lg overflow-hidden">
+            <div className="h-[80vh] w-auto rounded-lg overflow-hidden">
               {isLoading ? (
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="animate-pulse text-white">Loading...</div>
@@ -139,6 +127,14 @@ export default function VideoGallery() {
                 />
               )}
             </div>
+
+            <button 
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-black/50 hover:bg-amber-600 text-white p-3 rounded-full z-50 transition-all"
+              onClick={() => navigate('next')}
+              aria-label="Next video"
+            >
+              <FaChevronRight className="text-2xl" />
+            </button>
           </div>
         </div>
       )}
