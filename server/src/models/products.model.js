@@ -1,13 +1,14 @@
-import mongoose, {Schema, model} from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+import { categorys } from "../constants.js"
 
 const productSchema = new Schema({
-    name : {
+    name: {
         type: String,
         required: true,
     },
     priceFixed: {
-        type : Number,
+        type: Number,
         required: true,
     },
     priceDiscount: {
@@ -17,25 +18,25 @@ const productSchema = new Schema({
     description: {
         type: String,
     },
-    color : {
+    color: {
         type: String,
     },
-    size : {
+    size: {
         type: String,
     },
-    material : {
+    material: {
         type: String,
     },
-    utility : {
+    utility: {
         type: String,
     },
-    weight : {
+    weight: {
         type: String,
     },
     category: {
-        type : String,
+        type: String,
         required: true,
-        enum: ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands"]
+        enum: categorys
     },
     isAvailable: {
         type: Boolean,
@@ -45,7 +46,7 @@ const productSchema = new Schema({
         type: String,
         required: true
     }]
-},{timestamps: true});
+}, { timestamps: true });
 
 productSchema.plugin(mongooseAggregatePaginate);
 

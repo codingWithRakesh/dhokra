@@ -4,17 +4,11 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import { Product } from "../models/products.model.js";
 import { uploadOnCloudinary, deleteFromCloudinary, getPublicId } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
+import { categorys } from "../constants.js";
 
 // Constants
 const MAX_IMAGES_PER_PRODUCT = 5;
-const VALID_CATEGORIES = [
-    "gi-bengal-dokra", 
-    "patina-finish-on-dokra", 
-    "wall-hanging", 
-    "table-top", 
-    "home-decore", 
-    "candle-stands"
-];
+const VALID_CATEGORIES = categorys;
 
 // Helper function to validate category
 const isValidCategory = (category) => VALID_CATEGORIES.includes(category);
@@ -238,8 +232,7 @@ const getAvailableProductsByCategory = asyncHandler(async (req, res) => {
     const { category } = req.params;
 
     // Validate category
-    const validCategories = ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", 
-                           "table-top", "home-decore", "candle-stands"];
+    const validCategories = categorys;
     if (!validCategories.includes(category)) {
         throw new ApiError(400, `Invalid category. Valid categories: ${validCategories.join(", ")}`);
     }
@@ -380,7 +373,7 @@ const getProductCountByCategory = asyncHandler(async (req, res) => {
     const { category } = req.params;
 
     // Validate category against enum values
-    const validCategories = ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands"];
+    const validCategories = categorys;
     
     if (!validCategories.includes(category)) {
         throw new ApiError(400, `Invalid category. Valid categories are: ${validCategories.join(", ")}`);
