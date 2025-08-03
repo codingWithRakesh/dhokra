@@ -59,7 +59,7 @@ const Gallery = () => {
   const displayImages = Array.isArray(allGalleryImages) ? allGalleryImages : [];
 
   return (
-    <div className="min-h-full p-4 py-4 md:px-8 xl:px-0">
+    <div className="min-h-full py-2 md:px-8 xl:px-0">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-emerald-800 mb-2">Image Gallery</h1>
         <p className="text-gray-600 mb-8">A collection of images from our gallery</p>
