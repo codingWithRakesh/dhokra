@@ -2,10 +2,35 @@ import { FaAward, FaUsers, FaGlobeAsia } from "react-icons/fa";
 import Video from "../components/Video";
 import SideDetails from "../components/SideDetails";
 import SocialCommunity from "../components/Social";
+import { useVideo } from "../contexts/videoContext";
+import { useEffect } from "react";
 
 export default function AboutMe() {
+  const [videoControl, setVideoControl] = useVideo();
+  
+  useEffect(() => {
+    // Always scroll to top when component mounts
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
+
+  useEffect(() => {
+    if (videoControl) {
+      // When videoControl becomes true, scroll to video section
+      setTimeout(() => {
+        const videoSection = document.getElementById('vdo');
+        if (videoSection) {
+          videoSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [videoControl]);
+
   return (
     <div className="py-8">
+      {/* All your existing content remains the same */}
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-amber-800 mb-6">

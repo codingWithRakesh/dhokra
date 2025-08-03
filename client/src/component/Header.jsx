@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useVideo } from "../contexts/videoContext";
 
 const Header = () => {
+  const [videoControl, setVideoControl] = useVideo();
   return (
     <>
     <header className="hidden lg:block text-black p-4 shadow-md">
@@ -16,13 +18,13 @@ const Header = () => {
           <Link to="/" className="hover:text-emerald-800 transition duration-300">
             Home
           </Link>
-          <Link to="/about" className="hover:text-emerald-800 transition duration-300">
+          <Link  onClick={() => setVideoControl(false)} to="/about" className="hover:text-emerald-800 transition duration-300">
             About
           </Link>
           <Link to="/gallery" className="hover:text-emerald-800 transition duration-300">
             Gallery
           </Link>
-          <Link to="/about" className="hover:text-emerald-800 transition duration-300">
+          <Link onClick={() => setVideoControl(true)} to="/about" className="hover:text-emerald-800 transition duration-300">
             Videos
           </Link>
           <Link to="/contact" className="hover:text-emerald-800 transition duration-300">

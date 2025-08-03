@@ -1,15 +1,27 @@
 import { useState, useRef, useEffect } from 'react';
 import { Upload, X, Play, Pause, RotateCw, Trash2 } from 'lucide-react';
+import videoStore from "../store/videoStore.js";
 
 const VideoUpload = () => {
   const [videoFile, setVideoFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [uploadedVideos, setUploadedVideos] = useState([]);
   const videoRef = useRef(null);
   const fileInputRef = useRef(null);
+  const {
+    addVideo,
+    deleteVideo,
+    allVideos,
+    setAllVideos,
+    isLoading,
+    error,
+    message
+  } = videoStore();
+
+  // Load all videos on component mount
+  useEffect(() => {
+    setAllVideos();
+  }, []);
 
   // Handle file selection
   const handleFileChange = (e) => {
@@ -20,50 +32,43 @@ const VideoUpload = () => {
     }
   };
 
-  // Simulate upload progress
-  const handleUpload = () => {
+  // Handle video upload
+  const handleUpload = async () => {
     if (!videoFile) return;
-    
-    setIsUploading(true);
-    setUploadProgress(0);
-    
-    const interval = setInterval(() => {
-      setUploadProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsUploading(false);
-          // Add to uploaded videos list
-          setUploadedVideos(prev => [
-            ...prev,
-            {
-              id: Date.now(),
-              name: videoFile.name,
-              url: previewUrl,
-              size: (videoFile.size / (1024 * 1024)).toFixed(2),
-              type: videoFile.type.split('/')[1].toUpperCase()
-            }
-          ]);
-          // Reset upload form
-          setVideoFile(null);
-          setPreviewUrl('');
-          return 100;
-        }
-        return prev + 10;
-      });
-    }, 300);
+
+    try {
+      const formData = new FormData();
+      formData.append('video', videoFile);
+
+      await addVideo(formData);
+
+      // Refresh the video list after upload
+      await setAllVideos();
+
+      // Reset upload form
+      setVideoFile(null);
+      setPreviewUrl('');
+    } catch (error) {
+      console.error('Upload failed:', error);
+    }
   };
 
-  // Delete uploaded video
-  const handleDeleteVideo = (id) => {
-    setUploadedVideos(prev => prev.filter(video => video.id !== id));
+  // Handle video deletion
+  const handleDeleteVideo = async (videoId) => {
+    try {
+      await deleteVideo(videoId);
+      await setAllVideos(); // Refresh the video list after deletion
+    } catch (error) {
+      console.error('Deletion failed:', error);
+    }
   };
 
   // Video control functions
   const togglePlay = () => {
     if (isPlaying) {
-      videoRef.current.pause();
+      videoRef.current?.pause();
     } else {
-      videoRef.current.play();
+      videoRef.current?.play();
     }
     setIsPlaying(!isPlaying);
   };
@@ -72,7 +77,6 @@ const VideoUpload = () => {
     setVideoFile(null);
     setPreviewUrl('');
     setIsPlaying(false);
-    setUploadProgress(0);
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
     }
@@ -81,21 +85,30 @@ const VideoUpload = () => {
   // Clean up object URLs on unmount
   useEffect(() => {
     return () => {
-      uploadedVideos.forEach(video => {
-        URL.revokeObjectURL(video.url);
-      });
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
     };
-  }, [uploadedVideos]);
+  }, [previewUrl]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto p-4">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Video Upload Center</h2>
-      
+
       {/* Upload Section */}
       <div className="mb-10">
         <h3 className="text-lg font-semibold text-gray-700 mb-4">Upload New Video</h3>
         {!videoFile ? (
-          <div 
+          <div
             className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-emerald-500 transition-colors"
             onClick={() => fileInputRef.current.click()}
           >
@@ -123,7 +136,7 @@ const VideoUpload = () => {
                 className="w-full max-h-[400px] object-contain"
                 onClick={togglePlay}
               />
-              
+
               {/* Video Controls */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
                 <div className="flex items-center justify-center space-x-4">
@@ -138,14 +151,14 @@ const VideoUpload = () => {
                       <Play className="w-5 h-5 text-white" />
                     )}
                   </button>
-                  
+
                   <div className="flex-1 bg-gray-600 rounded-full h-1.5">
-                    <div 
-                      className="bg-emerald-500 h-1.5 rounded-full" 
+                    <div
+                      className="bg-emerald-500 h-1.5 rounded-full"
                       style={{ width: videoRef.current ? `${(videoRef.current.currentTime / videoRef.current.duration) * 100}%` : '0%' }}
                     />
                   </div>
-                  
+
                   <button
                     onClick={() => videoRef.current.currentTime = 0}
                     className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
@@ -155,7 +168,7 @@ const VideoUpload = () => {
                   </button>
                 </div>
               </div>
-              
+
               <button
                 onClick={handleReset}
                 className="absolute top-2 right-2 p-1 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
@@ -164,7 +177,7 @@ const VideoUpload = () => {
                 <X className="w-5 h-5 text-white" />
               </button>
             </div>
-            
+
             {/* File Info */}
             <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
               <div className="flex items-center space-x-3">
@@ -179,36 +192,34 @@ const VideoUpload = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Upload Progress */}
-            {isUploading && (
+            {isLoading && (
               <div className="space-y-2">
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
                   <div
-                    className="bg-emerald-600 h-2.5 rounded-full"
-                    style={{ width: `${uploadProgress}%` }}
+                    className="bg-emerald-600 h-2.5 rounded-full animate-pulse"
                   />
                 </div>
                 <p className="text-sm text-gray-600 text-right">
-                  Uploading... {uploadProgress}%
+                  Uploading...
                 </p>
               </div>
             )}
-            
+
             {/* Action Buttons */}
             <div className="flex space-x-3 pt-2">
               <button
                 onClick={handleUpload}
-                disabled={isUploading}
-                className={`px-6 py-2 rounded-md font-medium flex-1 ${
-                  isUploading
+                disabled={isLoading}
+                className={`px-6 py-2 rounded-md font-medium flex-1 ${isLoading
                     ? 'bg-gray-300 cursor-not-allowed'
                     : 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                } transition-colors`}
+                  } transition-colors`}
               >
-                {isUploading ? 'Uploading...' : 'Upload Video'}
+                {isLoading ? 'Uploading...' : 'Upload Video'}
               </button>
-              
+
               <button
                 onClick={handleReset}
                 className="px-6 py-2 border border-gray-300 rounded-md font-medium hover:bg-gray-50 transition-colors"
@@ -221,19 +232,19 @@ const VideoUpload = () => {
       </div>
 
       {/* Uploaded Videos Section */}
-      {uploadedVideos.length > 0 && (
+      {allVideos.length > 0 && (
         <div className="mt-8">
           <h3 className="text-lg font-semibold text-gray-700 mb-4">Your Uploaded Videos</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {uploadedVideos.map(video => (
-              <div key={video.id} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            {allVideos.map(video => (
+              <div key={video._id} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className="relative aspect-video bg-black">
                   <video
-                    src={video.url}
+                    src={video.video}
                     className="w-full h-full object-cover"
                   />
                   <button
-                    onClick={() => handleDeleteVideo(video.id)}
+                    onClick={() => handleDeleteVideo(video._id)}
                     className="absolute top-2 right-2 p-1.5 bg-red-500/90 rounded-full hover:bg-red-600 transition-colors"
                     aria-label="Delete video"
                   >
@@ -241,10 +252,13 @@ const VideoUpload = () => {
                   </button>
                 </div>
                 <div className="p-3">
-                  <p className="font-medium text-gray-800 truncate">{video.name}</p>
+                  <p className="font-medium text-gray-800 truncate">
+                    Video - {new Date(video.createdAt).toLocaleDateString()}
+                  </p>
                   <div className="flex justify-between items-center mt-1">
-                    <span className="text-sm text-gray-500">{video.size} MB</span>
-                    <span className="text-xs bg-gray-100 px-2 py-1 rounded">{video.type}</span>
+                    <span className="text-sm text-gray-500">
+                      {new Date(video.createdAt).toLocaleString()}
+                    </span>
                   </div>
                 </div>
               </div>
