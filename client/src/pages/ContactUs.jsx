@@ -100,7 +100,7 @@ const ContactUs = () => {
               <h2 className="text-xl font-semibold text-emerald-800 mb-2">Follow us on Social Media</h2>
               <div className="flex justify-center gap-6 p-2">
                 <a
-                  href="https://instagram.com/unickdhokra"
+                  href="https://www.instagram.com/artdokra?utm_source=qr&igsh=dXh2eGk1MWF1cnVn"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-pink-400"
@@ -110,7 +110,7 @@ const ContactUs = () => {
                 </a>
 
                 <a
-                  href="https://facebook.com/unickdhokra"
+                  href="https://www.facebook.com/share/1Jck3rmo9z/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-blue-400"
@@ -120,7 +120,7 @@ const ContactUs = () => {
                 </a>
 
                 <a
-                  href="https://youtube.com/unickdhokra"
+                  href="https://youtube.com/@animeshmaji2908?si=OP2KTvlVhR2T4_b9"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-red-400"
@@ -130,7 +130,7 @@ const ContactUs = () => {
                 </a>
 
                 <a
-                  href="https://twitter.com/unickdhokra"
+                  href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-gray-400"
@@ -188,7 +188,7 @@ const ContactUs = () => {
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
               <iframe
                 title="Our Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.0163961776067!2d88.3637854153846!3d22.57218508518099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346ae015d%3A0xb540e4bce39763!2sVictoria%20Memorial!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3665.679273517975!2d87.0840176750992!3d23.25475537901174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f7a7644d6777f7%3A0x1b885ba01389ff4e!2sDokra%20Art%20%26%20Crafts!5e0!3m2!1sen!2sin!4v1754197889251!5m2!1sen!2sin"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}

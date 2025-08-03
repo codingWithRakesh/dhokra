@@ -14,7 +14,7 @@ const SocialCommunity = () => {
 
         <div className="flex justify-center gap-6">
           <a 
-            href="https://instagram.com/unickdhokra" 
+            href="https://www.instagram.com/artdokra?utm_source=qr&igsh=dXh2eGk1MWF1cnVn" 
             target="_blank" 
             rel="noopener noreferrer"
             className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-pink-400"
@@ -24,7 +24,7 @@ const SocialCommunity = () => {
           </a>
           
           <a 
-            href="https://facebook.com/unickdhokra" 
+            href="https://www.facebook.com/share/1Jck3rmo9z/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-blue-400"
@@ -34,7 +34,7 @@ const SocialCommunity = () => {
           </a>
           
           <a 
-            href="https://youtube.com/unickdhokra" 
+            href="https://youtube.com/@animeshmaji2908?si=OP2KTvlVhR2T4_b9" 
             target="_blank" 
             rel="noopener noreferrer"
             className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-red-400"
@@ -44,7 +44,7 @@ const SocialCommunity = () => {
           </a>
           
           <a 
-            href="https://twitter.com/unickdhokra" 
+            href="https://twitter.com" 
             target="_blank" 
             rel="noopener noreferrer"
             className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-gray-400"
