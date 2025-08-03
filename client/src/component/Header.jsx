@@ -59,11 +59,14 @@ const Header = () => {
           <Link to="/" className="hover:text-yellow-400 transition duration-300">
             Home
           </Link>
-          <Link to="#" className="hover:text-yellow-400 transition duration-300">
+          <Link  onClick={() => setVideoControl(false)} to="/about" className="hover:text-yellow-400 transition duration-300">
             About
           </Link>
           <Link to="/gallery" className="hover:text-yellow-400 transition duration-300">
             Gallery
+          </Link>
+          <Link onClick={() => setVideoControl(true)} to="/about" className="hover:text-yellow-400 transition duration-300">
+            Videos
           </Link>
           <Link to="/contact" className="hover:text-yellow-400 transition duration-300">
             Contact

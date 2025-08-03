@@ -45,7 +45,7 @@ const Navbar = () => {
           <Link to="/">
             <div className="text-xl font-bold italic text-white">
               <span className="text-amber-200">Unick Dhokra</span>{" "}
-              <span className="text-white">Workshop</span>
+              <span className="text-amber-200">Workshop</span>
             </div>
           </Link>
 

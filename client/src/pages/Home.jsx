@@ -9,14 +9,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Slide from '../component/Slide';
 import SocialCommunity from '../components/Social';
 import dhokraImage1 from '../assets/image/cos1.jpg';
-import dhokraImage2 from '../assets/image/cos2.jpg';
-import dhokraImage3 from '../assets/image/cos3.jpg';
 import TrendingDhokraSection from '../components/TrendingDhokraSection';
 import FeaturedCollectionSection from "../components/AvailableCollectionPage";
 import FixImg from '../components/FixImg';
 import newimg1 from "../assets/image/Home-Decor1-1.webp";
 import newimg2 from "../assets/image/Small-Banners-2.webp";
-import newimg3 from "../assets/image/Small-Banners-3.webp";
 
 const Home = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -179,9 +176,9 @@ const Home = () => {
                             >
                                 Explore Collection
                             </Link>
-                            <button className="inline-flex items-center justify-center px-8 py-3 border border-emerald-600 text-sm md:text-base font-medium rounded-lg text-emerald-700 bg-white hover:bg-emerald-50 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
+                            <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 border border-emerald-600 text-sm md:text-base font-medium rounded-lg text-emerald-700 bg-white hover:bg-emerald-50 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
                                 Our Artisans' Story
-                            </button>
+                            </Link>
                             </div>
                         </div>
 

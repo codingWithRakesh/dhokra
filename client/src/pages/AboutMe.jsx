@@ -1,6 +1,5 @@
 import { FaAward, FaUsers, FaGlobeAsia } from "react-icons/fa";
 import Video from "../components/Video";
-import SideDetails from "../components/SideDetails";
 import SocialCommunity from "../components/Social";
 import { useVideo } from "../contexts/videoContext";
 import { useEffect } from "react";

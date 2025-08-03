@@ -19,7 +19,7 @@ const ExtraProduct = ({ products }) => {
       <h3 className="text-xl font-bold mb-6 text-gray-800">You May Also Like</h3>
       
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {products.slice(0, 10).map((product) => (
+        {products.slice(0, 15).map((product) => (
           <Link 
             to={`/product/${product.category}/${product._id}`}
             key={product._id}

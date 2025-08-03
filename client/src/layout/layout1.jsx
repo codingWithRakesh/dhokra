@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../component/Header";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
-import Slide from "../component/Slide";
+import ScrollToTop from "../components/ScrollToTop";
 
 
 export default function Layout1() {
@@ -14,6 +14,7 @@ export default function Layout1() {
                 {/* Main content area */}
                 <Outlet />
             </main>
+            <ScrollToTop />
             <Footer />
         </div>
     );

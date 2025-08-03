@@ -1,10 +1,4 @@
 // store.js
-import img1 from "../assets/catagoryImage/1.jpg";
-import img2 from "../assets/catagoryImage/2.jpg";
-import img3 from "../assets/catagoryImage/3.jpg";
-import img4 from "../assets/catagoryImage/4.jpg";
-import img5 from "../assets/catagoryImage/5.jpg";
-import img6 from "../assets/catagoryImage/6.jpg";
 import dhokraImage1 from '../assets/image/cos1.jpg'; 
 import dhokraImage2 from '../assets/image/cos2.jpg';
 import dhokraImage3 from '../assets/image/cos3.jpg';
@@ -28,7 +22,7 @@ const categories = [
   },
   {
     name: "Dokra Jewellery",
-    image: cat3,
+    image: cat2,
     link: "/product/dokra-jewellery",
   },
   {
