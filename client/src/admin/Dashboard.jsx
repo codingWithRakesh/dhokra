@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import productStore from "../store/productStore.js"
 import trendingStore from "../store/trendingStore.js"
 import availableCollectionStore from "../store/availableCollectionStore.js"
+import {categorys} from "../constant/constant.js"
 
 const CategoriesDashboard = ({ name }) => {
   const { productCountCategory, setProductCountCategory } = productStore();
@@ -62,13 +63,13 @@ const CategoriesDashboard = ({ name }) => {
 }
 
 const Dashboard = () => {
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const { totalProductCount, setTotalProductCount } = productStore();
   const { countTrending, setCountTrending } = trendingStore();
   const { countAvailableCollection, setCountAvailableCollection } = availableCollectionStore();
 
-  const mockProductCounts = ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands", "Trending", "Available Collection"];
+  const mockProductCounts = [...categorys, "Trending", "Available Collection"];
 
   useEffect(() => {
     const fetchProductCounts = async () => {
