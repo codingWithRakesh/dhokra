@@ -95,7 +95,7 @@ const ProductList = () => {
   const isLoadingState = isLoading || isTrendingLoading || isCollectionLoading;
 
   if (isLoadingState) {
-    return <div className="min-h-screen py-2 px-2 lg:px-0">
+    return <div className="min-h-full py-2 px-2 lg:px-0">
       <div className="max-w-7xl mx-auto text-center py-20">
         <p>Loading products...</p>
       </div>
@@ -103,7 +103,7 @@ const ProductList = () => {
   }
 
   if (error) {
-    return <div className="min-h-screen py-2 px-2 lg:px-0">
+    return <div className="min-h-full py-2 px-2 lg:px-0">
       <div className="max-w-7xl mx-auto text-center py-20 text-red-500">
         <p>{error}</p>
       </div>

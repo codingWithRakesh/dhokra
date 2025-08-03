@@ -80,7 +80,12 @@ const ShowProduct = () => {
     }
   };
 
-  const toggleTrending = async (productId) => {
+  const toggleTrending = async (productId, e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     try {
       const isTrending = allTrending.some(item => item.product._id === productId);
       
@@ -97,7 +102,12 @@ const ShowProduct = () => {
     }
   };
 
-  const toggleAvailableCollection = async (productId) => {
+  const toggleAvailableCollection = async (productId, e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     try {
       const isInCollection = allAvailableCollection.some(item => item.product._id === productId);
       
@@ -132,13 +142,13 @@ const ShowProduct = () => {
   };
 
   useEffect(() => {
-      setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }, 100);
-    }, []);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }, []);
 
   const isTrending = (productId) => {
     return allTrending.some(item => item.product._id === productId);
@@ -195,7 +205,7 @@ const ShowProduct = () => {
                 <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-blue-500" />
               </div>
             ) : filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredProducts.map((product) => (
                   <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
                     <div className="h-48 overflow-hidden">
@@ -224,28 +234,29 @@ const ShowProduct = () => {
                       <div className="grid grid-cols-2 gap-2">
                         <button
                           onClick={() => openEditModal(product, 'quick')}
-                          className="flex items-center justify-center px-3 py-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-colors"
+                          className="flex items-center justify-center px-3 py-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-colors active:scale-95"
                         >
                           <FiEdit className="mr-2" />
                           Quick Edit
                         </button>
                         <button
                           onClick={() => openEditModal(product, 'full')}
-                          className="flex items-center justify-center px-3 py-2 bg-indigo-100 text-indigo-600 rounded-md hover:bg-indigo-200 transition-colors"
+                          className="flex items-center justify-center px-3 py-2 bg-indigo-100 text-indigo-600 rounded-md hover:bg-indigo-200 transition-colors active:scale-95"
                         >
                           <FiEdit className="mr-2" />
                           Full Edit
                         </button>
                         <button
                           onClick={() => deleteProduct(product._id)}
-                          className="flex items-center justify-center px-3 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition-colors"
+                          className="flex items-center justify-center px-3 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition-colors active:scale-95"
                         >
                           <FiTrash2 className="mr-2" />
                           Delete
                         </button>
                         <button
-                          onClick={() => toggleTrending(product._id)}
-                          className={`flex items-center justify-center px-3 py-2 rounded-md transition-colors ${
+                          onTouchStart={(e) => toggleTrending(product._id, e)}
+                          onClick={(e) => toggleTrending(product._id, e)}
+                          className={`flex items-center justify-center px-3 py-2 rounded-md transition-colors active:scale-95 ${
                             isTrending(product._id) 
                               ? 'bg-green-100 text-green-600 hover:bg-green-200' 
                               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -255,8 +266,9 @@ const ShowProduct = () => {
                           {isTrending(product._id) ? 'Trending' : 'Make Trend'}
                         </button>
                         <button
-                          onClick={() => toggleAvailableCollection(product._id)}
-                          className={`flex items-center justify-center px-3 py-2 rounded-md transition-colors ${
+                          onTouchStart={(e) => toggleAvailableCollection(product._id, e)}
+                          onClick={(e) => toggleAvailableCollection(product._id, e)}
+                          className={`flex items-center justify-center px-3 py-2 rounded-md transition-colors active:scale-95 ${
                             isInAvailableCollection(product._id) 
                               ? 'bg-purple-100 text-purple-600 hover:bg-purple-200' 
                               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'

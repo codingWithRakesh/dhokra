@@ -70,7 +70,7 @@ const Footer = () => {
                 className="text-amber-400 hover:text-amber-300 transition-colors duration-200"
             >Admin</Link>
             <Link
-                to="mailto:Sujoycode999@gmail.com"
+                to="mailto:sujoycode999@gmail.com"
                 className="text-amber-400 hover:text-amber-300 transition-colors duration-200"
             >
                 Developer Contact
