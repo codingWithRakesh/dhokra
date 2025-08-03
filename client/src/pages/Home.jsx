@@ -179,9 +179,9 @@ const Home = () => {
                             >
                                 Explore Collection
                             </Link>
-                            <button className="inline-flex items-center justify-center px-8 py-3 border border-emerald-600 text-sm md:text-base font-medium rounded-lg text-emerald-700 bg-white hover:bg-emerald-50 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
+                            <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 border border-emerald-600 text-sm md:text-base font-medium rounded-lg text-emerald-700 bg-white hover:bg-emerald-50 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
                                 Our Artisans' Story
-                            </button>
+                            </Link>
                             </div>
                         </div>
 
