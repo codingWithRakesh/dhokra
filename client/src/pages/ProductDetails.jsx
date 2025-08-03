@@ -24,6 +24,12 @@ const ProductDetails = () => {
   const imageContainerRef = useRef(null);
   const imageRef = useRef(null);
 
+  // Mobile zoom states
+  const [touchStart, setTouchStart] = useState(null);
+  const [initialDistance, setInitialDistance] = useState(null);
+  const [lastTap, setLastTap] = useState(0);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
@@ -75,6 +81,7 @@ const ProductDetails = () => {
     resetZoom();
   };
 
+  // Desktop zoom handlers
   const handleMouseMove = (e) => {
     if (!isZoomActive || !imageContainerRef.current || !imageRef.current) return;
 
@@ -85,9 +92,6 @@ const ProductDetails = () => {
 
     const x = (e.clientX - containerRect.left) / containerRect.width;
     const y = (e.clientY - containerRect.top) / containerRect.height;
-
-    const moveX = imgRect.width / 2 - x * imgRect.width;
-    const moveY = imgRect.height / 2 - y * imgRect.height;
 
     img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
     img.style.transform = `scale(${zoomLevel})`;
@@ -102,6 +106,80 @@ const ProductDetails = () => {
     }
   };
 
+  // Mobile double tap zoom
+  const handleDoubleTap = (e) => {
+    const now = Date.now();
+    if (now - lastTap < 300) { // 300ms threshold for double-tap
+      toggleZoom();
+    }
+    setLastTap(now);
+  };
+
+  // Mobile pinch zoom handlers
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 2) {
+      // For pinch zoom
+      setInitialDistance(getDistance(e.touches[0], e.touches[1]));
+    } else if (isZoomActive) {
+      // For single touch (panning)
+      setTouchStart({
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y
+      });
+    } else {
+      // For double tap detection
+      handleDoubleTap(e);
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isZoomActive || !imageContainerRef.current || !imageRef.current) return;
+
+    if (e.touches.length === 2) {
+      // Handle pinch zoom
+      e.preventDefault();
+      const currentDistance = getDistance(e.touches[0], e.touches[1]);
+      if (initialDistance !== null) {
+        const newScale = Math.min(Math.max(1, currentDistance / initialDistance * zoomLevel), 3);
+        setZoomLevel(newScale);
+        imageRef.current.style.transform = `scale(${newScale})`;
+      }
+    } else if (touchStart && isZoomActive) {
+      // Handle panning
+      e.preventDefault();
+      const touch = e.touches[0];
+      const newX = touch.clientX - touchStart.x;
+      const newY = touch.clientY - touchStart.y;
+      
+      // Calculate boundaries
+      const container = imageContainerRef.current;
+      const img = imageRef.current;
+      const containerRect = container.getBoundingClientRect();
+      const imgRect = img.getBoundingClientRect();
+      
+      const maxX = (imgRect.width * (zoomLevel - 1)) / 2;
+      const maxY = (imgRect.height * (zoomLevel - 1)) / 2;
+      
+      const boundedX = Math.min(Math.max(newX, -maxX), maxX);
+      const boundedY = Math.min(Math.max(newY, -maxY), maxY);
+      
+      setPosition({ x: boundedX, y: boundedY });
+      imageRef.current.style.transform = `scale(${zoomLevel}) translate(${boundedX}px, ${boundedY}px)`;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setInitialDistance(null);
+    setTouchStart(null);
+  };
+
+  const getDistance = (touch1, touch2) => {
+    return Math.hypot(
+      touch2.clientX - touch1.clientX,
+      touch2.clientY - touch1.clientY
+    );
+  };
+
   const adjustZoom = (direction) => {
     setZoomLevel(prev => {
       const newLevel = direction === 'in' ? prev + 0.5 : prev - 0.5;
@@ -112,6 +190,7 @@ const ProductDetails = () => {
   const resetZoom = () => {
     setIsZoomActive(false);
     setZoomLevel(1);
+    setPosition({ x: 0, y: 0 });
     if (imageRef.current) {
       imageRef.current.style.transform = 'scale(1)';
       imageRef.current.style.transformOrigin = 'center';
@@ -168,16 +247,19 @@ const ProductDetails = () => {
               onMouseMove={handleMouseMove}
               onMouseLeave={resetZoom}
               onClick={toggleZoom}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
               {mainImage ? (
                 <img
                   ref={imageRef}
                   src={mainImage}
                   alt="Main product view"
-                  className="w-full h-full object-contain transition-transform duration-300 ease-out"
+                  className="w-full h-full object-contain transition-transform duration-300 ease-out touch-none"
                   style={{
-                    transform: `scale(${zoomLevel})`,
-                    transformOrigin: 'center'
+                    transform: `scale(${zoomLevel}) translate(${position.x}px, ${position.y}px)`,
+                    transformOrigin: isZoomActive ? 'center' : undefined
                   }}
                   onError={(e) => {
                     e.target.src = dhokraImage;
@@ -187,7 +269,7 @@ const ProductDetails = () => {
                 <img
                   src={dhokraImage}
                   alt="Default product view"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain touch-none"
                 />
               )}
 
@@ -242,7 +324,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Product Info - Remaining exactly the same */}
+        {/* Product Info */}
         <div>
           <h1 className="text-2xl font-bold text-emerald-950 mb-2">
             {productById?.name || "Product Name Here"}
