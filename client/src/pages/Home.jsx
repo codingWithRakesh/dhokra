@@ -233,7 +233,7 @@ const Home = () => {
 
                 <section className="relative rounded-sm overflow-hidden shadow-xl">
                     {/* Slider Container */}
-                    <div className="relative max-w-full h-[50vh] md:h-[70vh] overflow-hidden">
+                    <div className="relative max-w-full h-[25vh] md:h-[45vh] lg:h-[60vh] xl:h-[66vh] overflow-hidden">
                         {slides.map((slide, index) => (
                         <div
                             key={slide.id}
