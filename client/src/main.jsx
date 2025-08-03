@@ -23,7 +23,6 @@ import { ProtectRoute, AuthenticatedUserRoute } from "./utils/userAuthenticated.
 import FixImgUpload from './admin/FixImgUpload.jsx';
 import VideoUpload from './admin/VideoUpload.jsx';
 import AboutMe from './pages/AboutMe.jsx';
-import VideoGallery from './components/Video.jsx';
 import VideoContextProvider from './contexts/videoContext.jsx';
 
 const router = createBrowserRouter([

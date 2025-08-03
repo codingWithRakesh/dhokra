@@ -4,7 +4,6 @@ import { FaChevronRight, FaArrowLeft, FaArrowRight, FaSearchPlus, FaSearchMinus 
 import dhokraImage from '../assets/catagoryImage/1.jpg';
 import SideDetails from '../components/SideDetails';
 import ExtraProduct from './ExtraProduct';
-import { products } from '../store/productsList';
 import Whatsapp from '../component/Whatsapp';
 import productStore from "../store/productStore.js";
 import trendingStore from "../store/trendingStore.js";

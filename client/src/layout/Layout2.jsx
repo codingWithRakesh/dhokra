@@ -3,6 +3,7 @@ import Header from "../component/Header";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
 import BackHome from "../component/BackHome.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
 
 
 export default function Layout2() {
@@ -15,6 +16,7 @@ export default function Layout2() {
                 {/* Main content area */}
                 <Outlet />
             </main>
+            <ScrollToTop />
             <Footer />
         </div>
     );

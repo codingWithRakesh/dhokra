@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { FiBox, FiTrendingUp, FiPackage, FiDatabase } from 'react-icons/fi';
-import { navItems } from '../store/store';
 import { Link } from 'react-router-dom';
 import productStore from "../store/productStore.js"
 import trendingStore from "../store/trendingStore.js"
