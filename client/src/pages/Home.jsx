@@ -74,7 +74,7 @@ const Home = () => {
                         Explore Our Collections
                         </h2>
                         <p className="text-lg text-gray-600 max-w-2xl">
-                        Discover authentic Dhokra craftsmanship across various categories
+                        Discover authentic Dokra craftsmanship across various categories
                         </p>
                     </div>
                     </div>

@@ -60,7 +60,7 @@ const ScrollToTop = () => {
         focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
         transform
-        z-35
+        z-50
       `}
     >
       <FaArrowUp className="h-5 w-5" />
