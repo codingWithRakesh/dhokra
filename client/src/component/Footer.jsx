@@ -62,7 +62,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="mt-5 p-5 flex flex-col md:flex-row justify-between items-center text-sm border-t border-gray-200">
-        <p>Copyright © {new Date().getFullYear()} Unick Dhokra Workshop. All rights reserved.</p>
+        <p>Copyright © {new Date().getFullYear()} Unique Dokra Workshop. All rights reserved.</p>
         
         <div className="flex flex-col md:flex-row items-center gap-4 mt-3 md:mt-0">
             <div className="flex gap-4">

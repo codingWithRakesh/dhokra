@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="xl:hidden flex justify-between items-center py-4 px-4 bg-emerald-800 w-full">
           <Link to="/">
             <div className="text-xl font-bold italic text-white">
-              <span className="text-amber-200">Unick Dhokra</span>{" "}
+              <span className="text-amber-200">Unique Dokra</span>{" "}
               <span className="text-amber-200">Workshop</span>
             </div>
           </Link>

@@ -9,7 +9,7 @@ const Header = () => {
       <div className="container max-w-7xl mx-auto flex justify-between items-center">
         {/* Left side - Brand Name */}
         <div className="text-2xl font-bold italic text-emerald-700">
-            <Link to="/">UnickDhokraWorkshop</Link>
+            <Link to="/">Uniquedokraworkshop</Link>
         </div>
         
         <div className="flex items-center space-x-6">
