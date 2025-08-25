@@ -341,7 +341,7 @@ const ProductDetails = () => {
               </>
             ) : (
               <span className="text-2xl font-bold text-yellow-500">
-                {productById?.priceFixed ? `¥${productById.priceFixed.toFixed(2)}` : "¥0.00"}
+                {productById?.priceFixed ? `₹${productById.priceFixed.toFixed(2)}` : "₹0.00"}
               </span>
             )}
           </div>
@@ -381,7 +381,16 @@ const ProductDetails = () => {
                 <span className="w-32 font-medium text-md text-indigo-600">
                   Weight :
                 </span>
-                <span className="text-gray-800 font-medium">{productById?.weight || "N/A"}</span>
+                <span className="text-gray-800 font-medium">
+                  {productById?.weight
+                    ? (() => {
+                        const weight = Number(productById.weight); // ensure it's a number
+                        const kg = Math.floor(weight);
+                        const gm = Math.round((weight - kg) * 1000);
+                        return gm === 0 ? `${kg} gm` : `${kg} kg ${gm} gm`;
+                      })()
+                    : "N/A"}
+                </span>
               </div>
             </div>
           </div>
