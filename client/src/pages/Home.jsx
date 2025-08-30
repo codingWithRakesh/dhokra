@@ -57,7 +57,7 @@ const Home = () => {
     }, []);
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto flex flex-col">
+    <div className="min-h-screen max-w-6xl mx-auto flex flex-col">
         <main className="flex-grow">
             <section className="py-0">
                 <div className="p-0">
@@ -147,10 +147,14 @@ const Home = () => {
                     </div>
                 </section>
 
-                <section className="py-4">
+                <section className="py-4 sm:px-6 lg:px-0">
+                    <TrendingDhokraSection />
+                </section>
+
+                {/* <section className="py-4">
                     <div className="max-w-7xl mx-auto p-0">
                         <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12 xl:gap-16">
-                        {/* Text Content - Left Side */}
+                        
                         <div className="w-full lg:w-1/2 space-y-6">
                             <div className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium mb-2">
                             Traditional Craftsmanship
@@ -182,10 +186,10 @@ const Home = () => {
                             </div>
                         </div>
 
-                        {/* Image Grid - Right Side */}
+                       
                         <div className="w-full lg:w-1/2">
                             <div className="grid grid-rows-2 gap-4 h-full min-h-[400px] lg:min-h-[500px]">
-                            {/* Top row - two square images */}
+                            
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="relative aspect-square overflow-hidden rounded shadow-md hover:shadow-lg transition-all duration-300 group">
                                 <img
@@ -209,7 +213,7 @@ const Home = () => {
                                 </div>
                             </div>
                             
-                            {/* Bottom row - single panoramic image */}
+                            
                             <div className="relative overflow-hidden rounded shadow-md hover:shadow-lg transition-all duration-300 group">
                                 <img
                                 src={dhokraImage1}
@@ -226,7 +230,7 @@ const Home = () => {
                         </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 <section className="relative rounded-sm overflow-hidden shadow-xl">
                     {/* Slider Container */}
@@ -291,17 +295,15 @@ const Home = () => {
                     </div>
                 </section>
 
-                <section className="py-4 sm:px-6 lg:px-0">
-                    <TrendingDhokraSection />
+                <section className="p-0 mt-4">
+                    <Slide />
                 </section>
 
                 <section className="py-4 sm:px-6 lg:px-0">
                     <SideDetails />
                 </section>
 
-                <section className="p-0">
-                    <Slide />
-                </section>
+                
 
                 <section className="p-0">
                     <FeaturedCollectionSection />

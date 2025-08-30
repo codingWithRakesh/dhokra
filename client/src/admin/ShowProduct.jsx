@@ -154,7 +154,7 @@ const ShowProduct = () => {
 
   return (
     <div className="min-h-full p-4 md:p-8 xl:p-0">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold text-emerald-800 mb-6">Manage Products</h1>
 
         {/* Category and Search */}
@@ -257,7 +257,7 @@ const ShowProduct = () => {
                           }`}
                         >
                           <FiTrendingUp className="mr-2" />
-                          {isTrending(product._id) ? 'Trending' : 'Make Trend'}
+                          {isTrending(product._id) ? 'Remove' : 'Add to Gift'}
                         </button>
                         <button
                           onTouchStart={(e) => toggleAvailableCollection(product._id, e)}

@@ -5,4 +5,4 @@ export const options = {
     sameSite: 'None'
 }
 
-export const categorys = ["gi-bengal-dokra", "patina-finish-on-dokra", "wall-hanging", "table-top", "home-decore", "candle-stands", "dokra-jewellery", "my-creativity"]
+export const categorys = ["wall-hanging", "special-items", "home-decor-tabletop", "pen-napkin-holder", "my-creativity"]

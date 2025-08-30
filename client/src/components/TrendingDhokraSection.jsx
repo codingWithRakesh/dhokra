@@ -13,7 +13,7 @@ const TrendingDhokraSection = () => {
   }, [setAllTrending]);
 
   // Get last 5 trending products and transform the data
-  const lastFiveTrending = allTrending.slice(0, 4).map(item => ({
+  const lastFiveTrending = allTrending.slice(0, 8).map(item => ({
     id: item.product._id,
     name: item.product.name,
     price: item.product.priceDiscount,
@@ -30,7 +30,7 @@ const TrendingDhokraSection = () => {
           <div className="text-center md:text-left">
             <span className="text-emerald-600 font-medium mb-1 md:mb-2 block text-sm md:text-base">Handcrafted Collection</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-900">
-              Trending Dokra Art
+              Gift Corner
             </h2>
           </div>
           <Link 

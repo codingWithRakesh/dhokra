@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-emerald-800 sticky top-0 text-white shadow-lg font-sans font-medium z-50">
-      <div className="container max-w-max mx-auto flex justify-between items-center">
+      <div className="container max-w-6xl mx-auto flex justify-between items-center">
         {/* Desktop Navbar */}
         <div className="hidden xl:flex justify-between items-center py-4 lg:px-0">
           <ul className="flex space-x-4">

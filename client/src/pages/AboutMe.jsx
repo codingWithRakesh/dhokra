@@ -28,7 +28,7 @@ export default function AboutMe() {
   }, [videoControl]);
 
   return (
-    <div className="py-8">
+    <div className="py-8 max-w-6xl mx-auto">
       {/* All your existing content remains the same */}
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto text-center mb-16">

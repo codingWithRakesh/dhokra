@@ -89,47 +89,41 @@ const CreativeBreadcrumbPage = () => {
   };
 
   const breadcrumbMap = {
-    "/product/gi-bengal-dokra": [
-      { label: "GI Bengal Dokra", path: getPath("/product/gi-bengal-dokra") },
-    ],
-    "/product/gi-bengal-dokra/:id": [
-      { label: "GI Bengal Dokra", path: getPath("/product/gi-bengal-dokra") },
-    ],
-    "/product/patina-finish-on-dokra": [
-      { label: "Patina Finish", path: getPath("/product/pating-finish-on-dokra") },
-    ],
-    "/product/patina-finish-on-dokra/:id": [
-      { label: "Patina Finish", path: getPath("/product/pating-finish-on-dokra") },
-    ],
     "/product/wall-hanging": [
       { label: "Wall Hanging", path: getPath("/product/wall-hanging") },
     ],
     "/product/wall-hanging/:id": [
       { label: "Wall Hanging", path: getPath("/product/wall-hanging") },
     ],
-    "/product/table-top": [
-      { label: "Table Top", path: getPath("/product/table-top") },
+    "/product/special-items": [
+      { label: "Special Items", path: getPath("/product/special-items") },
     ],
-    "/product/table-top/:id": [
-      { label: "Table Top", path: getPath("/product/table-top") },
+    "/product/special-items/:id": [
+      { label: "Special Items", path: getPath("/product/special-items") },
     ],
-    "/product/home-decore": [
-      { label: "Home Decor", path: getPath("/product/home-decore") },
+    "/product/home-decor-tabletop": [
+      { label: "Home Decor & Tabletop", path: getPath("/product/home-decor-tabletop") },
     ],
-    "/product/home-decore/:id": [
-      { label: "Home Decor", path: getPath("/product/home-decore") },
+    "/product/home-decor-tabletop/:id": [
+      { label: "Home Decor & Tabletop", path: getPath("/product/home-decor-tabletop") },
     ],
-    "/product/candle-stands": [
-      { label: "Candle Stands", path: getPath("/product/candle-stands") },
+    "/product/pen-napkin-holder": [
+      { label: "Pen & Napkin Holder", path: getPath("/product/pen-napkin-holder") },
     ],
-    "/product/candle-stands/:id": [
-      { label: "Candle Stands", path: getPath("/product/candle-stands") },
+    "/product/pen-napkin-holder/:id": [
+      { label: "Pen & Napkin Holder", path: getPath("/product/pen-napkin-holder") },
     ],
-    "/product/trending": [
-      { label: "Trending", path: getPath("/product/trending") },
+    "/product/my-creativity": [
+      { label: "My Creativity", path: getPath("/product/my-creativity") },
     ],
-    "/product/trending/:id": [
-      { label: "Trending", path: getPath("/product/trending") },
+    "/product/my-creativity/:id": [
+      { label: "My Creativity", path: getPath("/product/my-creativity") },
+    ],
+    "/product/trending-collection": [
+      { label: "Gift Collection", path: getPath("/product/trending-collection") },
+    ],
+    "/product/trending-collection/:id": [
+      { label: "Gift Collection", path: getPath("/product/trending-collection") },
     ],
     "/product/available-collection": [
       { label: "Available Collection", path: getPath("/product/available-collection") },
@@ -149,7 +143,7 @@ const CreativeBreadcrumbPage = () => {
 
   return (
     <div className="min-h-full bg-gradient-to-r from-emerald-500 to-teal-600 p-3 md:p-4 shadow-lg">
-      <div className="w-full md:max-w-7xl mx-auto flex flex-row sm:flex-row justify-between items-center gap-2 sm:gap-0">
+      <div className="w-full md:max-w-6xl mx-auto flex flex-row sm:flex-row justify-between items-center gap-2 sm:gap-0">
         <div className="w-auto overflow-hidden">
           <CreativeBreadcrumb items={currentBreadcrumbs} />
         </div>

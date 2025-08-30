@@ -51,7 +51,7 @@ const TrendingList = () => {
 
   if (error) {
     return (
-      <div className="container max-w-7xl mx-auto px-4 py-4">
+      <div className="container max-w-6xl mx-auto px-4 py-4">
         <div className="text-center py-12 text-red-500">
           Error: {error}
         </div>
@@ -60,7 +60,7 @@ const TrendingList = () => {
   }
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-4">
+    <div className="container max-w-6xl mx-auto px-4 py-4">
       <div className="flex items-center mb-6">
         <button
           onClick={() => navigate(-1)}
