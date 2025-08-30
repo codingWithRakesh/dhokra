@@ -1,29 +1,30 @@
 import { Link } from "react-router-dom";
 import { useVideo } from "../contexts/videoContext";
 import logo from "../assets/image/logo.webp"
+import { FaLocationDot } from "react-icons/fa6";
 
 const Header = () => {
   const [videoControl, setVideoControl] = useVideo();
   return (
     <>
     <header className="hidden lg:block text-black p-4 shadow-md">
-      <div className="container max-w-7xl mx-auto flex justify-between items-center">
+      <div className="container max-w-6xl mx-auto flex justify-between items-center">
         
         {/* Left side - Navigation */}
-        <nav className="flex items-center space-x-8 font-semibold italic">
-          <Link to="/" className="hover:text-emerald-800 transition duration-300">
+        <nav className="flex items-center space-x-8 font-semibold italic text-emerald-700">
+          <Link to="/" className="hover:text-black transition duration-300">
             Home
           </Link>
-          <Link onClick={() => setVideoControl(false)} to="/about" className="hover:text-emerald-800 transition duration-300">
+          <Link onClick={() => setVideoControl(false)} to="/about" className="hover:text-black transition duration-300">
             About
           </Link>
-          <Link to="/gallery" className="hover:text-emerald-800 transition duration-300">
+          <Link to="/gallery" className="hover:text-black transition duration-300">
             Gallery
           </Link>
-          <Link onClick={() => setVideoControl(true)} to="/about" className="hover:text-emerald-800 transition duration-300">
+          <Link onClick={() => setVideoControl(true)} to="/about" className="hover:text-black transition duration-300">
             Videos
           </Link>
-          <Link to="/contact" className="hover:text-emerald-800 transition duration-300">
+          <Link to="/contact" className="hover:text-black transition duration-300">
             Contact
           </Link>
         </nav>
@@ -36,6 +37,11 @@ const Header = () => {
         </div>
 
         {/* Right side - Phone Number */}
+        <div className="flex gap-5 justify-center items-center">
+        <div className="flex gap-1 justify-center items-center text-emerald-700 font-semibold">
+          <FaLocationDot />
+          <p>Bankura, West Bengal - 722155</p>
+        </div>
         <div className="flex items-center bg-emerald-700 px-4 py-2.5 rounded text-white hover:bg-emerald-800 transition duration-300 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -52,12 +58,12 @@ const Header = () => {
             />
           </svg>
           <span className="font-medium">+91 8101616016</span>
-        </div>
+        </div></div>
       </div>
     </header>
 
     <div className="min-w-full lg:hidden container mx-auto h-14 px-4 bg-emerald-700 text-white flex justify-between items-center">
-      <div className="flex items-center space-x-6">
+      <div className="flex items-center space-x-6 overflow-y-scroll">
         {/* Desktop Navigation (hidden on mobile) */}
         <nav className="flex items-center space-x-8 font-semibold italic">
           <Link to="/" className="hover:text-yellow-400 transition duration-300">

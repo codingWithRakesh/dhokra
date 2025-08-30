@@ -34,7 +34,7 @@ const ContactUs = () => {
 
   return (
     <div className="min-h-full py-4 lg:px-0">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Page Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-emerald-800 mb-4">Contact Us</h1>

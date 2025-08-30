@@ -2,48 +2,36 @@
 import dhokraImage1 from '../assets/image/cos1.jpg'; 
 import dhokraImage2 from '../assets/image/cos2.jpg';
 import dhokraImage3 from '../assets/image/cos3.jpg';
-import cat1 from "../assets/catagoryImage/Table-Top.webp";
-import cat2 from "../assets/catagoryImage/Bar-Accessories.webp";
-import cat3 from "../assets/catagoryImage/Corporate-Gifts.webp";
-import cat4 from "../assets/catagoryImage/Cutlery-Crockery.webp";
-import cat5 from "../assets/catagoryImage/Antiquity-1.webp";
-import cat6 from "../assets/catagoryImage/Home-Decor.webp";
+import cat1 from "../assets/catagoryImage/cat01.png";
+import cat2 from "../assets/catagoryImage/cat02.png";
+import cat3 from "../assets/catagoryImage/cat03.png";
+import cat4 from "../assets/catagoryImage/cat04.png";
 
 const categories = [
   {
-    name: "GI Bengal Dokra",
-    image: cat4,
-    link: "/product/gi-bengal-dokra",
-  },
-  {
-    name: "Patina Finish",
-    image: cat3,
-    link: "/product/pating-finish-on-dokra",
-  },
-  {
-    name: "Dokra Jewellery",
-    image: cat2,
-    link: "/product/dokra-jewellery",
-  },
-  {
-    name: "Wall hanging",
-    image: cat5,
+    name: "Wall Hanging",
+    image: cat1,
     link: "/product/wall-hanging",
   },
   {
-    name: "Table Top",
-    image: cat1,
-    link: "/product/table-top",
-  },
-  {
-    name: "Home Decor",
-    image: cat6,
-    link: "/product/home-decor",
-  },
-  {
-    name: "Candle Stand",
+    name: "Special Items",
     image: cat2,
-    link: "/product/candle-stands",
+    link: "/product/special-items",
+  },
+  {
+    name: "Home Decor & Tabletop",
+    image: cat3,
+    link: "/product/home-decor-tabletop",
+  },
+  {
+    name: "Pen & Napkin Holder",
+    image: cat4,
+    link: "/product/pen-napkin-holder",
+  },
+  {
+    name: "Gift Collection",
+    image: cat4,
+    link: "/product/trending-collection",
   },
   {
     name: "My Creativity",
@@ -157,15 +145,12 @@ export const trendingProducts = [
 
 
 export const navItems = [
-    { name: "GI Bengal Dokra", path: "/product/gi-bengal-dokra" },
-    { name: "Patina Finish on Dokra", path: "/product/patina-finish-on-dokra" },
-    { name: "Dokra Jewellery", path: "/product/dokra-jewellery" },
-    { name: "Wall hanging", path: "/product/wall-hanging" },
-    { name: "Table Top", path: "/product/table-top" },
-    { name: "Home Decore", path: "/product/home-decore" },
-    { name: "Candle Stand", path: "/product/candle-stands" },
+    { name: "Wall Hanging", path: "/product/wall-hanging" },
+    { name: "Special Items", path: "/product/special-items" },
+    { name: "Home Decor & Tabletop", path: "/product/home-decor-tabletop" },
+    { name: "Pen & Napkin Holder", path: "/product/pen-napkin-holder" },
     { name: "My Creativity", path: "/product/my-creativity" },
-    { name: "Trending", path: "/product/trending" },
+    { name: "Gift Collection", path: "/product/trending-collection" },
     { name: "Available Collection", path: "/product/available-collection" },
 ];
 

@@ -25,7 +25,7 @@ const FixImg = () => {
 
   return (
     <motion.div 
-      className="relative w-full overflow-hidden rounded group bg-gray-100"
+      className="relative w-full overflow-hidden rounded group"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ 
         opacity: isLoaded ? 1 : 0.8,
@@ -34,13 +34,13 @@ const FixImg = () => {
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
       {/* Responsive container with 16:9 aspect ratio */}
-      <div className="w-full h-[25vh] md:h-[45vh] lg:h-[60vh] xl:h-[66vh]">
+      <div className="w-auto h-[25vh] md:h-[45vh] lg:h-[60vh] xl:h-[66vh]">
         {currentImage ? (
           <motion.img
             key={currentImage.image} // Key helps React identify when image changes
             src={currentImage.image}
             alt="Current Display Image"
-            className="w-full h-full object-contain transition-all duration-500 ease-in-out group-hover:scale-105 cursor-pointer"
+            className="w-full h-full object-fill transition-all duration-500 ease-in-out group-hover:scale-105 cursor-pointer"
             loading="lazy"
             decoding="async"
             initial={{ opacity: 0 }}

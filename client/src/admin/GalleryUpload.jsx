@@ -126,7 +126,7 @@ const GalleryUpload = () => {
 
   return (
     <div className="min-h-full p-4 md:p-8 xl:p-0">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold text-emerald-800 mb-6">Image Gallery Upload</h1>
         <div className="text-xl flex justify-center text-center font-semibold">
           {/* Status messages */}
