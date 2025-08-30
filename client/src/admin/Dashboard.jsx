@@ -13,7 +13,7 @@ const CategoriesDashboard = ({ name }) => {
 
   useEffect(() => {
     if (!name) return;
-    if (name === "Trending") {
+    if (name === "Gift Items") {
       setCountTrending();
     } else if (name === "Available Collection") {
       setCountAvailableCollection();
@@ -24,14 +24,14 @@ const CategoriesDashboard = ({ name }) => {
 
   // Get the count based on the category name
   const getCount = () => {
-    if (name === "Trending") return countTrending?.count || 0;
+    if (name === "Gift Items") return countTrending?.count || 0;
     if (name === "Available Collection") return countAvailableCollection?.count || 0;
     return productCountCategory[name] || 0; // Get count from the productCounts object
   };
 
   // Get the path based on the category name
   const getPath = () => {
-    if (name === "Trending") return "/product/trending";
+    if (name === "Gift Items") return "/product/trending";
     if (name === "Available Collection") return "/product/available-collection";
     return `/product/${name.toLowerCase().replace(/\s+/g, '-')}`;
   };
@@ -68,7 +68,7 @@ const Dashboard = () => {
   const { countTrending, setCountTrending } = trendingStore();
   const { countAvailableCollection, setCountAvailableCollection } = availableCollectionStore();
 
-  const mockProductCounts = [...categorys, "Trending", "Available Collection"];
+  const mockProductCounts = [...categorys, "Gift Items", "Available Collection"];
 
   useEffect(() => {
     const fetchProductCounts = async () => {
@@ -138,7 +138,7 @@ const Dashboard = () => {
               <FiTrendingUp className="text-green-600 text-xl" />
             </div>
             <div>
-              <p className="text-sm text-gray-800">Trending Products</p>
+              <p className="text-sm text-gray-800">Gift Items</p>
               <p className="text-2xl font-bold text-gray-800">{countTrending?.count}</p>
             </div>
           </div>

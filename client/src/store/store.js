@@ -31,7 +31,7 @@ const categories = [
   {
     name: "Gift Collection",
     image: cat4,
-    link: "/product/trending-collection",
+    link: "/product/trending",
   },
   {
     name: "My Creativity",
@@ -147,18 +147,20 @@ export const trendingProducts = [
 export const navItems = [
     { name: "Wall Hanging", path: "/product/wall-hanging" },
     { name: "Special Items", path: "/product/special-items" },
-    { name: "Home Decor & Tabletop", path: "/product/home-decor-tabletop" },
-    { name: "Pen & Napkin Holder", path: "/product/pen-napkin-holder" },
+    { name: "Home Decor & Tabletop", path: "/product/home-decor-and-tabletop" },
+    { name: "Pen & Napkin Holder", path: "/product/pen-and-napkin-holder" },
+    { name: "Candle stand & Pooja Related", path: "/product/candle-stand-and-pooja-related" },
     { name: "My Creativity", path: "/product/my-creativity" },
-    { name: "Gift Collection", path: "/product/trending-collection" },
+    { name: "Gift Collection", path: "/product/trending" },
     { name: "Available Collection", path: "/product/available-collection" },
 ];
+
 
 export const navItems2 = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Upload", path: "/dashboard/upload" },
     { name: "All Products", path: "/dashboard/all-products" },
-    { name: "Trending", path: "/dashboard/trending" },
+    { name: "Gift Items", path: "/dashboard/trending" },
     { name: "Stock Products", path: "/dashboard/stock-products" },
     { name: "Upload Gallery", path: "/dashboard/upload-gallery" },
     { name: "Image Upload", path: "/dashboard/image-upload" },

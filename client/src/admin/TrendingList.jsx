@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { FiTrash2, FiArrowLeft } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import img1 from '../assets/catagoryImage/1.jpg';
+import img1 from '../assets/catagoryImage/cat02.png';
 import trendingStore from "../store/trendingStore.js";
 
 const TrendingList = () => {
@@ -30,13 +30,13 @@ const TrendingList = () => {
   }, []);
 
   const handleRemoveFromTrending = async (trendingId) => {
-    if (window.confirm('Are you sure you want to remove this product from trending?')) {
+    if (window.confirm('Are you sure you want to remove this product from Gift items?')) {
       try {
         await removeTrending(trendingId);
         // Refresh the list after successful removal
         await setAllTrending();
       } catch (err) {
-        console.error("Error removing trending product:", err);
+        console.error("Error removing Gift product:", err);
       }
     }
   };
@@ -68,7 +68,7 @@ const TrendingList = () => {
         >
           <FiArrowLeft className="text-gray-600 text-xl" />
         </button>
-        <h1 className="text-2xl font-bold text-emerald-800">Trending Products</h1>
+        <h1 className="text-2xl font-bold text-emerald-800">Gift Items</h1>
       </div>
 
       {message && (
@@ -79,7 +79,7 @@ const TrendingList = () => {
 
       {allTrending.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500">No trending products found</p>
+          <p className="text-gray-500">No Gift products found</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -104,7 +104,7 @@ const TrendingList = () => {
                     className="w-full flex items-center justify-center px-4 py-2 font-semibold bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition-colors"
                   >
                     <FiTrash2 className="mr-2" />
-                    Remove from Trending
+                    Remove from Gift
                   </button>
                 </div>
               </div>

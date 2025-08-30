@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FiTrash2, FiArrowLeft } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import img1 from '../assets/catagoryImage/1.jpg';
+import img1 from '../assets/catagoryImage/cat01.png';
 import availableCollectionStore from "../store/availableCollectionStore.js";
 
 const StockProductList = () => {

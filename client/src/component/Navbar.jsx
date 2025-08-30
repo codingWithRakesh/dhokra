@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { navItems } from "../store/store";
+import logo from "../assets/logo/logo.webp"
 
 const Navbar = () => {
   const location = useLocation();
@@ -17,7 +18,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-emerald-800 sticky top-0 text-white shadow-lg font-sans font-medium z-50">
-      <div className="container max-w-6xl mx-auto flex justify-between items-center">
+      <div className="container max-w-7xl mx-auto flex justify-between items-center">
         {/* Desktop Navbar */}
         <div className="hidden xl:flex justify-between items-center py-4 lg:px-0">
           <ul className="flex space-x-4">
@@ -41,17 +42,16 @@ const Navbar = () => {
 
       <div className="p-0">
         {/* Mobile Navbar Header */}
-        <div className="xl:hidden flex justify-between items-center py-4 px-4 bg-emerald-800 w-full">
+        <div className="xl:hidden flex justify-between items-center py-1 px-4 bg-white w-full">
           <Link to="/">
-            <div className="text-xl font-bold italic text-white">
-              <span className="text-amber-200">Unique Dokra</span>{" "}
-              <span className="text-amber-200">Workshop</span>
+            <div className="text-xl font-bold italic text-emerald-800">
+              <img src={logo} alt="logo" className="h-12 w-auto" />
             </div>
           </Link>
 
           <button
             onClick={toggleMenu}
-            className="text-white focus:outline-none"
+            className="text-emerald-800 focus:outline-none"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
