@@ -101,17 +101,17 @@ const CreativeBreadcrumbPage = () => {
     "/product/special-items/:id": [
       { label: "Special Items", path: getPath("/product/special-items") },
     ],
-    "/product/home-decor-tabletop": [
-      { label: "Home Decor & Tabletop", path: getPath("/product/home-decor-tabletop") },
+    "/product/home-decor-and-tabletop": [
+      { label: "Home Decor & Tabletop", path: getPath("/product/home-decor-and-tabletop") },
     ],
-    "/product/home-decor-tabletop/:id": [
-      { label: "Home Decor & Tabletop", path: getPath("/product/home-decor-tabletop") },
+    "/product/home-decor-and-tabletop/:id": [
+      { label: "Home Decor & Tabletop", path: getPath("/product/home-decor-and-tabletop") },
     ],
-    "/product/pen-napkin-holder": [
-      { label: "Pen & Napkin Holder", path: getPath("/product/pen-napkin-holder") },
+    "/product/pen-and-napkin-holder": [
+      { label: "Pen & Napkin Holder", path: getPath("/product/pen-and-napkin-holder") },
     ],
-    "/product/pen-napkin-holder/:id": [
-      { label: "Pen & Napkin Holder", path: getPath("/product/pen-napkin-holder") },
+    "/product/pen-and-napkin-holder/:id": [
+      { label: "Pen & Napkin Holder", path: getPath("/product/pen-and-napkin-holder") },
     ],
     "/product/my-creativity": [
       { label: "My Creativity", path: getPath("/product/my-creativity") },
@@ -119,17 +119,23 @@ const CreativeBreadcrumbPage = () => {
     "/product/my-creativity/:id": [
       { label: "My Creativity", path: getPath("/product/my-creativity") },
     ],
-    "/product/trending-collection": [
-      { label: "Gift Collection", path: getPath("/product/trending-collection") },
+    "/product/trending": [
+      { label: "Gift Collection", path: getPath("/product/trending") },
     ],
-    "/product/trending-collection/:id": [
-      { label: "Gift Collection", path: getPath("/product/trending-collection") },
+    "/product/trending/:id": [
+      { label: "Gift Collection", path: getPath("/product/trending") },
     ],
     "/product/available-collection": [
       { label: "Available Collection", path: getPath("/product/available-collection") },
     ],
     "/product/available-collection/:id": [
       { label: "Available Collection", path: getPath("/product/available-collection") },
+    ],
+    "/product/candle-stand-and-pooja-related": [
+      { label: "Candle Stand & Pooja Related", path: getPath("/product/candle-stand-and-pooja-related") },
+    ],
+    "/product/candle-stand-and-pooja-related/:id": [
+      { label: "Candle Stand & Pooja Related", path: getPath("/product/candle-stand-and-pooja-related") },
     ],
   };
 

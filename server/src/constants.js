@@ -5,4 +5,4 @@ export const options = {
     sameSite: 'None'
 }
 
-export const categorys = ["wall-hanging", "special-items", "home-decor-tabletop", "pen-napkin-holder", "my-creativity"]
+export const categorys = ["wall-hanging", "special-items", "home-decor-and-tabletop", "pen-and-napkin-holder","candle-stand-and-pooja-related", "my-creativity"]

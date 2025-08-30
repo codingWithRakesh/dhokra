@@ -52,8 +52,8 @@ export default function VideoGallery() {
     <div className="w-full py-8 min-h-full">
       {/* Header */}
       <header className="mb-8">
-        <h1 className="text-4xl font-bold text-amber-800 mb-2">Video Gallery</h1>
-        <p className="text-amber-600">Browse all uploaded videos</p>
+        <h1 className="text-4xl font-bold text-emerald-800 mb-2">Video Gallery</h1>
+        <p className="text-emerald-600">Browse all uploaded videos</p>
       </header>
 
       {/* Thumbnail Grid */}
@@ -95,7 +95,7 @@ export default function VideoGallery() {
       {activeVideo && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
           <button 
-            className="absolute top-6 right-6 text-white text-2xl z-50 hover:text-amber-400 transition-colors"
+            className="absolute top-6 right-6 text-white text-2xl z-50 hover:text-emerald-400 transition-colors"
             onClick={closeModal}
             aria-label="Close video"
           >
@@ -105,7 +105,7 @@ export default function VideoGallery() {
           <div className="relative w-full max-w-6xl">
             {/* Navigation Arrows */}
             <button 
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-black/50 hover:bg-amber-600 text-white p-3 rounded-full z-50 transition-all"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-black/50 hover:bg-emerald-600 text-white p-3 rounded-full z-50 transition-all"
               onClick={() => navigate('prev')}
               aria-label="Previous video"
             >
@@ -129,7 +129,7 @@ export default function VideoGallery() {
             </div>
 
             <button 
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-black/50 hover:bg-amber-600 text-white p-3 rounded-full z-50 transition-all"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-black/50 hover:bg-emerald-600 text-white p-3 rounded-full z-50 transition-all"
               onClick={() => navigate('next')}
               aria-label="Next video"
             >

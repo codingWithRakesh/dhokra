@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FaChevronRight, FaArrowLeft, FaArrowRight, FaSearchPlus, FaSearchMinus } from 'react-icons/fa';
-import dhokraImage from '../assets/catagoryImage/1.jpg';
+import dhokraImage from '../assets/catagoryImage/cat06.png';
 import SideDetails from '../components/SideDetails';
 import ExtraProduct from './ExtraProduct';
 import Whatsapp from '../component/Whatsapp';

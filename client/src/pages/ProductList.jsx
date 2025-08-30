@@ -115,8 +115,8 @@ const ProductList = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-emerald-800">
-            {activeTab === 'trending' ? 'Trending Products'
+          <h1 className="text-4xl font-bold text-emerald-800 italic">
+            {activeTab === 'trending' ? 'Gift Items'
               : activeTab === 'available-collection' ? 'Available Collection'
                 : category ? toTitleCase(category.replace(/-/g, ' ') + ' Products')
                   : 'Our Products'}
