@@ -2,13 +2,124 @@
 @tailwind components;
 @tailwind utilities;
 
-.uniqueFont {
-  font-family: "Stack Sans Text", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+@layer base {
+  :root {
+    --color-primary-green: #0d3f2a;
+    --color-primary-green-light: #16543a;
+    --color-primary-green-dark: #06271a;
+    --color-accent-gold: #c5a880;
+    --color-accent-gold-hover: #b8986d;
+    --color-bg-warm: #faf9f6;
+  }
+
+  body {
+    font-family: 'Outfit', 'Stack Sans Text', sans-serif;
+    background-color: var(--color-bg-warm);
+    color: #1f2937; /* Neutral dark */
+  }
+
+  h1, h2, h3, .font-serif-premium {
+    font-family: 'Playfair Display', serif;
+  }
 }
 
-/* Reference the font name, NOT the class name */
-body {
-  font-family: "Stack Sans Text", sans-serif;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-green-light);
+}
+
+/* Elegant glassmorphic background utility */
+.glassmorphic {
+  background: rgba(13, 63, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Premium Gold Accent Border */
+.gold-border {
+  border-color: var(--color-accent-gold);
+}
+
+/* Gradient text utility */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #c5a880 0%, #e2cfa7 50%, #9e7f59 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom premium hover effect */
+.premium-hover-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-hover-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -15px rgba(13, 63, 42, 0.12);
+}
+
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-gradient {
+  background: linear-gradient(
+    90deg,
+    #f3f4f6 25%,
+    #e5e7eb 37%,
+    #f3f4f6 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Custom smooth animations */
+@keyframes slideUp {
+  0% {
+    transform: translate(-50%, 30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { navItems } from "../store/store";
 import logo from "../assets/logo/logo.webp"
+import { ChevronRight } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -17,41 +18,44 @@ const Navbar = () => {
   }, [location.pathname]);
 
   return (
-    <nav className="bg-emerald-800 sticky top-0 text-white shadow-lg font-sans font-medium z-50">
-      <div className="container max-w-7xl mx-auto flex justify-between items-center">
+    <nav className="bg-brand-green sticky top-0 text-white shadow-md z-50 border-b border-brand-gold/10">
+      <div className="container max-w-8xl mx-auto px-4 md:px-6">
         {/* Desktop Navbar */}
-        <div className="hidden xl:flex justify-between items-center py-4 lg:px-0">
-          <ul className="flex space-x-4">
-            {navItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  to={item.path}
-                  className={`py-3.5 px-1 border-b-4 transition duration-300 ${
-                    location.pathname === item.path
-                      ? "border-amber-300 text-amber-300 font-medium"
-                      : "border-transparent hover:border-amber-200 hover:text-amber-200"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
+        <div className="hidden lg:flex justify-center items-center py-4">
+          <ul className="flex space-x-1.5">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <li key={item.path}>
+                  <Link
+                    to={item.path}
+                    className={`py-2.5 px-4 rounded-full text-sm font-semibold transition-all duration-300 ${
+                      isActive
+                        ? "bg-brand-gold text-brand-green-dark shadow-sm scale-105"
+                        : "hover:bg-white/10 hover:text-brand-gold-light"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
 
       <div className="p-0">
         {/* Mobile Navbar Header */}
-        <div className="xl:hidden flex justify-between items-center py-1 px-4 bg-white w-full">
+        <div className="lg:hidden flex justify-between items-center py-2.5 px-4 bg-white border-b border-stone-100 shadow-sm w-full">
           <Link to="/">
-            <div className="text-xl font-bold italic text-emerald-800">
-              <img src={logo} alt="logo" className="h-12 w-auto" />
+            <div className="text-xl font-bold flex items-center">
+              <img src={logo} alt="logo" className="h-10 w-auto" />
             </div>
           </Link>
 
           <button
             onClick={toggleMenu}
-            className="text-emerald-800 focus:outline-none"
+            className="text-brand-green focus:outline-none p-1.5 rounded-lg hover:bg-stone-50 transition-colors"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
@@ -90,23 +94,29 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="xl:hidden bg-emerald-800 p-4 animate-fadeIn">
+          <div className="lg:hidden bg-brand-green-dark/95 backdrop-blur-lg border-t border-brand-gold/15 p-5 shadow-2xl animate-fadeIn">
             <ul className="flex flex-col space-y-2">
-              {navItems.map((item) => (
-                <li key={item.path}>
-                  <Link
-                    to={item.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`block py-3 px-4 ${
-                      location.pathname === item.path
-                        ? "bg-emerald-700 text-amber-100 font-medium rounded"
-                        : "hover:bg-emerald-700 hover:text-amber-100 rounded transition duration-300"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <li key={item.path}>
+                    <Link
+                      to={item.path}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`block py-3.5 px-5 text-sm font-semibold rounded-2xl transition-all duration-300 ${
+                        isActive
+                          ? "bg-brand-gold text-brand-green-dark shadow-md border border-brand-gold/20"
+                          : "text-white/80 hover:bg-white/5 hover:text-white border border-transparent"
+                      }`}
+                    >
+                      <div className="flex justify-between items-center">
+                        <span>{item.name}</span>
+                        <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${isActive ? "text-brand-green-dark translate-x-0.5" : "text-brand-gold/40"}`} />
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}

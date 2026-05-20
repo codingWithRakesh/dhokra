@@ -44,7 +44,7 @@ const availableCollectionStore = create((set) => ({
             );
 
             if (response.status === 200) {
-                set({ isLoading: false, allAvailableCollection: response.data.data });
+                set({ isLoading: false, allAvailableCollection: response.data.data || [] });
             } else {
                 set({ error: "Failed to fetch available collection" });
             }

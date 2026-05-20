@@ -44,7 +44,7 @@ const trendingStore = create((set) => ({
             );
 
             if (response.status === 200) {
-                set({ isLoading: false, allTrending: response.data.data });
+                set({ isLoading: false, allTrending: response.data.data || [] });
             } else {
                 set({ error: "Failed to fetch trending products" });
             }

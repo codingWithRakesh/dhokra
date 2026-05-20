@@ -3,6 +3,7 @@ import Header from "../component/Header";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
 import ScrollToTop from "../components/ScrollToTop";
+import MobileFloatingActions from "../components/MobileFloatingActions";
 
 
 export default function Layout1() {
@@ -15,6 +16,7 @@ export default function Layout1() {
                 <Outlet />
             </main>
             <ScrollToTop />
+            <MobileFloatingActions />
             <Footer />
         </div>
     );

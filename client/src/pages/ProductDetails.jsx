@@ -218,12 +218,12 @@ const ProductDetails = () => {
         <div className="flex flex-col md:flex-row gap-4">
           {/* Thumbnails */}
           {productById?.images && productById.images.length > 1 && (
-            <div className="flex md:flex-col gap-2 order-2 md:order-1">
+            <div className="flex overflow-x-auto scrollbar-none pb-2 md:pb-0 md:flex-col gap-2 order-2 md:order-1 w-full md:w-auto">
               {productById.images.slice(0, 5).map((img, index) => (
                 <button
                   key={index}
                   onClick={() => handleThumbnailClick(img, index)}
-                  className={`w-16 h-16 border-2 rounded-md overflow-hidden transition-all ${mainImage === img ? 'border-indigo-500' : 'border-transparent'}`}
+                  className={`w-14 h-14 min-w-[3.5rem] md:w-16 md:h-16 border-2 rounded-xl overflow-hidden transition-all ${mainImage === img ? 'border-brand-gold shadow-sm scale-102' : 'border-transparent bg-stone-50/50'}`}
                 >
                   <img
                     src={img}
@@ -324,81 +324,92 @@ const ProductDetails = () => {
         </div>
 
         {/* Product Info */}
-        <div>
-          <h1 className="text-2xl font-bold text-emerald-950 mb-2">
-            {productById?.name || "Product Name Here"}
-          </h1>
+        <div className="flex flex-col justify-between">
+          <div>
+            <span className="text-xs text-brand-gold font-bold uppercase tracking-widest block mb-1">
+              Handcrafted Product
+            </span>
+            <h1 className="text-2xl min-[360px]:text-3xl md:text-4xl font-bold text-brand-green-dark mb-3 font-serif leading-tight">
+              {productById?.name || "Product Name"}
+            </h1>
 
-          <div className="my-4">
-            {productById?.priceFixed && productById.priceDiscount && productById.priceFixed > productById.priceDiscount ? (
-              <>
-                <span className="text-gray-500 line-through text-lg">
-                  ₹{productById.priceFixed.toFixed(2)}
+            <div className="my-6 flex items-baseline gap-3">
+              {productById?.priceFixed && productById.priceDiscount && productById.priceFixed > productById.priceDiscount ? (
+                <>
+                  <span className="text-stone-400 line-through text-lg">
+                    ₹{productById.priceFixed.toFixed(2)}
+                  </span>
+                  <span className="text-3xl font-extrabold text-brand-green">
+                    ₹{productById.priceDiscount.toFixed(2)}
+                  </span>
+                </>
+              ) : (
+                <span className="text-3xl font-extrabold text-brand-green">
+                  {productById?.priceFixed ? `₹${productById.priceFixed.toFixed(2)}` : "₹0.00"}
                 </span>
-                <span className="text-2xl font-bold text-yellow-500 ml-2">
-                  ₹{productById.priceDiscount.toFixed(2)}
-                </span>
-              </>
-            ) : (
-              <span className="text-2xl font-bold text-yellow-500">
-                {productById?.priceFixed ? `₹${productById.priceFixed.toFixed(2)}` : "₹0.00"}
-              </span>
-            )}
-          </div>
-
-          <Whatsapp />
-
-          <div className="mt-4">
-            <h2 className="text-lg font-semibold mb-4 text-emerald-700 border-b-2 border-indigo-100 pb-2">
-              Product Specifications
-            </h2>
-            <div className="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-300">
-              <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
-                <span className="w-32 font-medium text-md text-indigo-600">
-                  Colour :
-                </span>
-                <span className="text-gray-800 font-medium">{productById?.color || "N/A"}</span>
-              </div>
-              <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
-                <span className="w-32 font-medium text-md text-indigo-600">
-                  Size :
-                </span>
-                <span className="text-gray-800 font-medium">{productById?.size || "N/A"}</span>
-              </div>
-              <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
-                <span className="w-32 font-medium text-md text-indigo-600">
-                  Material :
-                </span>
-                <span className="text-gray-800 font-medium">{productById?.material || "N/A"}</span>
-              </div>
-              <div className="flex items-center py-2 border-b border-gray-500 last:border-0">
-                <span className="w-32 font-medium text-md text-indigo-600">
-                  Utility :
-                </span>
-                <span className="text-gray-800 font-medium">{productById?.utility || "N/A"}</span>
-              </div>
-              <div className="flex items-center py-2">
-                <span className="w-32 font-medium text-md text-indigo-600">
-                  Weight :
-                </span>
-                <span className="text-gray-800 font-medium">
-                  {productById?.weight
-                    ? (() => {
-                        const weight = Number(productById.weight); // ensure it's a number
-                        const kg = Math.floor(weight);
-                        const gm = Math.round((weight - kg) * 1000);
-                        return gm === 0 ? `${kg} gm` : `${kg} kg ${gm} gm`;
-                      })()
-                    : "N/A"}
-                </span>
-              </div>
+              )}
             </div>
+
+            <div className="mb-6">
+              <Whatsapp />
+                        {/* Specifications Cards Grid */}
+            <div className="mt-8">
+              <h2 className="text-lg font-bold mb-4 text-brand-green border-b border-brand-gold/20 pb-2">
+                Product Specifications
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-3.5 bg-white rounded-2xl border border-stone-100 shadow-sm flex flex-col">
+                  <span className="text-stone-400 font-bold text-[10px] uppercase tracking-wider mb-1">
+                    Colour
+                  </span>
+                  <span className="text-brand-green font-bold text-xs sm:text-sm">{productById?.color || "N/A"}</span>
+                </div>
+                <div className="p-3.5 bg-white rounded-2xl border border-stone-100 shadow-sm flex flex-col">
+                  <span className="text-stone-400 font-bold text-[10px] uppercase tracking-wider mb-1">
+                    Size
+                  </span>
+                  <span className="text-brand-green font-bold text-xs sm:text-sm">{productById?.size || "N/A"}</span>
+                </div>
+                <div className="p-3.5 bg-white rounded-2xl border border-stone-100 shadow-sm flex flex-col">
+                  <span className="text-stone-400 font-bold text-[10px] uppercase tracking-wider mb-1">
+                    Material
+                  </span>
+                  <span className="text-brand-green font-bold text-xs sm:text-sm truncate" title={productById?.material || "N/A"}>
+                    {productById?.material || "N/A"}
+                  </span>
+                </div>
+                <div className="p-3.5 bg-white rounded-2xl border border-stone-100 shadow-sm flex flex-col">
+                  <span className="text-stone-400 font-bold text-[10px] uppercase tracking-wider mb-1">
+                    Utility
+                  </span>
+                  <span className="text-brand-green font-bold text-xs sm:text-sm truncate" title={productById?.utility || "N/A"}>
+                    {productById?.utility || "N/A"}
+                  </span>
+                </div>
+                <div className="p-3.5 bg-white rounded-2xl border border-stone-100 shadow-sm flex flex-col col-span-2">
+                  <span className="text-stone-400 font-bold text-[10px] uppercase tracking-wider mb-1">
+                    Weight
+                  </span>
+                  <span className="text-brand-green font-bold text-xs sm:text-sm">
+                    {productById?.weight
+                      ? (() => {
+                          const weight = Number(productById.weight);
+                          const kg = Math.floor(weight);
+                          const gm = Math.round((weight - kg) * 1000);
+                          return gm === 0 ? `${kg} gm` : `${kg} kg ${gm} gm`;
+                        })()
+                      : "N/A"}
+                  </span>
+                </div>
+              </div>
+            </div>  </div>
           </div>
-          <div className="mt-6">
-            <h2 className="text-lg font-semibold mb-4 text-emerald-700 border-b-2 border-indigo-100 pb-2">
+
+          <div className="mt-8">
+            <h2 className="text-lg font-bold mb-4 text-brand-green border-b border-brand-gold/20 pb-2">
               Product Description
             </h2>
-            <p className="text-gray-700">
+            <p className="text-stone-600 text-sm leading-relaxed">
               {productById?.description || "No description available."}
             </p>
           </div>
